@@ -27,9 +27,7 @@ bot.Client.on("close", (error) => {
 bot.Client.on("PRIVMSG", async (msg) => {
 
     if (msg.senderUserID === '489223884') {
-        let status = fs.readFileSync("./status.txt", { encoding: "utf-8" })
-        if (status == "true") {gql.badgeCycler(msg.channelName)}
-        else gql.deselectBadges(msg.channelID)
+        gql.badgeCycler(msg.channelName)
     }
 
     const start = Date.now();
