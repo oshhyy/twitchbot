@@ -1,4 +1,3 @@
-const fs = require('fs');
 const got = require("got");
 const twitchapi = require('./lib/utils/twitchapi.js')
 const { handle } = require("./lib/misc/handle");
