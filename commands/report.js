@@ -1,0 +1,22 @@
+module.exports = {
+    name: "report",
+    cooldown: 10000,
+    aliases: ["bugreport"],
+    description: `bugreport <msg> - report bugs :)`,
+    execute: async context => {
+        try {
+            // command code
+
+            bot.Webhook.report(context.user.login, context.message.args.join(' '))
+
+            return {
+                text: `Report saved! FeelsOkayMan`,
+                reply: true,
+            };
+        } catch (err) {
+            bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
+            console.log(err);
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} monkaS ${err.message}`)
+        }
+    },
+};

@@ -1,0 +1,24 @@
+{
+  "name": "newbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@kararty/dank-twitch-irc": "^5.0.0",
+    "dayjs": "^1.11.7",
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "got": "^11.8.2",
+    "humanize-duration": "^3.28.0",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.1",
+    "node-fetch": "^2.6.11",
+    "winston": "^3.8.2"
+  }
+}
