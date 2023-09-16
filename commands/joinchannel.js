@@ -25,7 +25,7 @@ module.exports = {
                     bot.Client.join(context.user.login);
                     bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
                     return {
-                        text: `Joined channel #${channel} docArrive`, reply: true
+                        text: `Joined channel #${context.user.login} docArrive`, reply: true
                     }
                 }
 
@@ -56,11 +56,10 @@ module.exports = {
                         }
                     }
 
-                    const channelInfo = await bot.db.users.findOne({id: xd[0].id})
+                    const channelInfo = await bot.db.channels.findOne({id: xd[0].id})
                     
                     if(channelInfo) {
                         await bot.db.channels.updateOne( { id: xd[0].id}, { $set: { isChannel: true } } )
-                        
                     } else {
                         let a = new bot.db.channels({ id: xd[0].id, username: xd[0].login, isChannel: true, joinedAt: Date.now(), settings: { offlineOnly: false }, });
                         await a.save()
