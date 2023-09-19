@@ -118,17 +118,10 @@ bot.Client.on("PRIVMSG", async (msg) => {
         
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
-
+    
     let toList = ['markzynk', 'zomballr', 'francorz_', 'mrcosgallo', 'ryanpotat', 'ryanl_12', 'kattah']
 
-    if (msg.messageText == 'to' && toList.includes(msg.channelName)) {
-        if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
-        else bot.Client.privmsg(msg.channelName, 'to');
-    }
-    
-    let toList2 = ['markzynk', 'zomballr', 'francorz_', 'mrcosgallo', 'ryanpotat', 'ryanl_12']
-
-    if ((msg.messageText == 'TO' || msg.messageText == 'two' || msg.messageText == 'too' || msg.messageText == 'OT' || msg.messageText == 'ot' || msg.messageText == 'oT' || msg.messageText == 'Ot' || msg.messageText == 'To' || msg.messageText == 'tO') && toList2.includes(msg.channelName)) {
+    if ((msg.messageText == 'to' || msg.messageText == 'TO' || msg.messageText == 'two' || msg.messageText == 'too' || msg.messageText == 'OT' || msg.messageText == 'ot' || msg.messageText == 'oT' || msg.messageText == 'Ot' || msg.messageText == 'To' || msg.messageText == 'tO') && toList.includes(msg.channelName)) {
         if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
         else bot.Client.privmsg(msg.channelName, msg.messageText);
     }
@@ -167,6 +160,23 @@ bot.Client.on("PRIVMSG", async (msg) => {
             bot.Client.privmsg('alaskanpotat', `|cdr`);
             await bot.Utils.sleep(3500)
             bot.Client.privmsg('alaskanpotat', `|poro`);
+        }
+        let potatoData = await got(`https://api.potat.app/users/oshhyy`).json()
+        if (potatoData[0].potatoes.potato.ready && !potatoData[0].potatoes.cdr.ready) {
+            bot.Client.privmsg('alaskanpotat', `#potato`);
+        } else if (!potatoData[0].potatoes.potato.ready && potatoData[0].potatoes.cdr.ready) {
+            bot.Client.privmsg('alaskanpotat', `#cdr`);
+            await bot.Utils.sleep(2500)
+            bot.Client.privmsg('alaskanpotat', `#potato`);
+        } else if (potatoData[0].potatoes.potato.ready && potatoData[0].potatoes.cdr.ready) {
+            bot.Client.privmsg('alaskanpotat', `#potato`);
+            await bot.Utils.sleep(3500)
+            bot.Client.privmsg('alaskanpotat', `#cdr`);
+            await bot.Utils.sleep(3500)
+            bot.Client.privmsg('alaskanpotat', `#potato`);
+        }
+        if (potatoData[0].potatoes.steal.ready) {
+            bot.Client.privmsg('alaskanpotat', `#steal`);
         }
     }
 });
