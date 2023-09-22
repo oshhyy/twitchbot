@@ -176,6 +176,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
             bot.Client.privmsg('alaskanpotat', `#potato`);
         }
         if (potatoData[0].potatoes.steal.ready) {
+            await bot.Utils.sleep(3500)
             bot.Client.privmsg('alaskanpotat', `#steal`);
         }
     }
