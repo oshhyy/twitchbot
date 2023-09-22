@@ -100,7 +100,7 @@ module.exports = {
             const message = `${result.length} channels: ${emotes}`;
 
             return {
-                text: message,
+                text: message, reply:true
             };
 
         } catch (err) {
