@@ -7,7 +7,7 @@ module.exports = {
     description: `firstmessage [user] - gets a user's first logged message in a chat`,
     execute: async context => {
         try {
-            // command code
+            // this code is really dogshit and dank and breaks and needs changes saudhsdjklfhskfhskdj
             let user = context.user.login
             let channel = context.channel.login
             if (context.message.params.channel) {
@@ -17,7 +17,11 @@ module.exports = {
             if (context.message.args[0]) {
                 user = context.message.args[0].replace("@", "").toLowerCase()
                 if (context.message.args[1]) {
-                    channel = context.message.args[1].replace("#", "").toLowerCase()
+                    for (element of context.message.args) {
+                        if (element.startsWith("#")) {
+                            channel = element.replace("#", "")
+                        }
+                    }
                 }
             }
 
