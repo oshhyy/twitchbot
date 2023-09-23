@@ -1,6 +1,6 @@
 module.exports = {
     name: "eval",
-    cooldown: 3000,
+    cooldown: 0,
     aliases: ["js"],
     description: `eval - evaluates javascript code directly in the bot, requires level 3 (thanks to kattah for giving me this code :) )`,
     execute: async context => {
@@ -24,9 +24,7 @@ module.exports = {
                 return { text: String(ev), reply: false };
 
         } catch (err) {
-            bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
-            console.log(err);
-            bot.Client.privmsg(context.channel.login, `${err.constructor.name} monkaS ${err.message}`)
+            return{text:err, reply:true}
         }
     },
 };

@@ -4,7 +4,7 @@ module.exports = {
     name: "randomline",
     cooldown: 5000,
     aliases: ["rl", "rq"],
-    description: `randomline [user] - experimental command :)`,
+    description: `randomline [user] [channel] - gets a random message in chat. can also put a specific channel, a specific user, or both`,
     execute: async context => {
         try {
             // command code
