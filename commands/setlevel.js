@@ -9,7 +9,7 @@ function levelRoles(num) {
 const got = require("got");
 module.exports = {
     name: "setlevel",
-    cooldown: 3000,
+    cooldown: 0,
     aliases: ["setlvl"],
     description: `setevel <user> <level> - sets a user's level (requires level 3) forsenLevel`,
     execute: async context => {
