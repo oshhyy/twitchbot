@@ -2,18 +2,19 @@ module.exports = {
     name: "prefix",
     cooldown: 3000,
     aliases: ["setprefix"],
-    description: `Sets the prefix of the bot in the current channel`,
+    description: `prefix <new-prefix> | Sets the prefix of the bot in the current channel`,
     execute: async context => {
         try {
+            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
             if (!context.badges.hasModerator && !context.badges.hasBroadcaster) {
-                return {};
+                return {text:`The current prefix in this channel is "${prefix}".`, reply:true};
             }
 
             if(!context.message.args[0]){
-                return {};
+                return {text:`The current prefix in this channel is "${prefix}". To change this, do +setprefix <new-prefix>`, reply:true};
             }
 
-            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
+
             const newPrefix = context.message.args.slice(0).join(" ");
             
             if (prefix == newPrefix) {
