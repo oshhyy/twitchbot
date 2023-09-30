@@ -11,7 +11,7 @@ module.exports = {
             }
 
             if(!context.message.args[0]){
-                return {text:`The current prefix in this channel is "${prefix}". To change this, do +setprefix <new-prefix>`, reply:true};
+                return {text:`The current prefix in this channel is "${prefix}". To change this, do ${prefix}setprefix <new-prefix>`, reply:true};
             }
 
 
