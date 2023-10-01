@@ -15,8 +15,11 @@ module.exports = {
             }
 
             if (context.message.args[0]) {
-                user = context.message.args[0].replace("@", "").toLowerCase()
-                if (context.message.args[1]) {
+                if(context.message.args[0].startsWith("#")) {
+                    user = context.user.login
+                    channel = context.message.args[0].replace("#", "").toLowerCase()
+                } else {
+                    user = context.message.args[0].replace("@", "").toLowerCase()
                     for (element of context.message.args) {
                         if (element.startsWith("#")) {
                             channel = element.replace("#", "")
