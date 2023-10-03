@@ -134,18 +134,18 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (msg.senderUserID == '489223884' && msg.channelName == 'alaskanpotat' && msg.messageText == 'elisElis') {
         let cookieData = await got(`https://api.roaringiron.com/cooldown/oshhyy`).json()
         if (cookieData.can_claim && !cookieData.cdr_available) {
-            bot.Client.privmsg('retrora', `!cookie`);
+            bot.Client.privmsg('azzzv', `!cookie`);
         } else if (!cookieData.can_claim && cookieData.cdr_available) {
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('retrora', `!cdr`);
+            bot.Client.privmsg('azzzv', `!cdr`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('retrora', `!cookie`);
+            bot.Client.privmsg('azzzv', `!cookie`);
         } else if (cookieData.can_claim && cookieData.cdr_available) {
-            bot.Client.privmsg('retrora', `!cookie`);
+            bot.Client.privmsg('azzzv', `!cookie`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('retrora', `!cdr`);
+            bot.Client.privmsg('azzzv', `!cdr`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('retrora', `!cookie`);
+            bot.Client.privmsg('azzzv', `!cookie`);
         }
         let poroData = await got(`https://api.poros.lol/api/bot/porocount/oshhyy`).json()
         if (poroData.cooldowns.poro.isAvailable && !poroData.cooldowns.poroCdr.isAvailable) {
