@@ -17,7 +17,7 @@ module.exports = {
             else { 
                 if (context.message.args[0].includes('/')) {
                     return {
-                        text:'Invalid Username! FeelsDankMan', reply:true
+                        text:'Invalid Username! oshDank', reply:true
                     };
                 }
             }
@@ -28,7 +28,7 @@ module.exports = {
             }
             catch(err) {
                 return {
-                    text:'Invalid Username! FeelsDankMan', reply:true
+                    text:'Invalid Username! oshDank', reply:true
                 };
             }
 

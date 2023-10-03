@@ -10,7 +10,7 @@ module.exports = {
             // command code
             const key = config.wolframAlphaKey
             
-            if (!context.message.args.length) return { text: 'Please enter a query! FeelsDankMan', reply: true}
+            if (!context.message.args.length) return { text: 'Please enter a query! oshDank', reply: true}
 
             const { body: res } = await got(`https://api.wolframalpha.com/v1/result`,
                 {

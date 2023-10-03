@@ -13,7 +13,7 @@ module.exports = {
             else { 
                 if (context.message.args[0].includes('/')) {
                     return {
-                        text:'Invalid Username! FeelsDankMan', reply:true
+                        text:'Invalid Username! oshDank', reply:true
                     };
                 }
             }
@@ -22,10 +22,10 @@ module.exports = {
             if (!data.statusCode) {}
             else {
                 if (data[0].error.message = 'Specified user has no founders') {
-                    return{text: 'Specified user has no founders! FeelsDankMan'}
+                    return{text: 'Specified user has no founders! oshDank'}
                 }
                 return {
-                    text:'Invalid Username! FeelsDankMan', reply:true
+                    text:'Invalid Username! oshDank', reply:true
                 };
             }
 

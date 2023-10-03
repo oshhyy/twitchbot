@@ -9,7 +9,7 @@ module.exports = {
             
             if (context.message.args.slice(0) == '') {
                 return{
-                    text: `Enter a phrase/emote t󠀀o be filled FeelsDankMan`, reply: true
+                    text: `Enter a phrase/emote t󠀀o be filled oshDank`, reply: true
                 };
             }
             

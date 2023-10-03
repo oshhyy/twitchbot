@@ -16,7 +16,7 @@ module.exports = {
 
                 if (channels.includes(context.user.id)) {
                     return {
-                        text: `I am already in your channel! FeelsDankMan`, reply: true
+                        text: `I am already in your channel! oshDank`, reply: true
                     }
                 }
 
@@ -52,7 +52,7 @@ module.exports = {
                 if (xd[0]) {
                     if (channels.includes(xd[0].id)) {
                         return {
-                            text: `I am already in this channel! FeelsDankMan`, reply: true
+                            text: `I am already in this channel! oshDank`, reply: true
                         }
                     }
 

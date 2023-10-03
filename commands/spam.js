@@ -28,7 +28,7 @@ module.exports = {
             let delay = context.message.params.delay ?? 0;
             if (delay > 5000 && context.user.id != '489223884') {
                 return{
-                    text:"Delay can't be more than 10000ms (10 Seconds) FeelsDankMan",reply:true
+                    text:"Delay can't be more than 10000ms (10 Seconds) oshDank",reply:true
                 }
             }
             let channel = context.message.params.channel ?? context.channel.login;
@@ -78,7 +78,7 @@ module.exports = {
             if(context.message.params.ann || context.message.params.announce) {
                 if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasBroadcaster) {
                     return {
-                        text: `You do not have permission do add an announcement parameter! FeelsDankMan`, reply: true
+                        text: `You do not have permission do add an announcement parameter! oshDank`, reply: true
                     };
                 }
                 let channelSpamID = context.channel.id
@@ -86,7 +86,7 @@ module.exports = {
                     const data = await got(`https://api.ivr.fi/v2/twitch/user?login=${context.message.params.channel}`).json();
                     if (!data[0]) {
                         return {
-                            text:'Invalid Username! FeelsDankMan', reply:true
+                            text:'Invalid Username! oshDank', reply:true
                         };
                     }
                     channelSpamID = data[0].id

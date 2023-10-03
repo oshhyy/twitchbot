@@ -14,7 +14,7 @@ module.exports = {
 
             const command = bot.Command.get(commandName); 
             if (!command){
-                return {text: `This command does not exist! FeelsDankMan`, reply: true,};
+                return {text: `This command does not exist! oshDank`, reply: true,};
             }
             return {
                 text: `usage: ${prefix}${command.description}`,

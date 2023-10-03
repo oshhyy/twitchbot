@@ -34,7 +34,7 @@ module.exports = {
             //         data = await got(`https://7tv.io/v3/emote-sets/62cdd34e72a832540de95857`).json()
             //     } catch(err) {
             //         return {
-            //             text:`Error: No 7tv emotes found for this channel FeelsDankMan`, reply:true
+            //             text:`Error: No 7tv emotes found for this channel oshDank`, reply:true
             //         }
             //     }
             //     dataFromKattahsAPI = await got(`https://api.kattah.me/global?limit=23894792834`).json()
@@ -50,14 +50,14 @@ module.exports = {
             //         data = await got(`https://7tv.io/v3/users/twitch/${idData[0].id}`).json()
             //     } catch(err) {
             //         return {
-            //             text:`Error: No 7tv emotes found for this channel FeelsDankMan`, reply:true
+            //             text:`Error: No 7tv emotes found for this channel oshDank`, reply:true
             //         }
             //     }
             //     try {
             //         dataFromKattahsAPI = await got(`https://api.kattah.me/c/${user}?limit=23894792834`).json()
             //     } catch(err) {
             //         return {
-            //             text:`Error: This channel's 7tv emote usage is not tracked! FeelsDankMan`, reply:true
+            //             text:`Error: This channel's 7tv emote usage is not tracked! oshDank`, reply:true
             //         }
             //     }
 

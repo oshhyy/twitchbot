@@ -20,7 +20,7 @@ module.exports = {
             //     user = `c/${context.message.args[0]}`
             //     if (context.message.args[0].includes('/')) {
             //         return {
-            //             text:'Invalid Username! FeelsDankMan', reply:true
+            //             text:'Invalid Username! oshDank', reply:true
             //         };
             //     }
             // }
@@ -33,13 +33,13 @@ module.exports = {
             //     data = await got(`https://api.kattah.me/${user}`).json()
             // } catch(err) {
             //     return {
-            //         text:`Either no 7tv emotes are enabled in this channel, or their usage statistics haven't been tracked yet FeelsDankMan`, reply:true
+            //         text:`Either no 7tv emotes are enabled in this channel, or their usage statistics haven't been tracked yet oshDank`, reply:true
             //     }
             // }
 
             // if (!data) {
             //     return {
-            //         text:'Invalid Username! FeelsDankMan', reply:true
+            //         text:'Invalid Username! oshDank', reply:true
             //     };
             // } if (data.success == false) {
             //     return {

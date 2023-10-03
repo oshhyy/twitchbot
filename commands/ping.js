@@ -18,7 +18,7 @@ module.exports = {
             const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
 
             return {
-                text: `annytfSmile 🏓 ${latency}ms • ${botUptime} uptime • ${channels.length} channels • ${usage}MB usage • node ${nodeVersion} • prefix: ${prefix}`,
+                text: `oshBleh 🏓 ${latency}ms • ${botUptime} uptime • ${channels.length} channels • ${usage}MB usage • node ${nodeVersion} • prefix: ${prefix}`,
                 reply: true,
             };
             

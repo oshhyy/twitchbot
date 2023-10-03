@@ -12,7 +12,7 @@ module.exports = {
             else { 
                 if (context.message.args[0].includes('/')) {
                     return {
-                        text:'No Emote Provided. FeelsDankMan', reply:true
+                        text:'No Emote Provided. oshDank', reply:true
                     };
                 }
             }
@@ -23,7 +23,7 @@ module.exports = {
             }
             catch(err) {
                 return {
-                    text:'Invalid Emote! FeelsDankMan', reply:true
+                    text:'Invalid Emote! oshDank', reply:true
                 };
             }
 

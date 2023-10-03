@@ -31,7 +31,7 @@ module.exports = {
             if (mode == "enable" || mode == "on") {
                 if(offlineOnlyChannels.includes(id)) {
                     return {
-                        text: `This channel is already in offline only mode! FeelsDankMan`,
+                        text: `This channel is already in offline only mode! oshDank`,
                         reply:true
                     }
                 }
@@ -44,7 +44,7 @@ module.exports = {
             if (mode == "disable" || mode == "off") {
                 if(!offlineOnlyChannels.includes(id)) {
                     return {
-                        text: `This channel is already not in offline only mode! FeelsDankMan I will now respond to commands if the channel is both ofline and online.`, reply:true
+                        text: `This channel is already not in offline only mode! oshDank`, reply:true
                     }
                 }
             const updatedList = offlineOnlyChannels.join("\n").replace(`\n${id}`, '');

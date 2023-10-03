@@ -18,7 +18,7 @@ module.exports = {
             //     dataFromKattahsAPI = await got(`https://api.kattah.me/c/${user}?limit=23894792834`).json()
             // } catch(err) {
             //     return {
-            //         text:`This channel's 7tv emote usage is not tracked! FeelsDankMan`, reply:true
+            //         text:`This channel's 7tv emote usage is not tracked! oshDank`, reply:true
             //     }
             // }
 
@@ -27,7 +27,7 @@ module.exports = {
             //     data = await got(`https://7tv.io/v3/users/twitch/${dataFromKattahsAPI.user.twitch_id}`).json()
             // } catch(err) {
             //     return {
-            //         text:`No 7tv emotes found for this channel FeelsDankMan`, reply:true
+            //         text:`No 7tv emotes found for this channel oshDank`, reply:true
             //     }
             // }
 
@@ -44,7 +44,7 @@ module.exports = {
                 
             //     if(!foundEmote) {
             //         return{
-            //             text:`That emote is not enabled in channel #${user} FeelsDankMan`, reply:true
+            //             text:`That emote is not enabled in channel #${user} oshDank`, reply:true
             //         }
             //     }
                 

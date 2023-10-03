@@ -18,7 +18,7 @@ module.exports = {
 
             if (!context.message.args[0]) {
                 return {
-                    text:`FeelsDankMan Usage: ${bot.Config.prefix}elo <minecraft-username> `, reply:true
+                    text:`oshDank Usage: ${bot.Config.prefix}elo <minecraft-username> `, reply:true
                 };
             }
 
@@ -27,7 +27,7 @@ module.exports = {
                 mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${mcName}`).json();
             } catch(err) {
                 return {
-                    text:`This minecraft username does not exist! FeelsDankMan`, reply:true
+                    text:`This minecraft username does not exist! oshDank`, reply:true
                 }
             }
             console.log(mojangData)
@@ -39,7 +39,7 @@ module.exports = {
               mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
             } catch(err) {
                 return {
-                    text:`This username is not registered in MCSR Ranked! FeelsDankMan`, reply:true
+                    text:`This username is not registered in MCSR Ranked! oshDank`, reply:true
                 }
             }
 

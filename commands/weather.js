@@ -45,7 +45,7 @@ module.exports = {
 
             let city = context.message.args.slice(0).join(" ")
             if(!city) {
-                return{text: `Please provide a city name! FeelsDankMan`, reply:true}
+                return{text: `Please provide a city name! oshDank`, reply:true}
             }
             let key = config.weatherKey;
             let data
