@@ -43,7 +43,7 @@ module.exports = {
                 }
             }
             else {
-                message = message.filter(x => !x.includes("!") && !x.includes("+") && !x.includes("|") && !x.includes("$") && !x.includes("*") && !x.includes("fill:") && !x.includes("delay:") && !x.includes("channel:") && !x.includes("p:") && !x.includes("ann:") && !x.includes("announce:"));
+                message = message.filter(x => !x.includes("!") && !x.includes("+") && !x.includes("|") && !x.includes("$") && !x.includes("*") && !x.includes("=") && !x.includes("fill:") && !x.includes("delay:") && !x.includes("channel:") && !x.includes("p:") && !x.includes("ann:") && !x.includes("announce:"));
                 if (context.message.args[0] > 100 ) {
                     return {
                         text: `Maximum spam value is 100 NOIDONTTHINKSO`, reply: true

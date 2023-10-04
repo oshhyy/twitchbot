@@ -24,8 +24,8 @@ module.exports = {
             let fillMessage = ''
             let base = context.message.args.slice(0).join(" ");
 
-            if (base.charAt(0) == "+") {
-                base = base.replace("+", "➕")
+            if (base.charAt(0) == "+"||base.charAt(0) == "=") {
+                return
             }
 
             while (fillMessage.length + base.length + 1< fillLimit) fillMessage += ' ' + base.repeat(1);
