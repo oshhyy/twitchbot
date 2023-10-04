@@ -41,7 +41,7 @@ module.exports = {
                 console.log("hi")
             }
 
-            if (context.message.command == "rq") {
+            if (context.message.command.toLowerCase() == "rq") {
                 user = context.user.login
                 rlCode = `channel/${channel}/user/${user}/random`
             }
