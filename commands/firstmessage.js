@@ -28,7 +28,7 @@ module.exports = {
                 }
             }
 
-            let data = await got(`https://logs.zonian.me/api/${channel}/${user}`).json()
+            let data = await got(`https://logs.zonian.dev/api/${channel}/${user}`).json()
 
             if (data.error === null) {
                 let prefix = data.channelLogs.instances[0]

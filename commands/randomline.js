@@ -49,9 +49,9 @@ module.exports = {
             let data
             
             if(user == '') {
-                data = await got(`https://logs.zonian.me/api/${channel}`).json()
+                data = await got(`https://logs.zonian.dev/api/${channel}`).json()
             } else {
-                data = await got(`https://logs.zonian.me/api/${channel}/${user}`).json()
+                data = await got(`https://logs.zonian.dev/api/${channel}/${user}`).json()
             }
 
             if (data.error === null) {
