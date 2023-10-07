@@ -12,7 +12,7 @@ module.exports = {
             const channels = (await bot.db.channels.find({ isChannel: true })).map(c => c.id);
             const channelsOff = (await bot.db.channels.find({ isChannel: false })).map(c => c.id);
             if (!context.message.params.channel) {
-                if (context.channel.id != "457260003") { return }
+                if (context.channel.id != "489223884") { return }
 
                 if (channels.includes(context.user.id)) {
                     return {

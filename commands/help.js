@@ -6,10 +6,10 @@ module.exports = {
     execute: async context => {
         try {
             const commandName = context.message.args[0];
-            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
+            const prefix = context.channel.prefix
             
             if (!commandName) {
-                return { text: `type " ${prefix}help <command name>" t󠀀o get help for a certain command. t󠀀o see a list of commands, type "${prefix}commands"`, reply: true } 
+                return { text: `type "${prefix}help <command name>" t󠀀o get help for a certain command. t󠀀o see a list of commands, type "${prefix}commands"`, reply: true } 
             }
 
             const command = bot.Command.get(commandName); 
