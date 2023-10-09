@@ -45,7 +45,7 @@ module.exports = {
             filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.emote_id))
             for (let i = 1; i <= 5; i++) {
                 emoteName = filteredEmotes[filteredEmotes.length - i].emote_alias ?? filteredEmotes[filteredEmotes.length - i].emote
-                message = message.concat(` • ${filteredEmotes[filteredEmotes.length - i].emote} (${filteredEmotes[filteredEmotes.length - i].count.toLocaleString()})`)
+                message = message.concat(` • ${emoteName} (${filteredEmotes[filteredEmotes.length - i].count.toLocaleString()})`)
             }
 
             return {
