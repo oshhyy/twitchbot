@@ -9,13 +9,12 @@ module.exports = {
             let message = '';
             let user = '';
             console.log(user)
-            user = user.replace('@','');
-            user = user.replace('#','');
+            user
             if (!context.message.args[0]) {
                 user = `c/${context.channel.login}`
             }
             else {
-                user = `c/${context.message.args[0]}`
+                user = `c/${context.message.args[0].replace('@','').replace('#','')}`
                 if (context.message.args[0].includes('/')) {
                     return {
                         text:'Invalid Username! oshDank', reply:true
@@ -46,7 +45,7 @@ module.exports = {
 
             let emoteName 
 
-            if (user == "global" || user == "top") {
+            if (user == "top") {
                 message = `top 5 7tv emotes (${user})`
                 for (let i = 0; i < 5 ; i++) {
                     emoteName = data.emotes[i].emote_alias ?? data.emotes[i].emote
