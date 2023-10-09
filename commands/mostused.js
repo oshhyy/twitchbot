@@ -23,12 +23,11 @@ module.exports = {
                 }
             }
 
-            if (context.message.args[0] == '#global') {user = 'global'}
             if (context.message.args[0] == '#top') {user = 'top'}
 
             let data;
             try {
-                data = await got(`https://7tv.markzynk.com/c/${user}`).json()
+                data = await got(`https://7tv.markzynk.com/${user}`).json()
             } catch(err) {
                 return {
                     text:`Either no 7tv emotes are enabled in this channel, or their usage statistics haven't been tracked yet oshDank`, reply:true
@@ -45,15 +44,19 @@ module.exports = {
                 };
             }
 
+            let emoteName 
+
             if (user == "global" || user == "top") {
                 message = `top 5 7tv emotes (${user})`
                 for (let i = 0; i < 5 ; i++) {
-                    message = message.concat(` • ${data.emotes.emote_alias ?? data.emotes.emote} (${data.emotes[i].total_count.toLocaleString()})`)
+                    emoteName = data.emotes[i].emote_alias ?? data.emotes[i].emote
+                    message = message.concat(` • ${emoteName} (${data.emotes[i].total_count.toLocaleString()})`)
                 }
             } else {
                 message = `top 5 7tv emotes in #${data.user.twitch_username}`
                 for (let i = 0; i < 5 ; i++) {
-                    message = message.concat(` • ${data.emotes.emote_alias ?? data.emotes.emote} (${data.emotes[i].count.toLocaleString()})`)
+                    emoteName = data.emotes[i].emote_alias ?? data.emotes[i].emote
+                    message = message.concat(` • ${emoteName} (${data.emotes[i].count.toLocaleString()})`)
                 }
             } 
 
