@@ -6,11 +6,18 @@ module.exports = {
     description: `leastused <7tv emote> | https://osh-1.gitbook.io/osh_______/7tv/leastused`,
     execute: async context => {
         try {
-            let user = context.message.args[0] ?? context.channel.login;
-            user = user.replace('@', '');
-            user = user.replace('#', '');
-            let message = `least used 7tv emotes in #${user} `
+            let isFiltered = false
+            for(let i = 0; i < context.message.args.length; i++) {
+                if(context.message.args[i] == "-f"){
+                    context.message.args.splice(i, 1)
+                    isFiltered = true
+                }
+            }
 
+            let user = context.message.args[0] ?? context.channel.login;
+            user = user.replace('@', '').replace('#', '');
+            let message = `least used 7tv emotes in #${user} `
+            
             let idData
             try {
                 idData = await got(`https://api.ivr.fi/v2/twitch/user?login=${user}`).json();
@@ -42,9 +49,14 @@ module.exports = {
             }
 
             enabledEmotes = data.emote_set.emotes.map(emote => emote.id)
-            filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.emote_id))
+            if(isFiltered) {
+                filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.id) && emote.count != 0)
+            } else {
+                filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.id))
+            }
+            
             for (let i = 1; i <= 5; i++) {
-                emoteName = filteredEmotes[filteredEmotes.length - i].emote_alias ?? filteredEmotes[filteredEmotes.length - i].emote
+                emoteName = filteredEmotes[filteredEmotes.length - i].alias ?? filteredEmotes[filteredEmotes.length - i].name
                 message = message.concat(` • ${emoteName} (${filteredEmotes[filteredEmotes.length - i].count.toLocaleString()})`)
             }
 

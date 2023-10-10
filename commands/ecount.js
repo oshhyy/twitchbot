@@ -31,11 +31,9 @@ module.exports = {
 
             const enabledEmotes = data.emote_set.emotes.map(emote => emote.id) 
 
-            console.log(trackingData)
 
             const filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.id)) // only emotes that are enabled in channel
-            let foundEmote = filteredEmotes.find(e=>e?.alias ?? e?.name === emoteToCount)  // actual emote the user enters
-            console.log(filteredEmotes)
+            let foundEmote = filteredEmotes.find(e=>(e?.alias ?? e?.name) === emoteToCount)  // actual emote the user enters
             
             if(!foundEmote) {
                 foundEmote = trackingData.emotes.find(e=>e && e.emote === emoteToCount)
@@ -54,7 +52,7 @@ module.exports = {
             }
 
             
-            number = filteredEmotes.findIndex((e)=>e.emote===foundEmote?.alias ?? e.emote===foundEmote?.name) + 1;
+            number = filteredEmotes.findIndex((e)=>foundEmote.alias ? e.alias === foundEmote.alias : e.name === foundEmote.name) + 1;
             
 
             return{
