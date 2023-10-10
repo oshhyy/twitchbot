@@ -14,50 +14,42 @@ module.exports = {
                 user = `c/${context.channel.login}`
             }
             else {
-                user = `c/${context.message.args[0].replace('@','').replace('#','')}`
+                user = `c/${context.message.args[0].replace('@', '').replace('#', '')}`
                 if (context.message.args[0].includes('/')) {
                     return {
-                        text:'Invalid Username! oshDank', reply:true
+                        text: 'Invalid Username! oshDank', reply: true
                     };
                 }
             }
 
-            if (context.message.args[0] == '#top') {user = 'top'}
+            if (context.message.args[0] == '#top') { user = 'top' }
 
             let data;
             try {
                 data = await got(`https://7tv.markzynk.com/${user}`).json()
-            } catch(err) {
+            } catch (err) {
                 return {
-                    text:`Either no 7tv emotes are enabled in this channel, or their usage statistics haven't been tracked yet oshDank`, reply:true
+                    text: `Either no 7tv emotes are enabled in this channel, or their usage statistics haven't been tracked yet oshDank`, reply: true
                 }
             }
 
             if (!data) {
                 return {
-                    text:'Invalid Username! oshDank', reply:true
+                    text: 'Invalid Username! oshDank', reply: true
                 };
             } if (data.success == false) {
                 return {
-                    text:'No emotes found for this channel.', reply:true
+                    text: 'No emotes found for this channel.', reply: true
                 };
             }
 
-            let emoteName 
+            let emoteName
 
-            if (user == "top") {
-                message = `top 5 7tv emotes (${user})`
-                for (let i = 0; i < 5 ; i++) {
-                    emoteName = data.emotes[i].emote_alias ?? data.emotes[i].emote
-                    message = message.concat(` • ${emoteName} (${data.emotes[i].total_count.toLocaleString()})`)
-                }
-            } else {
-                message = `top 5 7tv emotes in #${data.user.twitch_username}`
-                for (let i = 0; i < 5 ; i++) {
-                    emoteName = data.emotes[i].emote_alias ?? data.emotes[i].emote
-                    message = message.concat(` • ${emoteName} (${data.emotes[i].count.toLocaleString()})`)
-                }
-            } 
+            message = `top 5 7tv emotes in #${data.user?.twitch_username ?? user}`
+            for (let i = 0; i < 5; i++) {
+                emoteName = data.emotes[i].alias ?? data.emotes[i].name
+                message = message.concat(` • ${emoteName} (${data.emotes[i].count.toLocaleString()})`)
+            }
 
             return {
                 text: message,

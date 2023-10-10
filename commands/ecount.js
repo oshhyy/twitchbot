@@ -33,8 +33,8 @@ module.exports = {
 
             console.log(trackingData)
 
-            const filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.emote_id)) // only emotes that are enabled in channel
-            let foundEmote = filteredEmotes.find(e=>e && e.emote === emoteToCount) // actual emote the user enters
+            const filteredEmotes = trackingData.emotes.filter(emote => enabledEmotes.includes(emote.id)) // only emotes that are enabled in channel
+            let foundEmote = filteredEmotes.find(e=>e?.alias ?? e?.name === emoteToCount)  // actual emote the user enters
             console.log(filteredEmotes)
             
             if(!foundEmote) {
@@ -46,17 +46,19 @@ module.exports = {
                     }
                 }
                 
-                number = dataFromKattahsAPI.emotes.findIndex((e)=>e.emote===foundEmote.emote) + 1;
+                number = trackingData.emotes.findIndex((e)=>e.emote===foundEmote.emote) + 1;
 
                 return{
                     text:`The 7tv emote ${foundEmote.emote} is not currently enabled in channel #${user}. While it was enabled, it was used ${foundEmote.count.toLocaleString()} times (Rank #${number})`, reply:true
                 }
             }
 
-            number = filteredEmotes.findIndex((e)=>e.emote===foundEmote.emote) + 1;
+            
+            number = filteredEmotes.findIndex((e)=>e.emote===foundEmote?.alias ?? e.emote===foundEmote?.name) + 1;
+            
 
             return{
-                text:`Usage of ${foundEmote.emote} in #${user}: ${foundEmote.count.toLocaleString()} (Rank #${number})`, reply:true,
+                text:`Usage of ${foundEmote?.alias ?? foundEmote?.name} in #${user}: ${foundEmote.count.toLocaleString()} (Rank #${number})`, reply:true,
             }
 
         } catch (err) {
