@@ -146,20 +146,6 @@ bot.Client.on("PRIVMSG", async (msg) => {
             await bot.Utils.sleep(2500)
             bot.Client.privmsg('azzzv', `!cookie`);
         }
-        let poroData = await got(`https://api.poros.lol/api/bot/porocount/oshhyy`).json()
-        if (poroData.cooldowns.poro.isAvailable && !poroData.cooldowns.poroCdr.isAvailable) {
-            bot.Client.privmsg('alaskanpotat', `|poro`);
-        } else if (!poroData.cooldowns.poro.isAvailable && poroData.cooldowns.poroCdr.isAvailable) {
-            bot.Client.privmsg('alaskanpotat', `|cdr`);
-            await bot.Utils.sleep(2500)
-            bot.Client.privmsg('alaskanpotat', `|poro`);
-        } else if (poroData.cooldowns.poro.isAvailable && poroData.cooldowns.poroCdr.isAvailable) {
-            bot.Client.privmsg('alaskanpotat', `|poro`);
-            await bot.Utils.sleep(3500)
-            bot.Client.privmsg('alaskanpotat', `|cdr`);
-            await bot.Utils.sleep(3500)
-            bot.Client.privmsg('alaskanpotat', `|poro`);
-        }
         let potatoData = await got(`https://api.potat.app/users/oshhyy`).json()
         if (potatoData[0].potatoes.potato.ready && !potatoData[0].potatoes.cdr.ready) {
             bot.Client.privmsg('alaskanpotat', `#potato`);
