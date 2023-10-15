@@ -1,10 +1,10 @@
 const got = require("got");
 
 module.exports = {
-    name: "firstmessage",
+    name: "lastmessage",
     cooldown: 5000,
-    aliases: ["fl", "fm", "firstlog"],
-    description: `firstmessage [user] - gets a user's first logged message in a chat`,
+    aliases: ["ll", "lm", "lastlog"],
+    description: `lastmessage [user] - gets a user's last logged message in a chat`,
     execute: async context => {
         try {
             // this code is really dogshit and dank and breaks and needs changes saudhsdjklfhskfhskdj
@@ -35,8 +35,8 @@ module.exports = {
                 
                 try{
                     const logsData = await got(`${prefix}/list?channel=${channel}&user=${user}`).json()
-                    let firstMonth = logsData.availableLogs[logsData.availableLogs.length - 1]
-                    let {body : res} = await got(`${prefix}/channel/${channel}/user/${user}/${firstMonth.year}/${firstMonth.month}`)
+                    let lastMonth = logsData.availableLogs[0]
+                    let {body : res} = await got(`${prefix}/channel/${channel}/user/${user}/${lastMonth.year}/${lastMonth.month}?reverse`)
                     return{text:res.split('\n')[0], reply:true}
                 } catch(err) {
                     return{text:"Could not load logs for this user/channel", return:true}
