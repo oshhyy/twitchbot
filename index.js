@@ -179,3 +179,10 @@ setInterval(() => {
 setInterval(() => {
     bot.Client.privmsg("alaskanpotat", "elisElis")
 }, 3601000);
+
+bot.Client.on("NOTICE", async (notice) => {
+    console.log(notice)
+    if(notice.messageID == "msg_rejected_mandatory") {
+        bot.Client.privmsg(notice.channelName, `Message contains banned phrase! elisBruh`)
+    }
+})

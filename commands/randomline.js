@@ -55,13 +55,20 @@ module.exports = {
             }
 
             if (data.error === null) {
-                let rlPrefix = data.channelLogs.instances[0]
+                let rlPrefix
+                if(user == '') {
+                    rlPrefix = data.channelLogs.instances[0]
+                } else {
+                    rlPrefix = data.userLogs.instances[0]
+                }
+
+                
                 console.log(`${rlPrefix}/${rlCode}`)
                 try{
                     let {body : res} = await got(`${rlPrefix}/${rlCode}`)
                     return{text:res, reply:true}
                 }catch{
-                    return{text:"Could not load logs for this user/channel", return:true}
+                    return{text:"Could not load logs for this user/channel", reply:true}
                 }
             } else {
                 return{text:data.error, reply:true}
