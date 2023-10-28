@@ -101,13 +101,13 @@ bot.Client.on("PRIVMSG", async (msg) => {
         return;
     }
 
-    if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshhyy, reminder from yourself") && args[args.length - 1] == "$fish") {
+    if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshgay, reminder from yourself") && args[args.length - 1] == "$fish") {
         await bot.Utils.sleep(2500);
 
 
         bot.Client.privmsg(msg.channelName, `$$fish`);
     }
-    if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshhyy, reminder from yourself") && args[args.length - 1] == "🪤") {
+    if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshgay, reminder from yourself") && args[args.length - 1] == "🪤") {
         await bot.Utils.sleep(2500);
 
         bot.Client.privmsg(msg.channelName, `$$trap`);
@@ -131,7 +131,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     }
 
     if (msg.senderUserID == '489223884' && msg.channelName == 'alaskanpotat' && msg.messageText == 'elisElis') {
-        let cookieData = await got(`https://api.roaringiron.com/cooldown/oshhyy`).json()
+        let cookieData = await got(`https://api.roaringiron.com/cooldown/oshgay`).json()
         if (cookieData.can_claim && !cookieData.cdr_available) {
             bot.Client.privmsg('azzzv', `!cookie`);
         } else if (!cookieData.can_claim && cookieData.cdr_available) {
@@ -146,7 +146,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
             await bot.Utils.sleep(2500)
             bot.Client.privmsg('azzzv', `!cookie`);
         }
-        let potatoData = await got(`https://api.potat.app/users/oshhyy`).json()
+        let potatoData = await got(`https://api.potat.app/users/oshgay`).json()
         if (potatoData[0].potatoes.potato.ready && !potatoData[0].potatoes.cdr.ready) {
             bot.Client.privmsg('alaskanpotat', `#potato`);
         } else if (!potatoData[0].potatoes.potato.ready && potatoData[0].potatoes.cdr.ready) {
@@ -183,6 +183,6 @@ setInterval(() => {
 bot.Client.on("NOTICE", async (notice) => {
     console.log(notice)
     if(notice.messageID == "msg_rejected_mandatory") {
-        bot.Client.privmsg(notice.channelName, `Message contains banned phrase! elisBruh`)
+        bot.Client.privmsg(notice.channelName, `A message that was about to be sent wasn't posted due to conflicts with the channel's moderation settings. elisBruh`)
     }
 })

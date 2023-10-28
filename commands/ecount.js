@@ -22,7 +22,7 @@ module.exports = {
 
             let data;
             try {
-                data = await got(`https://7tv.io/v3/users/twitch/${trackingData.user.twitch_id}`).json()
+                data = await got(`https://7tv.io/v3/users/twitch/${trackingData.channel.id}`).json()
             } catch(err) {
                 return {
                     text:`No 7tv emotes found for this channel oshDank`, reply:true
