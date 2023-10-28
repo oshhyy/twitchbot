@@ -1,4 +1,3 @@
-const fs = require('fs');
 const got = require("got");
 
 module.exports = {
@@ -25,8 +24,7 @@ module.exports = {
 
             let id = context.channel.id
 
-            let offlineChannels = fs.readFileSync("./offlineOnly.txt", { encoding: "utf-8" })
-            const offlineOnlyChannels = offlineChannels.split("\n");
+            const offlineOnlyChannels = (await bot.db.channels.find({ settings: { offlineOnly: true, }})).map(c => c.id);
 
             if (mode == "enable" || mode == "on") {
                 if(offlineOnlyChannels.includes(id)) {
@@ -35,7 +33,8 @@ module.exports = {
                         reply:true
                     }
                 }
-                await fs.appendFileSync("./offlineOnly.txt", `\n${id}`);
+                await bot.db.channels.updateOne({id: id}, { $set: { "settings.offlineOnly": true } })
+                
                 return{
                     text: `This channel is now in offline only mode. FeelsGoodMan I will now only respond to commands if the channel is offline.`, reply:true
                 }
@@ -47,15 +46,7 @@ module.exports = {
                         text: `This channel is already not in offline only mode! oshDank`, reply:true
                     }
                 }
-            const updatedList = offlineOnlyChannels.join("\n").replace(`\n${id}`, '');
-            await fs.writeFile("./offlineOnly.txt", updatedList, (err) => {
-                if (err) {
-                    console.error(err);
-                    return {
-                        text: `Error: Unable to remove user from offline mode.`, reply:true
-                    };
-                }
-            })
+            await bot.db.channels.updateOne({id: id}, { $set: { "settings.offlineOnly": false } })
             return{
                 text: `This channel is no longer in offline only mode. FeelsGoodMan`, reply:true
             }

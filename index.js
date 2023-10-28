@@ -172,7 +172,7 @@ const xd = ["ryanpotate", "ryanpotatu", "l3ulit", "potatryan", "ryanbotat", "joe
 setInterval(() => {
     for(element of xd) {
         bot.Client.privmsg(element, 'TriHard')
-        bot.Utils.sleep(1000)
+        bot.Utils.sleep(5000)
     }
 }, 30000);
 
