@@ -174,7 +174,7 @@ setInterval(() => {
         bot.Client.privmsg(element, 'TriHard')
         bot.Utils.sleep(5000)
     }
-}, 30000);
+}, 120000);
 
 setInterval(() => {
     bot.Client.privmsg("alaskanpotat", "elisElis")
