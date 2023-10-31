@@ -14,7 +14,7 @@ module.exports = {
             }
             bot.Client.privmsg(context.channel.login, 'oshSpin Restarting...')
             await bot.Utils.sleep(1000)
-            exec('cd /twitchbot/twitchbot && pm2 restart')
+            exec('cd /twitchbot/twitchbot && pm2 restart index.js')
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
