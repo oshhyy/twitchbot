@@ -14,7 +14,7 @@ module.exports = {
             }
             bot.Client.privmsg(context.channel.login, 'oshSpin Pulling...')
             await bot.Utils.sleep(1000)
-            exec('cd /twitchbot/twitchbot && git pull')
+            exec('cd /root/twitchbot && git pull')
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
