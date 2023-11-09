@@ -110,7 +110,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshgay, reminder from yourself") && args[args.length - 1] == "🪤") {
         await bot.Utils.sleep(2500);
 
-        bot.Client.privmsg(msg.channelName, `$$trap`);
+        bot.Client.privmsg("markzynk", `$$trap`);
     }
 
     if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
