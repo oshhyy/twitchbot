@@ -118,7 +118,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
     
-    let toList = ['markzynk', 'zomballr', 'francorz_', 'mrcosgallo', 'ryanpotat', 'ryanl_12', 'kattah']
+    let toList = ['markzynk', 'zomballr', 'flan__________', 'mrcosgallo', 'ryanpotat', 'ryanl_12', 'kattah']
 
     if ((msg.messageText == 'to' || msg.messageText == 'TO' || msg.messageText == 'two' || msg.messageText == 'too' || msg.messageText == 'OT' || msg.messageText == 'ot' || msg.messageText == 'oT' || msg.messageText == 'Ot' || msg.messageText == 'To' || msg.messageText == 'tO') && toList.includes(msg.channelName)) {
         if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
