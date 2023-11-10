@@ -3,7 +3,7 @@ const got = require("got");
 module.exports = {
     name: "lastmessage",
     cooldown: 5000,
-    aliases: ["ll", "lm", "lastlog"],
+    aliases: ["ll", "lm", "lastlog", "ls"],
     description: `lastmessage [user] - gets a user's last logged message in a chat`,
     execute: async context => {
         try {
