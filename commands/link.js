@@ -7,11 +7,10 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            const userInfo = await bot.db.users.findOne({id: context.user.id})
 
             let lastfmName = context.message.args[0]
 
-            await bot.db.users.updateOne( { id: id }, { $set: { lastfm: lastfmName } })
+            await bot.db.users.updateOne( { id: context.user.id }, { $set: { lastfm: lastfmName } })
 
             return{text:`Your last fm account has successfully linked to "${lastfmName}"!`, reply:true}
             
