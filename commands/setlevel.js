@@ -33,7 +33,7 @@ module.exports = {
             }
             const id = xd[0].id
 
-            const data = await bot.db.users.findOne({id: id})            
+            const data = await bot.db.users.findOne({id: id})
 
             if(!data) {
                 const newUser = new bot.db.users({

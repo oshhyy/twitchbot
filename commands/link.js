@@ -9,8 +9,18 @@ module.exports = {
             // command code
 
             let lastfmName = context.message.args[0]
-
-            await bot.db.users.updateOne( { id: context.user.id }, { $set: { lastfm: lastfmName } })
+            const data = await bot.db.users.findOne({id: context.user.id})
+            if(!data){
+                const newUser = new bot.db.users({
+                    id: context.user.id,
+                    username: context.user.login,
+                    level: "1",
+                    lastfm: lastfmName,
+                })
+                await newUser.save();
+            } else {
+                await bot.db.users.updateOne( { id: context.user.id }, { $set: { lastfm: lastfmName } })
+            }
 
             return{text:`Your last fm account has successfully linked to "${lastfmName}"!`, reply:true}
             
