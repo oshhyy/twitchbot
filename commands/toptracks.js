@@ -19,7 +19,7 @@ module.exports = {
                 return{text:data.message, reply:true}
             }
 
-            let message = `top tracks for ${data.user.name}`
+            let message = `top tracks for ${data.toptracks[`@attr`].user}`
 
             for(let i = 0; i < 5; i++) {
                 message = message.concat(` • ${data.toptracks.track[i].artist.name} - ${data.toptracks.track[i].name} (${data.toptracks.track[i].playcount.toLocaleString()})`)
