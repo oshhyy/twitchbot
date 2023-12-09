@@ -14,7 +14,11 @@ module.exports = {
             if(!lastfmName){
                 return{text:`No last.fm username provided! To link your account, do '+link <username>'`, reply:true}
             }
-            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmName}&api_key=${config.lastfmKey}&format=json&limit=1&extended=1`).json()
+            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmName}&api_key=${config.lastfmKey}&format=json&limit=1&extended=1`, {throwHttpErrors:false}).json()
+            if(data.message) {
+                return{text:data.message, reply:true}
+            }
+            
             const status = data.recenttracks.track[0][`@attr`]?.nowplaying ? `yes` : `no`
             if(status == 'no'){
                 return{text:`User ${lastfmName} is currently not listening to anything!`, reply:true}
