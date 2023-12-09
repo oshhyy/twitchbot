@@ -10,7 +10,7 @@ module.exports = {
         try {
             // command code
             const userData = await bot.db.users.findOne({id: context.user.id})
-            const lastfmName = context.message.args[0] ?? userData.users.lastfm
+            const lastfmName = context.message.args[0] ?? userData.lastfm
             if(!lastfmName){
                 return{text:`No last.fm username provided! To link your account, do '+link <username>'`, reply:true}
             }
