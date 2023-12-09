@@ -2,7 +2,7 @@ const got = require("got");
 const config = require("../config.json");
 
 module.exports = {
-    name: "lastfm",
+    name: "toptracks",
     cooldown: 3000,
     aliases: ["toptrack"],
     description: `toptracks [lastfm-username] - shows top tracks for last.fm`,
