@@ -10,7 +10,10 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-
+            if(!context.message.args[0]) {
+                const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
+                return{text:`usage: ${prefix}link <lastfm-username>`, reply:true}
+            }
             let lastfmName = context.message.args[0]
             const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastfmName}&api_key=${config.lastfmKey}&format=json`, {throwHttpErrors:false}).json()
             if(data.message) {
