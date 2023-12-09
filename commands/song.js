@@ -9,8 +9,11 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-
-            const lastfmName = context.message.args[0] ?? bot.db.users.lastfm
+            const userData = await bot.db.users.findOne({id: context.user.id})
+            const lastfmName = context.message.args[0] ?? userData.users.lastfm
+            if(!lastfmName){
+                return{text:`No last.fm username provided! To link your account, do '+link <username>'`, reply:true}
+            }
             const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmName}&api_key=${config.lastfmKey}&format=json&limit=1&extended=1`).json()
             const status = data.recenttracks.track[0][`@attr`]?.nowplaying ? `yes` : `no`
             if(status == 'no'){
