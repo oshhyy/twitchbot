@@ -1,4 +1,7 @@
 
+const got = require("got");
+const config = require("../config.json");
+
 module.exports = {
     name: "link",
     cooldown: 3000,
@@ -9,8 +12,12 @@ module.exports = {
             // command code
 
             let lastfmName = context.message.args[0]
-            const data = await bot.db.users.findOne({id: context.user.id})
-            if(!data){
+            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastfmName}&api_key=${config.lastfmKey}&format=json`).json()
+            if(data.message) {
+                return{text:data.message, reply:true}
+            }
+            const userInfo = await bot.db.users.findOne({id: context.user.id})
+            if(!userInfo){
                 const newUser = new bot.db.users({
                     id: context.user.id,
                     username: context.user.login,
