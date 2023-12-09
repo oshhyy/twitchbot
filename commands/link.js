@@ -12,7 +12,7 @@ module.exports = {
             // command code
 
             let lastfmName = context.message.args[0]
-            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastfmName}&api_key=${config.lastfmKey}&format=json`, {throwHttpErrors:true}).json()
+            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastfmName}&api_key=${config.lastfmKey}&format=json`, {throwHttpErrors:false}).json()
             if(data.message) {
                 return{text:data.message, reply:true}
             }
