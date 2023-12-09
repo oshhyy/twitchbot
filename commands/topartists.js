@@ -20,8 +20,8 @@ module.exports = {
             }
 
             let message = `top artists for ${data.topartists[`@attr`].user}`
-            for(let i = 0; i < 5; i++) {
-                message = message.concat(` • ${data.topartists.artist[i].artist.name} - ${data.topartists.artist[i].name} (${data.topartists.artist[i].playcount.toLocaleString()})`)
+            for(let i = 0; i < 10; i++) {
+                message = message.concat(` • ${data.topartists.artist[i].name} (${data.topartists.artist[i].playcount.toLocaleString()})`)
             }
 
             return{text:message, reply:true}
