@@ -4,7 +4,7 @@ const config = require("../config.json");
 module.exports = {
     name: "song",
     cooldown: 3000,
-    aliases: ["currentsong"],
+    aliases: ["currentsong", "track", "currenttrack"],
     description: `song [lastfm-username] - shows what you are listening to on last.fm! if no username is chosen, linked username using '+link <username>' will be used!`,
     execute: async context => {
         try {
@@ -25,7 +25,8 @@ module.exports = {
             } else {
                 const songName = data.recenttracks.track[0].name
                 const artistName = data.recenttracks.track[0].artist.name
-                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe`, reply:true}
+                const url = data.recenttracks.track[0].url
+                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url}`, reply:true}
             }
             
         } catch (err) {
