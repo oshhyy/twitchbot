@@ -25,7 +25,7 @@ module.exports = {
             } else {
                 const songName = data.recenttracks.track[0].name
                 const artistName = data.recenttracks.track[0].artist.name
-                return{text:`/me 🎵 ${artistName} • ${songName}`, reply:true}
+                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe`, reply:true}
             }
             
         } catch (err) {
