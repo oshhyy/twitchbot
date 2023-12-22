@@ -11,7 +11,7 @@ module.exports = {
             // command code
             let userData
             let lastfmName
-            if(context.message.args[0].startsWith("@")) {
+            if(context.message.args[0]?.startsWith("@")) {
                 userData = await bot.db.users.findOne({username: context.message.args[0].replace("@", "")})
                 lastfmName = userData.lastfm
                 if(!lastfmName){
