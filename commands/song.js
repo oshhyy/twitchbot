@@ -15,7 +15,7 @@ module.exports = {
                 userData = await bot.db.users.findOne({username: context.message.args[0].replace("@", "")})
                 lastfmName = userData.lastfm
                 if(!lastfmName){
-                    return{text:`This user does not have a linked last.fm profile!'`, reply:true}
+                    return{text:`This user does not have a linked last.fm profile!`, reply:true}
                 }
 
             } else {

@@ -15,7 +15,7 @@ module.exports = {
                 userData = await bot.db.users.findOne({username: context.message.args[0].replace("@", "")})
                 lastfmName = userData.lastfm
                 if(!lastfmName){
-                    return{text:`This user does not have a linked last.fm profile!'`, reply:true}
+                    return{text:`This user does not have a linked last.fm profile!`, reply:true}
                 }
 
             } else {
@@ -25,7 +25,7 @@ module.exports = {
                     return{text:`No last.fm username provided! To link your account, do '+link <username>'`, reply:true}
                 }
             }
-            
+
             const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=${lastfmName}&api_key=${config.lastfmKey}&format=json`, {throwHttpErrors:false}).json()
             if(data.message) {
                 return{text:data.message, reply:true}
