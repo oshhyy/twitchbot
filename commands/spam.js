@@ -28,7 +28,7 @@ module.exports = {
             let delay = context.message.params.delay ?? 0;
             if (delay > 5000 && context.user.id != '489223884') {
                 return{
-                    text:"Delay can't be more than 10000ms (10 Seconds) oshDank",reply:true
+                    text:"Delay can't be more than 5000ms (5 Seconds) oshDank",reply:true
                 }
             }
             let channel = context.message.params.channel ?? context.channel.login;
