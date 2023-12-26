@@ -1,4 +1,5 @@
 const got = require("got");
+const config = require("../config.json");
 
 module.exports = {
     name: "elo",
@@ -18,7 +19,7 @@ module.exports = {
 
             if (!context.message.args[0]) {
                 return {
-                    text:`oshDank Usage: ${bot.Config.prefix}elo <minecraft-username> `, reply:true
+                    text:`oshDank Usage: ${config.prefix}elo <minecraft-username> `, reply:true
                 };
             }
 
