@@ -4,7 +4,7 @@ module.exports = {
     name: "stats",
     cooldown: 15000,
     aliases: ['user'],
-    description: `stats [user] https://osh-1.gitbook.io/osh_______/util/stats`,
+    description: `stats [user] https://bot.oshgay.xyz/util/stats`,
     execute: async context => {
         try {
             // command code

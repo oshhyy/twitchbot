@@ -2,7 +2,7 @@ module.exports = {
     name: "split",
     cooldown: 10000,
     aliases: [],
-    description: `split <num> <phrase> | https://osh-1.gitbook.io/osh_______/util/split`,
+    description: `split <num> <phrase> | https://bot.oshgay.xyz/util/split`,
     execute: async context => {
         try {
             // command code

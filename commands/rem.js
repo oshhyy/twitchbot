@@ -3,7 +3,7 @@ module.exports = {
     name: "rem",
     cooldown: 15000,
     aliases: ['randomemote', 'emote'],
-    description: `rem <expression> | https://osh-1.gitbook.io/osh_______/util/emote`,
+    description: `rem <expression> | https://bot.oshgay.xyz/util/emote`,
     execute: async context => {
         try {
             // command code

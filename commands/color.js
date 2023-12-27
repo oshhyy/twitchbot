@@ -5,7 +5,7 @@ module.exports = {
     name: "color",
     cooldown: 15000,
     aliases: ['colour'],
-    description: `color [username/hexcode] | https://osh-1.gitbook.io/osh_______/util/color`,
+    description: `color [username/hexcode] | https://bot.oshgay.xyz/util/color`,
     execute: async context => {
         try {
             // command code

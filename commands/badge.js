@@ -4,7 +4,7 @@ module.exports = {
     name: "badge",
     cooldown: 3000,
     aliases: ['badges'],
-    description: `badge <username> - gets badge name of user as well as `,
+    description: `badge <username> - gets badge name of user`,
     execute: async context => {
         try {
             // command code

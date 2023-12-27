@@ -1,4 +1,3 @@
-const config = require("../config.json");
 module.exports = {
     name: "commands",
     cooldown: 3000,
@@ -8,9 +7,10 @@ module.exports = {
         try {
             const commands = []; 
             bot.Command.Commands.forEach((command) => commands.push(command.name))
+            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
             
             return {
-                text: `prefix: ${config.prefix} • command list: https://osh-1.gitbook.io/osh_______/ (wip site :) )`,
+                text: `prefix: ${prefix} • command list: https://bot.oshgay.xyz/ (wip site :) )`,
                 reply: true,
             };
         } catch (err) {

@@ -3,7 +3,7 @@ module.exports = {
     name: "dadjoke",
     cooldown: 5000,
     aliases: ['dj', 'joke'],
-    description: `dadjoke | https://osh-1.gitbook.io/osh_______/fun/dadjoke`,
+    description: `dadjoke | https://bot.oshgay.xyz/fun/dadjoke`,
     execute: async context => {
         try {
             // command code

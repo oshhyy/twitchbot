@@ -1,9 +1,8 @@
-const config = require("../config.json");
 module.exports = {
     name: "ping",
     cooldown: 10000,
     aliases: [],
-    description: `ping | https://osh-1.gitbook.io/osh_______/util/ping`,
+    description: `ping | https://bot.oshgay.xyz/util/ping`,
     execute: async context => {
         try {
             const { performance } = require("perf_hooks");

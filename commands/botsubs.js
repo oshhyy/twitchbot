@@ -3,7 +3,7 @@ module.exports = {
     name: "botsubs",
     cooldown: 15000,
     aliases: ['bs', 'subs'],
-    description: `botsubs | https://osh-1.gitbook.io/osh_______/util/botsubs`,
+    description: `botsubs | https://bot.oshgay.xyz/util/botsubs`,
     execute: async context => {
         try {
             // command code
