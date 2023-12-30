@@ -29,7 +29,7 @@ module.exports = {
                 };
             }
 
-            return{text:`there are ${data.count} in ${channel}'s chat chatters`}
+            return{text:`there are ${data.count} in ${channel}'s chat.`}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
