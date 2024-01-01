@@ -30,8 +30,9 @@ module.exports = {
                 if(elo < 1500) {return "Emerald III"}
                 if(elo < 1650) {return "Diamond I"}
                 if(elo < 1800) {return "Diamond II"}
-                if(elo < 200) {return "Diamond III"}
-                else {return "Netherite"}
+                if(elo < 2000) {return "Diamond III"}
+                if(elo >= 2000)  {return "Netherite"}
+                else {return "Unrated"}
             }
             let userData, mcUUID
 
