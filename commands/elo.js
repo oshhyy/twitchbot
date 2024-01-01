@@ -25,8 +25,8 @@ module.exports = {
             } else {
                 let mojangData;
                 mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                if (data.errorMessage) {
-                    return { text: data.errorMessage, reply: true }
+                if (mojangData.errorMessage) {
+                    return { text: mojangData.errorMessage, reply: true }
                 }
 
                 mcUUID = mojangData.id
