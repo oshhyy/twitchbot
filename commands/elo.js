@@ -19,7 +19,7 @@ module.exports = {
             if (!context.message.args[0]) {
                 userData = await bot.db.users.findOne({ id: context.user.id })
                 mcUUID = userData?.mcid
-                if (!mcid) {
+                if (!mcUUID) {
                     return { text: `No MC username provided! To link your account, do '+link mc <username>'`, reply: true }
                 }
             } else {
