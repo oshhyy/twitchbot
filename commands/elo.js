@@ -71,8 +71,8 @@ module.exports = {
 
             const elo = mcsrData.data.elo_rate
             const bestElo = mcsrData.data.best_elo_rate
-            const rank = mcsrData.data.elo_rate ?? "N/A"
-            const rankName = getRank(elo_rate)
+            const rank = mcsrData.data.elo_rank ?? "N/A"
+            const rankName = getRank(elo)
             const totalPlayed = mcsrData.data.total_played
             const seasonPlayed = mcsrData.data.season_played
             const wins = mcsrData.data.records[2].win
