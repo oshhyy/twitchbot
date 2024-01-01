@@ -2,9 +2,9 @@ const got = require("got");
 const config = require("../config.json");
 
 module.exports = {
-    name: "elo",
+    name: "bwstats",
     cooldown: 3000,
-    aliases: ['ranked', 'mcsr'],
+    aliases: ['bw'],
     description: `bwstats [minecraft-username] | provides hypixel bedwars stats`,
     execute: async context => {
         try {
@@ -27,15 +27,16 @@ module.exports = {
                 mcUUID = mojangData.id
             }
 
-            let mcsrData;
+            let hypixelData;
             try {
-                mcsrData = await got(`https://api.hypixel.net/v2/player?uuid=${mcUUID}`, {headers: {'X-Api-Key': config.hypixelKey}}, { throwHttpErrors: false }).json()
+                hypixelData = await got(`https://api.hypixel.net/v2/player?uuid=${mcUUID}`, {headers: {'X-Api-Key': config.hypixelKey}}, { throwHttpErrors: false }).json()
             } catch (err) {
                 return {
                     text: `doid`, reply: true
                 }
             }
 
+            console.log
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
