@@ -26,17 +26,18 @@ module.exports = {
 
                 mcUUID = mojangData.id
             }
-
+            console.log(mcUUID)
             let hypixelData;
             try {
-                hypixelData = await got(`https://api.hypixel.net/v2/player?uuid=${mcUUID}`, {headers: {'X-Api-Key': config.hypixelKey}}, { throwHttpErrors: false }).json()
+                hypixelData = await got(`https://api.hypixel.net/v2/player?uuid=${mcUUID}`, {headers: {'API-Key': config.hypixelKey}}, { throwHttpErrors: false }).json()
             } catch (err) {
+                console.log(hypixelData)
                 return {
                     text: `doid`, reply: true
                 }
             }
 
-            console.log
+            console.log(hypixelData)
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
