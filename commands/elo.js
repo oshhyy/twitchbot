@@ -87,9 +87,10 @@ module.exports = {
             var bestTime = mcsrData.data.best_record_time
             bestTime = msToTime(bestTime)
             const WLRatio = (wins / losses).toFixed(2);
+            const WinPercent = ((wins / seasonPlayed) * 100).toFixed(2);
 
             return {
-                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Registered ${sinceCreated} ago (${dateCreated}) • Fastest Time: ${bestTime}`, reply: true
+                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Registered ${sinceCreated} ago (${dateCreated}) • Fastest Time: ${bestTime}`, reply: true
             }
 
 
