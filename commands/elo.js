@@ -84,7 +84,7 @@ module.exports = {
 
             const elo = mcsrData.data.elo_rate
             const bestElo = mcsrData.data.best_elo_rate
-            const rank = mcsrData.data.elo_rank ?? "N/A"
+            const rank = mcsrData.data.elo_rank ?? "?"
             const rankName = getRank(elo)
             const totalPlayed = mcsrData.data.total_played
             const seasonPlayed = mcsrData.data.season_played
@@ -103,7 +103,7 @@ module.exports = {
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(1000)
             return {
-                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
+                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
 
         } catch (err) {
