@@ -34,6 +34,18 @@ module.exports = {
                 if(elo >= 2000)  {return "Netherite"}
                 else {return "Unrated"}
             }
+            function rankColor(rank) {
+                let color
+                let encodedColor
+                if(rank.startsWith("Coal")) {color = "A8A8A8"}
+                if(rank.startsWith("Iron")) {color = "FCFCFC"}
+                if(rank.startsWith("Gold")) {color = "FCA800"}
+                if(rank.startsWith("Emerald")) {color = "54FC54"}
+                if(rank.startsWith("Diamond")) {color = "54FCFC"}
+                if(rank.startsWith("Netherite")) {color = "FCFC54"}
+                if(color) {encodedColor = encodeURIComponent(`#${color}`)}
+                return encodedColor
+            }
             let userData, mcUUID
 
             if (!context.message.args[0]) {
@@ -86,11 +98,12 @@ module.exports = {
             bestTime = msToTime(bestTime)
             const WLRatio = (wins / losses).toFixed(2);
             const WinPercent = ((wins / seasonPlayed) * 100).toFixed(2);
+            const color = rankColor(rankName)
 
+            await twitchapi.changeColor(color)
             return {
                 text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
-
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
