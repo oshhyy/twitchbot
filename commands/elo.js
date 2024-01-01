@@ -42,7 +42,7 @@ module.exports = {
                 if(rank.startsWith("Gold")) {color = "FCA800"}
                 if(rank.startsWith("Emerald")) {color = "54FC54"}
                 if(rank.startsWith("Diamond")) {color = "54FCFC"}
-                if(rank.startsWith("Netherite")) {color = "FCFC54"}
+                if(rank.startsWith("Netherite")) {color = "A783FA"}
                 if(color) {encodedColor = encodeURIComponent(`#${color}`)}
                 return encodedColor
             }
