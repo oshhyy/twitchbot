@@ -82,16 +82,13 @@ module.exports = {
             const highestWS = mcsrData.data.highest_winstreak
             const currentWS = mcsrData.data.current_winstreak
 
-            const dateCreated = new Date([mcsrData.data.created_time] * 1000).toUTCString().toLocaleString('en-US');
-            const sinceCreated = bot.Utils.humanize(mcsrData.data.created_time);
-
             var bestTime = mcsrData.data.best_record_time
             bestTime = msToTime(bestTime)
             const WLRatio = (wins / losses).toFixed(2);
             const WinPercent = ((wins / seasonPlayed) * 100).toFixed(2);
 
             return {
-                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Registered ${sinceCreated} ago (${dateCreated}) • Fastest Time: ${bestTime}`, reply: true
+                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
 
 
