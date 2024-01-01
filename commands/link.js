@@ -5,7 +5,7 @@ const config = require("../config.json");
 module.exports = {
     name: "link",
     cooldown: 3000,
-    aliases: ["linkfm", "linklastfm"],
+    aliases: ["linkaccount"],
     description: `link <type> <username> - links your accounts. current types: mc, lastfm`,
     execute: async context => {
         try {
