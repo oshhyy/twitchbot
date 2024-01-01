@@ -9,10 +9,9 @@ module.exports = {
             // command code
             let user = context.message.args[0] ?? context.user.login;
             user = user.toLowerCase().replace("@", "")
-            console.log(user)
+            if (user == "me") {user = context.user.login.toLowerCase()}
             let channel = context.message.args[1] ?? context.channel.login;
             channel = channel.toLowerCase().replace("@", "")
-            console.log(channel)
             if (!context.message.args[0]) {}
             else { 
                 if (context.message.args[0].includes('/')) {
