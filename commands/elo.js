@@ -14,6 +14,25 @@ module.exports = {
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
                 return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
             }
+            function getRank(elo) {
+                if(!elo) {return "Unrated or Hidden"}
+                if(elo < 400) {return "Coal I"}
+                if(elo < 500) {return "Coal II"}
+                if(elo < 600) {return "Coal III"}
+                if(elo < 700) {return "Iron I"}
+                if(elo < 800) {return "Iron II"}
+                if(elo < 900) {return "Iron III"}
+                if(elo < 1000) {return "Gold I"}
+                if(elo < 1100) {return "Gold II"}
+                if(elo < 1200) {return "Gold III"}
+                if(elo < 1300) {return "Emerald I"}
+                if(elo < 1400) {return "Emerald II"}
+                if(elo < 1500) {return "Emerald III"}
+                if(elo < 1650) {return "Diamond I"}
+                if(elo < 1800) {return "Diamond II"}
+                if(elo < 200) {return "Diamond III"}
+                else {return "Netherite"}
+            }
             let userData, mcUUID
 
             if (!context.message.args[0]) {
@@ -52,7 +71,8 @@ module.exports = {
 
             const elo = mcsrData.data.elo_rate
             const bestElo = mcsrData.data.best_elo_rate
-            const rank = mcsrData.data.elo_rank ?? "Not Placed"
+            const rank = mcsrData.data.elo_rank ?? "N/A"
+            const rankName = getRank(elo_rank)
             const totalPlayed = mcsrData.data.total_played
             const seasonPlayed = mcsrData.data.season_played
             const wins = mcsrData.data.records[2].win
@@ -69,7 +89,7 @@ module.exports = {
             const WLRatio = (wins / losses).toFixed(2);
 
             return {
-                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rank} • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Registered ${sinceCreated} ago (${dateCreated}) • Fastest Time: ${bestTime}`, reply: true
+                text: `MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rank} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Registered ${sinceCreated} ago (${dateCreated}) • Fastest Time: ${bestTime}`, reply: true
             }
 
 
