@@ -24,7 +24,7 @@ module.exports = {
                 }
             } else {
                 let mojangData;
-                data = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
+                mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
                 if (data.errorMessage) {
                     return { text: data.errorMessage, reply: true }
                 }
