@@ -102,7 +102,7 @@ module.exports = {
 
             await twitchapi.changeColor(color)
             return {
-                text: `/me MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
+                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Highest: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
 
         } catch (err) {
