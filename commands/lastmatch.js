@@ -149,7 +149,7 @@ module.exports = {
 
             // widewally just gettign the seed type
             const matchData = await got(`https://mcsrranked.com/api/matches/${mostRecentNonDecayMatch.match_id}`).json();
-            const seedType = matchData.data.seed_type
+            const seedType = matchData.data.seed_type.replace("_", " ")
 
             const averageElo = getRank((mostRecentNonDecayMatch.score_changes[0].score + mostRecentNonDecayMatch.score_changes[1].score) / 2)
             const eloColor = rankColor(averageElo)
