@@ -150,7 +150,7 @@ module.exports = {
             const averageElo = getRank((mostRecentNonDecayMatch.members[0].score + mostRecentNonDecayMatch.members[1].score) / 2)
             const eloColor = rankColor(averageElo)
 
-            await twitchapi.changeColor(color)
+            await twitchapi.changeColor(eloColor)
             await bot.Utils.sleep(1000)
             return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
 
