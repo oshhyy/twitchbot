@@ -158,6 +158,7 @@ module.exports = {
             const eloColor = rankColor(averageElo)
 
             await twitchapi.changeColor(eloColor)
+            await bot.Utils.sleep(500)
             return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Seed Type: ${seedType} • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
 
         } catch (err) {
