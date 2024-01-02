@@ -6,7 +6,7 @@ module.exports = {
     name: "lastmatch",
     cooldown: 3000,
     aliases: ['rankedmatch'],
-    description: `elo [minecraft-username] | provides stats for the last played ranked match in MCSR Ranked`,
+    description: `lastmatch [minecraft-username] | provides stats for the last played ranked match in MCSR Ranked`,
     execute: async context => {
         try {
             // command code
