@@ -100,7 +100,7 @@ module.exports = {
             const color = rankColor(rankName)
 
             await twitchapi.changeColor(color)
-            await bot.Utils.sleep(500)
+            await bot.Utils.sleep(100)
             return {
                 text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
