@@ -147,7 +147,7 @@ module.exports = {
                 }
             }
 
-            const averageElo = getRank((mostRecentNonDecayMatch.members[0].score + mostRecentNonDecayMatch.members[1].score) / 2)
+            const averageElo = getRank((mostRecentNonDecayMatch.score_changes[0].score + mostRecentNonDecayMatch.score_changes[1].score) / 2)
             const eloColor = rankColor(averageElo)
 
             await twitchapi.changeColor(eloColor)
