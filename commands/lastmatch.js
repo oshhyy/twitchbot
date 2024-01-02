@@ -147,12 +147,16 @@ module.exports = {
                 }
             }
 
+            // widewally just gettign the seed type
+            const matchData = await got(`https://mcsrranked.com/api/matches/${mostRecentNonDecayMatch.match_id}`).json();
+            const seedType = matchData.data.seedType
+
             const averageElo = getRank((mostRecentNonDecayMatch.score_changes[0].score + mostRecentNonDecayMatch.score_changes[1].score) / 2)
             const eloColor = rankColor(averageElo)
 
             await twitchapi.changeColor(eloColor)
             await bot.Utils.sleep(1000)
-            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
+            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Seed Type: ${seedType} • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
