@@ -46,6 +46,12 @@ module.exports = {
                 if(color) {encodedColor = encodeURIComponent(`#${color}`)}
                 return encodedColor
             }
+            function badgeIcon(badge) {
+                if (badge == 1) {return "◇"}
+                if (badge == 2) {return "◈"}
+                if (badge == 3) {return "❖"}
+                return ""
+            }
             let userData, mcUUID
 
             if (!context.message.args[0]) {
@@ -73,14 +79,7 @@ module.exports = {
                 }
             }
 
-            let badge = ""
-            if (mcsrData.data.badge == 1) {
-                badge = "◇"
-            } else if (mcsrData.data.badge == 2) {
-                badge = "◈"
-            } else if (mcsrData.data.badge == 3) {
-                badge = "❖"
-            }
+            let badge = badgeIcon(mcsrData.data.badge)
 
             const elo = mcsrData.data.elo_rate
             const bestElo = mcsrData.data.best_elo_rate
@@ -103,7 +102,7 @@ module.exports = {
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(1000)
             return {
-                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (${rank}th place) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
+                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
             }
 
         } catch (err) {
