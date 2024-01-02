@@ -111,13 +111,14 @@ module.exports = {
                         winner = member.nickname
                     }
                 }
+                if(mostRecentNonDecayMatch.forfeit) {
+                    finalTime = `Forfeit at ${msToTime(mostRecentNonDecayMatch.final_time)}`
+                } else {
+                    finalTime = msToTime(mostRecentNonDecayMatch.final_time)
+                }
             }
-            if(mostRecentNonDecayMatch.forfeit) {
-                finalTime = `Forfeit at ${msToTime(mostRecentNonDecayMatch.final_time)}`
-            } else {
-                finalTime = msToTime(mostRecentNonDecayMatch.final_time)
-            }
-            const matchDate = bot.Utils.humanize(mostRecentNonDecayMatch.match_date / 1000)
+            
+            let matchDate = bot.Utils.humanize(mostRecentNonDecayMatch.match_date / 1000)
 
             // P1 Info
             const p1Elo = mostRecentNonDecayMatch.members[0].elo_rate
