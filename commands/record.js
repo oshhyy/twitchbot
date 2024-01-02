@@ -65,7 +65,7 @@ module.exports = {
                 if(!context.message.args[1]) {
                     userData = await bot.db.users.findOne({ id: context.user.id })
                     player1 = userData?.mcid
-                    if (!mcUUID) {
+                    if (!player1) {
                         return { text: `Usage: +record [minecraft-username] [minecraft-username] | If you want to see your record against this player, link your account by doing +link mc <mc-username>`, reply: true }
                     }
                     player2 = context.message.args[0]
@@ -73,14 +73,6 @@ module.exports = {
                     player1 = context.message.args[0]
                     player2 = context.message.args[1]
                 }
-
-                let mojangData;
-                mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                if (mojangData.errorMessage) {
-                    return { text: mojangData.errorMessage, reply: true }
-                }
-
-                mcUUID = mojangData.id
             } 
 
             let mcsrData;
