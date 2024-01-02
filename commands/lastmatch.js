@@ -16,24 +16,24 @@ module.exports = {
                 return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
             }
             function getRank(elo) {
-                if (!elo) { return "Unrated or Hidden" }
-                if (elo < 400) { return "Coal I" }
-                if (elo < 500) { return "Coal II" }
-                if (elo < 600) { return "Coal III" }
-                if (elo < 700) { return "Iron I" }
-                if (elo < 800) { return "Iron II" }
-                if (elo < 900) { return "Iron III" }
-                if (elo < 1000) { return "Gold I" }
-                if (elo < 1100) { return "Gold II" }
-                if (elo < 1200) { return "Gold III" }
-                if (elo < 1300) { return "Emerald I" }
-                if (elo < 1400) { return "Emerald II" }
-                if (elo < 1500) { return "Emerald III" }
-                if (elo < 1650) { return "Diamond I" }
-                if (elo < 1800) { return "Diamond II" }
-                if (elo < 2000) { return "Diamond III" }
-                if (elo >= 2000) { return "Netherite" }
-                else { return "Unrated" }
+                if(!elo) {return "Unrated or Hidden"}
+                if(elo < 400) {return "Coal I"}
+                if(elo < 500) {return "Coal II"}
+                if(elo < 600) {return "Coal III"}
+                if(elo < 700) {return "Iron I"}
+                if(elo < 800) {return "Iron II"}
+                if(elo < 900) {return "Iron III"}
+                if(elo < 1000) {return "Gold I"}
+                if(elo < 1100) {return "Gold II"}
+                if(elo < 1200) {return "Gold III"}
+                if(elo < 1300) {return "Emerald I"}
+                if(elo < 1400) {return "Emerald II"}
+                if(elo < 1500) {return "Emerald III"}
+                if(elo < 1650) {return "Diamond I"}
+                if(elo < 1800) {return "Diamond II"}
+                if(elo < 2000) {return "Diamond III"}
+                if(elo >= 2000)  {return "Netherite"}
+                else {return "Unrated"}
             }
             function rankColor(rank) {
                 let color
@@ -114,20 +114,17 @@ module.exports = {
             } else {
                 finalTime = msToTime(mostRecentNonDecayMatch.final_time)
             }
-            const matchID = mostRecentNonDecayMatch.match_id
             const matchDate = bot.Utils.humanize(mostRecentNonDecayMatch.match_date / 1000)
 
             // P1 Info
             const p1Elo = mostRecentNonDecayMatch.members[0].elo_rate
             const p1Rank = mostRecentNonDecayMatch.members[0].elo_rank ?? "?"
-            const p1RankName = getRank(mostRecentNonDecayMatch.members[0].elo_rate)
             const p1Player = mostRecentNonDecayMatch.members[0].nickname
             const p1Badge = badgeIcon(mostRecentNonDecayMatch.members[0].badge)
 
             // P2 Info
             const p2Elo = mostRecentNonDecayMatch.members[1].elo_rate
             const p2Rank = mostRecentNonDecayMatch.members[1].elo_rank ?? "?"
-            const p2RankName = getRank(mostRecentNonDecayMatch.members[1].elo_rate)
             const p2Player = mostRecentNonDecayMatch.members[1].nickname
             const p2Badge = badgeIcon(mostRecentNonDecayMatch.members[1].badge)
 
@@ -150,7 +147,12 @@ module.exports = {
                 }
             }
 
-            return{text: `/me • Ranked Match Stats: Match ID: ${matchID} (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}, ${p1RankName}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}, ${p2RankName}) • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
+            const averageElo = getRank((mostRecentNonDecayMatch.members[0].score + mostRecentNonDecayMatch.members[1].score) / 2)
+            const eloColor = rankColor(averageElo)
+
+            await twitchapi.changeColor(color)
+            await bot.Utils.sleep(1000)
+            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
