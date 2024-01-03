@@ -96,7 +96,7 @@ module.exports = {
             var bestTime = mcsrData.data.best_record_time
             bestTime = msToTime(bestTime)
             const WLRatio = (wins / losses).toFixed(2);
-            const WinPercent = ((wins / seasonPlayed) * 100).toFixed(2);
+            const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
             const color = rankColor(rankName)
 
             await twitchapi.changeColor(color)
