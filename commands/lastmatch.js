@@ -5,7 +5,7 @@ const { MongoChangeStreamError } = require("mongodb");
 module.exports = {
     name: "lastmatch",
     cooldown: 3000,
-    aliases: ['rankedmatch'],
+    aliases: ['rankedmatch', 'match'],
     description: `lastmatch [minecraft-username] | provides stats for the last played ranked match in MCSR Ranked`,
     execute: async context => {
         try {
@@ -159,7 +159,7 @@ module.exports = {
             const eloColor = rankColor(averageElo)
 
             await twitchapi.changeColor(eloColor)
-            await bot.Utils.sleep(250)
+            await bot.Utils.sleep(1000)
             return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${p1Player} (${p1Elo}) VS #${p2Rank} ${p2Badge}${p2Player} (${p2Elo}) • Seed Type: ${seedType} • Winner: ${winner} (${finalTime}) • Elo Change: ${p1Player} ${p1Change} → ${p1NewElo} | ${p2Player} ${p2Change} → ${p2NewElo} `, reply: true}
 
         } catch (err) {
