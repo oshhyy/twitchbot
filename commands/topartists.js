@@ -54,7 +54,7 @@ module.exports = {
             }
 
             
-            for(let i = 0; i < 5; i++) {
+            for(let i = 0; i < 10; i++) {
                 if(listType == "weekly") {
                     // weekly
                     if(!data.weeklyartistchart.artist[i]) break
