@@ -44,7 +44,7 @@ module.exports = {
                 // record lb
                 message = message.concat(`Current Season Record LB:`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data.users[i].badge)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].final_time)})`)
+                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data[i].users.badge)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].final_time)})`)
                 }
             } else {
                 // elo lb
