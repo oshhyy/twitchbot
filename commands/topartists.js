@@ -58,11 +58,11 @@ module.exports = {
                 if(listType == "weekly") {
                     // weekly
                     if(!data.weeklyartistchart.artist[i]) break
-                    message = message.concat(` • ${data.weeklyartistchart.artist[i].artist[`#text`]} - ${data.weeklyartistchart.artist[i].name} (${data.weeklyartistchart.artist[i].playcount.toLocaleString()})`)
+                    message = message.concat(` • ${data.weeklyartistchart.artist[i].name} (${data.weeklyartistchart.artist[i].playcount.toLocaleString()})`)
                 } else {
                     // alltime
                     if(!data.topartists.artist[i]) break
-                    message = message.concat(` • ${data.topartists.artist[i].artist.name} - ${data.topartists.artist[i].name} (${data.topartists.artist[i].playcount.toLocaleString()})`)
+                    message = message.concat(` • ${data.topartists.artist[i].name} (${data.topartists.artist[i].playcount.toLocaleString()})`)
                 }
             }
 
