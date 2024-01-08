@@ -31,7 +31,7 @@ module.exports = {
                 return{text:data.message, reply:true}
             }
 
-            if(!data.topartists.artist) {return{text:"This user has not listened to any artists!", reply:true}}
+            if(!data.topartists.artist[0]) {return{text:"This user has not listened to any artists!", reply:true}}
 
             let message = `top artists for ${data.topartists[`@attr`].user}`
             for(let i = 0; i < 10; i++) {

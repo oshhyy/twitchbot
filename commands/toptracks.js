@@ -30,7 +30,7 @@ module.exports = {
             if(data.message) {
                 return{text:data.message, reply:true}
             }
-            if(!data.toptracks.track) {return{text:"This user has not listened to any tracks!", reply:true}}
+            if(!data.toptracks.track[0]) {return{text:"This user has not listened to any tracks!", reply:true}}
 
             let message = `top tracks for ${data.toptracks[`@attr`].user}`
             for(let i = 0; i < 5; i++) {

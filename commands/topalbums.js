@@ -31,7 +31,7 @@ module.exports = {
                 return{text:data.message, reply:true}
             }
 
-            if(!data.topalbums.album) {return{text:"This user has not listened to any albums!", reply:true}}
+            if(!data.topalbums.album[0]) {return{text:"This user has not listened to any albums!", reply:true}}
 
             let message = `top albums for ${data.topalbums[`@attr`].user}`
             for(let i = 0; i < 5; i++) {
