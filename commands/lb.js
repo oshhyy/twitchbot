@@ -21,9 +21,7 @@ module.exports = {
                 if (badge == 3) {return "❖ "}
                 return " "
             }
-            function capitalizeEveryWord(str) {
-                return str.replace(/\b\w/g, match => match.toUpperCase());
-            }
+
             let lbType = ""
             let lbSeason = 0
 
@@ -46,13 +44,13 @@ module.exports = {
                 // record lb
                 message = message.concat(`Current Season Record LB:`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${i + 1}: ${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].final_time)})`)
+                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data.users[i].badge)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].final_time)})`)
                 }
             } else {
                 // elo lb
                 message = message.concat(`Elo LB for Ranked Season ${mcsrData.data.season_number}`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${mcsrData.data.users[i].elo_rank}: ${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].elo_rate})`)
+                    message = message.concat(` • ${mcsrData.data.users[i].elo_rank}: ${badgeIcon(mcsrData.data.users[i].badge)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].elo_rate})`)
                 }
             }
 
