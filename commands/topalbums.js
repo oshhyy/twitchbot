@@ -31,8 +31,11 @@ module.exports = {
                 return{text:data.message, reply:true}
             }
 
+            if(!data.topalbums.album) {return{text:"This user has not listened to any albums!", reply:true}}
+
             let message = `top albums for ${data.topalbums[`@attr`].user}`
             for(let i = 0; i < 5; i++) {
+                if(!data.topalbums.album[i]) break
                 message = message.concat(` • ${data.topalbums.album[i].artist.name} - ${data.topalbums.album[i].name} (${data.topalbums.album[i].playcount.toLocaleString()})`)
             }
 

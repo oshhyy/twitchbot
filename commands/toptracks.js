@@ -30,9 +30,11 @@ module.exports = {
             if(data.message) {
                 return{text:data.message, reply:true}
             }
+            if(!data.toptracks.track) {return{text:"This user has not listened to any tracks!", reply:true}}
 
             let message = `top tracks for ${data.toptracks[`@attr`].user}`
             for(let i = 0; i < 5; i++) {
+                if(!data.toptracks.track[i]) break
                 message = message.concat(` • ${data.toptracks.track[i].artist.name} - ${data.toptracks.track[i].name} (${data.toptracks.track[i].playcount.toLocaleString()})`)
             }
 
