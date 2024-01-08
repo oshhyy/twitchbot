@@ -4,7 +4,7 @@ const twitchapi = require('../lib/utils/twitchapi.js')
 module.exports = {
     name: "elo",
     cooldown: 3000,
-    aliases: ['ranked', 'mcsr'],
+    aliases: ['ranked', 'mcsr', 'rank'],
     description: `elo [minecraft-username] | provides elo as well as W/L ratio for a given player in MCSR Ranked`,
     execute: async context => {
         try {
