@@ -50,7 +50,7 @@ module.exports = {
                 // elo lb
                 message = message.concat(`Elo LB for Ranked Season ${mcsrData.data.season_number}`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${mcsrData.data.users[i].elo_rank}: ${badgeIcon(mcsrData.data.users[i].badge)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].elo_rate})`)
+                    message = message.concat(` • ${mcsrData.data.users[i].elo_rank}: ${badgeIcon(mcsrData.data[i].users.badge)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].elo_rate})`)
                 }
             }
 
