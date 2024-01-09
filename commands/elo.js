@@ -15,45 +15,44 @@ module.exports = {
                 return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
             }
             function getRank(elo) {
-                if(!elo) {return "Unrated or Hidden"}
-                if(elo < 400) {return "Coal I"}
-                if(elo < 500) {return "Coal II"}
-                if(elo < 600) {return "Coal III"}
-                if(elo < 700) {return "Iron I"}
-                if(elo < 800) {return "Iron II"}
-                if(elo < 900) {return "Iron III"}
-                if(elo < 1000) {return "Gold I"}
-                if(elo < 1100) {return "Gold II"}
-                if(elo < 1200) {return "Gold III"}
-                if(elo < 1300) {return "Emerald I"}
-                if(elo < 1400) {return "Emerald II"}
-                if(elo < 1500) {return "Emerald III"}
-                if(elo < 1650) {return "Diamond I"}
-                if(elo < 1800) {return "Diamond II"}
-                if(elo < 2000) {return "Diamond III"}
-                if(elo >= 2000)  {return "Netherite"}
-                else {return "Unrated"}
+                if (!elo) { return "Unrated or Hidden" }
+                if (elo < 400) { return "Coal I" }
+                if (elo < 500) { return "Coal II" }
+                if (elo < 600) { return "Coal III" }
+                if (elo < 700) { return "Iron I" }
+                if (elo < 800) { return "Iron II" }
+                if (elo < 900) { return "Iron III" }
+                if (elo < 1000) { return "Gold I" }
+                if (elo < 1100) { return "Gold II" }
+                if (elo < 1200) { return "Gold III" }
+                if (elo < 1300) { return "Emerald I" }
+                if (elo < 1400) { return "Emerald II" }
+                if (elo < 1500) { return "Emerald III" }
+                if (elo < 1650) { return "Diamond I" }
+                if (elo < 1800) { return "Diamond II" }
+                if (elo < 2000) { return "Diamond III" }
+                if (elo >= 2000) { return "Netherite" }
+                else { return "Unrated" }
             }
             function rankColor(rank) {
                 let color
                 let encodedColor
-                if(rank.startsWith("Coal")) {color = "A8A8A8"}
-                if(rank.startsWith("Iron")) {color = "FCFCFC"}
-                if(rank.startsWith("Gold")) {color = "FCA800"}
-                if(rank.startsWith("Emerald")) {color = "54FC54"}
-                if(rank.startsWith("Diamond")) {color = "54FCFC"}
-                if(rank.startsWith("Netherite")) {color = "A783FA"}
-                if(color) {encodedColor = encodeURIComponent(`#${color}`)}
+                if (rank.startsWith("Coal")) { color = "A8A8A8" }
+                if (rank.startsWith("Iron")) { color = "FCFCFC" }
+                if (rank.startsWith("Gold")) { color = "FCA800" }
+                if (rank.startsWith("Emerald")) { color = "54FC54" }
+                if (rank.startsWith("Diamond")) { color = "54FCFC" }
+                if (rank.startsWith("Netherite")) { color = "A783FA" }
+                if (color) { encodedColor = encodeURIComponent(`#${color}`) }
                 return encodedColor
             }
             function badgeIcon(badge) {
-                if (badge == 1) {return "◇"}
-                if (badge == 2) {return "◈"}
-                if (badge == 3) {return "❖"}
+                if (badge == 1) { return "◇" }
+                if (badge == 2) { return "◈" }
+                if (badge == 3) { return "❖" }
                 return ""
             }
             let userData, mcUUID
-
             if (!context.message.args[0]) {
                 userData = await bot.db.users.findOne({ id: context.user.id })
                 mcUUID = userData?.mcid
@@ -61,13 +60,21 @@ module.exports = {
                     return { text: `No MC username provided! To link your account, do '+link mc <username>'`, reply: true }
                 }
             } else {
-                let mojangData;
-                mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                if (mojangData.errorMessage) {
-                    return { text: mojangData.errorMessage, reply: true }
-                }
+                if (context.message.args[0]?.startsWith("@")) {
+                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
+                    mcUUID = userData.mcid
+                    if (!mcUUID) {
+                        return { text: `This user does not have a linked mc account!`, reply: true }
+                    }
 
-                mcUUID = mojangData.id
+                } else {
+                    let mojangData;
+                    mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
+                    if (mojangData.errorMessage) {
+                        return { text: mojangData.errorMessage, reply: true }
+                    }
+                    mcUUID = mojangData.id
+                }
             }
 
             let mcsrData;
