@@ -140,6 +140,7 @@ module.exports = {
             const color = rankColor(rankName)
 
             await twitchapi.changeColor(color)
+            await bot.Utils.sleep(500)
 
             // below is the dogshit code to get ff rate and shit
             let totalTime = 0
