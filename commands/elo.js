@@ -154,7 +154,7 @@ module.exports = {
                                 totalTime += match.final_time
                                 matchWins++
                             }
-                        } else {
+                        } else if(match.winner != null){
                             matchLosses++
                             if (match.forfeit) {
                                 totalFFs++
