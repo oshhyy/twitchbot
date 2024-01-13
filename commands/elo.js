@@ -139,6 +139,8 @@ module.exports = {
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
             const color = rankColor(rankName)
 
+            await twitchapi.changeColor(color)
+
             // below is the dogshit code to get ff rate and shit
             let totalTime = 0
             let matchWins = 0
@@ -166,17 +168,10 @@ module.exports = {
                     console.log('Error:', error.message);
                 });
 
-            console.log(totalTime)
-            console.log(matchWins)
-            console.log(matchLosses)
-            console.log(totalFFs)
-
             const matchAvg = msToTime(totalTime / matchWins)
             const forfeitRatePerMatch = (totalFFs / (totalFFs + seasonPlayed) * 100).toFixed(2);
             const forfeitRatePerLoss = (totalFFs / (totalFFs + matchLosses) * 100).toFixed(2);
 
-            await twitchapi.changeColor(color)
-            await bot.Utils.sleep(1000)
             return {
                 text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
             }
