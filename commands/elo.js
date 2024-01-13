@@ -52,6 +52,40 @@ module.exports = {
                 if (badge == 3) { return "❖" }
                 return ""
             }
+            async function getAllMatches(url) {
+                let allMatches = [];
+
+                let page = 0;
+
+                while (true) {
+                    try {
+                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2`).json();
+
+                        if (response.data && response.status === 'success') {
+                            const matches = response.data;
+
+                            if (matches.length > 0) {
+                                allMatches = allMatches.concat(matches);
+                                page++;
+                            } else {
+                                break; // No more matches to fetch
+                            }
+                        } else {
+                            console.error('Invalid API response format:', JSON.stringify(response.data, null, 2));
+                            break;
+                        }
+                    } catch (error) {
+                        console.error('Error fetching matches:', error.message);
+                        break;
+                    }
+
+                    console.log(`Fetched page ${page - 1}, total matches: ${allMatches.length}`);
+                }
+
+                console.log('Finished fetching all pages. Total matches:', allMatches.length);
+                return allMatches;
+            }
+
             let userData, mcUUID
             if (!context.message.args[0]) {
                 userData = await bot.db.users.findOne({ id: context.user.id })
@@ -100,16 +134,51 @@ module.exports = {
             const highestWS = mcsrData.data.highest_winstreak
             const currentWS = mcsrData.data.current_winstreak
 
-            var bestTime = mcsrData.data.best_record_time
-            bestTime = msToTime(bestTime)
+            var bestTime = msToTime(mcsrData.data.best_record_time)
             const WLRatio = (wins / losses).toFixed(2);
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
             const color = rankColor(rankName)
 
+            // below is the dogshit code to get ff rate and shit
+            let totalTime = 0
+            let matchWins = 0
+            let matchLosses = 0
+            let totalFFs = 0
+            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
+
+            await getAllMatches(apiUrl)
+                .then(allMatches => {
+                    for (match of allMatches) {
+                        if (match.winner == mcUUID) {
+                            if (!match.forfeit) {
+                                totalTime += match.final_time
+                                matchWins++
+                            }
+                        } else {
+                            matchLosses++
+                            if (match.forfeit) {
+                                totalFFs++
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:', error.message);
+                });
+
+            console.log(totalTime)
+            console.log(matchWins)
+            console.log(matchLosses)
+            console.log(totalFFs)
+
+            const matchAvg = msToTime(totalTime / matchWins)
+            const forfeitRatePerMatch = (totalFFs / (totalFFs + seasonPlayed) * 100).toFixed(2);
+            const forfeitRatePerLoss = (totalFFs / (totalFFs + matchLosses) * 100).toFixed(2);
+
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(1000)
             return {
-                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime}`, reply: true
+                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
             }
 
         } catch (err) {
