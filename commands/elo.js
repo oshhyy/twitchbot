@@ -174,7 +174,7 @@ module.exports = {
             const forfeitRatePerLoss = (totalFFs / (totalFFs + matchLosses) * 100).toFixed(2);
 
             return {
-                text: `/me • MCSR Ranked Statistics for ${badge} ${mcsrData.data.nickname}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
+                text: `/me • MCSR Ranked Statistics for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
             }
 
         } catch (err) {

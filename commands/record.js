@@ -99,7 +99,7 @@ module.exports = {
             const total = season.total
 
             console.log(season)
-            return{text:`${p1Badge}${p1Player} ${p1WinCount}-${p2WinCount} ${p2Badge}${p2Player} • ${total} total games played`, reply:true}
+            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played`, reply:true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
