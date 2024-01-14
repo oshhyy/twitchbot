@@ -124,8 +124,13 @@ module.exports = {
                     finalTime = msToTime(mostRecentNonDecayMatch.final_time)
                 }
             }
+
+            const epochTimeInSeconds = mostRecentNonDecayMatch.match_date;
+            const currentTimeInMilliseconds = new Date().getTime();
+            const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
+            const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
             
-            let matchDate = bot.Utils.humanize(mostRecentNonDecayMatch.match_date / 1000)
+            let matchDate = bot.Utils.humanize(timeDifferenceInMilliseconds)
 
             // P1 Info
             const p1Elo = mostRecentNonDecayMatch.members[0].elo_rate
