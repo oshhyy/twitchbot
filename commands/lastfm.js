@@ -22,10 +22,9 @@ module.exports = {
             return{text:` last.fm stats for ${data.user.name} • ${data.user.playcount.toLocaleString()} plays • ${data.user.artist_count.toLocaleString()} artists • ${data.user.track_count.toLocaleString()} tracks • ${data.user.album_count.toLocaleString()} albums`, reply:true}
             
         } catch (err) {
+            bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
-            return {
-                text: `error monkaS ${err.message} `,
-            };
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
         }
     },
 };

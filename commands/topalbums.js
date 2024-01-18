@@ -70,9 +70,7 @@ module.exports = {
             
         } catch (err) {
             console.log(err);
-            return {
-                text: `error monkaS ${err.message} `,
-            };
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
         }
     },
 };
