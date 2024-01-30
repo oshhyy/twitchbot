@@ -91,13 +91,8 @@ module.exports = {
                 }
             }
 
-            // Filter the data array to get entries with is_decay = false
-            const nonDecayMatches = mcsrData.data.filter(match => !match.is_decay);
-
-            // Sort the filtered array by match_date in descending order to get the most recent entry
-            const sortedMatches = nonDecayMatches.sort((a, b) => b.match_date - a.match_date);
-
-            // Get the most recent entry
+            const nonDecayMatches = mcsrData.data.filter(match => !match.decayed);
+            const sortedMatches = nonDecayMatches.sort((a, b) => b.date - a.date);
             const mostRecentNonDecayMatch = sortedMatches[0];
 
             console.log(mostRecentNonDecayMatch)
@@ -113,19 +108,19 @@ module.exports = {
                 winner = "N/A"
                 finalTime = "DRAW"
             } else {
-                for(member of mostRecentNonDecayMatch.members) {
-                    if(member.uuid == mostRecentNonDecayMatch.winner) {
-                        winner = member.nickname
+                for(player of mostRecentNonDecayMatch.players) {
+                    if(player.uuid == mostRecentNonDecayMatch.result.uuid) {
+                        winner = player.nickname
                     }
                 }
                 if(mostRecentNonDecayMatch.forfeit) {
-                    finalTime = `Forfeit at ${msToTime(mostRecentNonDecayMatch.final_time)}`
+                    finalTime = `Forfeit`
                 } else {
-                    finalTime = msToTime(mostRecentNonDecayMatch.final_time)
+                    finalTime = msToTime(mostRecentNonDecayMatch.result.time)
                 }
             }
 
-            const epochTimeInSeconds = mostRecentNonDecayMatch.match_date;
+            const epochTimeInSeconds = mostRecentNonDecayMatch.date;
             const currentTimeInMilliseconds = new Date().getTime();
             const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
             const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
@@ -133,46 +128,46 @@ module.exports = {
             let matchDate = bot.Utils.humanize(timeDifferenceInMilliseconds)
 
             // P1 Info
-            const p1Elo = mostRecentNonDecayMatch.members[0].elo_rate
-            const p1Rank = mostRecentNonDecayMatch.members[0].elo_rank ?? "?"
-            const p1Player = mostRecentNonDecayMatch.members[0].nickname
-            const p1Badge = badgeIcon(mostRecentNonDecayMatch.members[0].badge)
+            const p1Elo = mostRecentNonDecayMatch.players[0].eloRate ?? "?"
+            const p1Rank = mostRecentNonDecayMatch.players[0].eloRank ?? "?"
+            const p1Player = mostRecentNonDecayMatch.players[0].nickname
+            const p1Badge = badgeIcon(mostRecentNonDecayMatch.players[0].roleType)
 
             // P2 Info
-            const p2Elo = mostRecentNonDecayMatch.members[1].elo_rate
-            const p2Rank = mostRecentNonDecayMatch.members[1].elo_rank ?? "?"
-            const p2Player = mostRecentNonDecayMatch.members[1].nickname
-            const p2Badge = badgeIcon(mostRecentNonDecayMatch.members[1].badge)
+            const p2Elo = mostRecentNonDecayMatch.players[1].eloRate ?? "?"
+            const p2Rank = mostRecentNonDecayMatch.players[1].eloRank ?? "?"
+            const p2Player = mostRecentNonDecayMatch.players[1].nickname
+            const p2Badge = badgeIcon(mostRecentNonDecayMatch.players[1].roleType)
 
             // Elo Change
             let p1Change, p2Change, p1NewElo, p2NewElo
-            for(player of mostRecentNonDecayMatch.score_changes) {
-                if(player.uuid == mostRecentNonDecayMatch.members[0].uuid) {
+            for(player of mostRecentNonDecayMatch.changes) {
+                if(player.uuid == mostRecentNonDecayMatch.players[0].uuid) {
                     if (player.change >= 0) {
                         p1Change = `+${player.change}`
                     } else { p1Change = player.change }
 
-                    p1NewElo = player.score
+                    p1NewElo = player.eloRate
                     
                 } else {
                     if (player.change >= 0) {
                         p2Change = `+${player.change}`
                     } else { p2Change = player.change }
 
-                    p2NewElo = player.score
+                    p2NewElo = player.eloRate
                 }
             }
 
             // widewally just gettign the seed type
-            const matchData = await got(`https://mcsrranked.com/api/matches/${mostRecentNonDecayMatch.match_id}`).json();
-            const seedType = capitalizeEveryWord(matchData.data.seed_type.replace("_", " "))
+            // const matchData = await got(`https://mcsrranked.com/api/matches/${mostRecentNonDecayMatch.id}`).json();
+            // const seedType = capitalizeEveryWord(matchData.data.seed_type.replace("_", " "))
 
-            const averageElo = getRank((mostRecentNonDecayMatch.score_changes[0].score + mostRecentNonDecayMatch.score_changes[1].score) / 2)
+            const averageElo = getRank((mostRecentNonDecayMatch.changes[0].eloRate + mostRecentNonDecayMatch.changes[1].eloRate) / 2)
             const eloColor = rankColor(averageElo)
 
             await twitchapi.changeColor(eloColor)
             await bot.Utils.sleep(1000)
-            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${bot.Utils.unping(p1Player)} (${p1Elo}) VS #${p2Rank} ${p2Badge}${bot.Utils.unping(p2Player)} (${p2Elo}) • Seed Type: ${seedType} • Winner: ${winner} (${finalTime}) • Elo Change: ${bot.Utils.unping(p1Player)} ${p1Change} → ${p1NewElo} | ${bot.Utils.unping(p2Player)} ${p2Change} → ${p2NewElo} • https://mcsrrankedstats.vercel.app/oshgay/${mostRecentNonDecayMatch.match_id}`, reply: true}
+            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${bot.Utils.unping(p1Player)} (${p1Elo}) VS #${p2Rank} ${p2Badge}${bot.Utils.unping(p2Player)} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${bot.Utils.unping(p1Player)} ${p1Change} → ${p1NewElo} | ${bot.Utils.unping(p2Player)} ${p2Change} → ${p2NewElo} • https://mcsrrankedstats.vercel.app/oshgay/${mostRecentNonDecayMatch.id}`, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
