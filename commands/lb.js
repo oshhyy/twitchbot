@@ -33,7 +33,7 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?type=1`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?type=${lbSeason}`).json();
             } catch (err) {
                 return {
                     text: `An error has occured getting the leaderboard!`, reply: true
@@ -42,15 +42,15 @@ module.exports = {
             let message = ""
             if(lbType == "record-") {
                 // record lb
-                message = message.concat(`Current Season Record LB:`)
+                message = message.concat(`All-Time Record LB:`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data[i].user.badge)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].final_time)})`)
+                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in s${mcsrData.data[i].season})`)
                 }
             } else {
                 // elo lb
-                message = message.concat(`Elo LB for Ranked Season ${mcsrData.data.season_number}`)
+                message = message.concat(`Elo LB for Ranked Season ${mcsrData.data.season.number}`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${mcsrData.data.users[i].elo_rank}: ${badgeIcon(mcsrData.data.users[i].badge)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].elo_rate})`)
+                    message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
                 }
             }
 
