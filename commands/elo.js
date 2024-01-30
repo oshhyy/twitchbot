@@ -144,8 +144,6 @@ module.exports = {
             // below is the dogshit code to get ff rate and shit
             let totalTime = 0
             let matchWins = 0
-            let matchLosses = 0
-            let totalFFs = 0
             const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
 
             await getAllMatches(apiUrl)
@@ -156,11 +154,6 @@ module.exports = {
                                 totalTime += match.result.time
                                 matchWins++
                             }
-                        } else if(match.result.uuid != null){
-                            matchLosses++
-                            if (match.forfeited) {
-                                totalFFs++
-                            }
                         }
                     }
                 })
@@ -168,9 +161,11 @@ module.exports = {
                     console.log('Error:', error.message);
                 });
 
+            const forfeits = mcsrData.data.statistics.season.forfeits.ranked
+
             const matchAvg = msToTime(totalTime / matchWins)
-            const forfeitRatePerMatch = (totalFFs / (totalFFs + seasonPlayed) * 100).toFixed(2);
-            const forfeitRatePerLoss = (totalFFs / (totalFFs + matchLosses) * 100).toFixed(2);
+            const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
+            const forfeitRatePerLoss = (forfeits / (forfeits + losses) * 100).toFixed(2);
 
             return {
                 text: `/me • Current Season MCSR Ranked Statistics for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L: ${wins}/${losses} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${seasonPlayed} • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
