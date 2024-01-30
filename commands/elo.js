@@ -120,21 +120,20 @@ module.exports = {
                 }
             }
 
-            let badge = badgeIcon(mcsrData.data.badge)
+            let badge = badgeIcon(mcsrData.data.roleType)
 
-            const elo = mcsrData.data.elo_rate
-            const bestElo = mcsrData.data.best_elo_rate
-            const rank = mcsrData.data.elo_rank ?? "?"
+            const elo = mcsrData.data.eloRate
+            const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
-            const totalPlayed = mcsrData.data.total_played
-            const seasonPlayed = mcsrData.data.season_played
-            const wins = mcsrData.data.records[2].win
-            const losses = mcsrData.data.records[2].lose
-            const ties = mcsrData.data.records[2].draw
-            const highestWS = mcsrData.data.highest_winstreak
-            const currentWS = mcsrData.data.current_winstreak
 
-            var bestTime = msToTime(mcsrData.data.best_record_time)
+            const bestElo = mcsrData.data.seasonResult.highest
+            const seasonPlayed = mcsrData.data.statistics.season.playedMatches.ranked
+            const wins = mcsrData.data.statistics.season.wins.ranked
+            const losses = mcsrData.data.statistics.season.loses.ranked
+            const highestWS = mcsrData.data.statistics.season.highestWinStreak.ranked
+            const currentWS = mcsrData.data.statistics.season.currentWinStreak.ranked
+
+            var bestTime = msToTime(mcsrData.data.statistics.season.bestTime.ranked)
             const WLRatio = (wins / losses).toFixed(2);
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
             const color = rankColor(rankName)
@@ -150,16 +149,16 @@ module.exports = {
             const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
 
             await getAllMatches(apiUrl)
-                .then(allMatches => {
-                    for (match of allMatches) {
-                        if (match.winner == mcUUID) {
-                            if (!match.forfeit) {
-                                totalTime += match.final_time
+                .then(data => {
+                    for (match of data) {
+                        if (match.result.uuid == mcUUID) {
+                            if (!match.forfeited) {
+                                totalTime += match.result.time
                                 matchWins++
                             }
-                        } else if(match.winner != null){
+                        } else if(match.result.uuid != null){
                             matchLosses++
-                            if (match.forfeit) {
+                            if (match.forfeited) {
                                 totalFFs++
                             }
                         }
@@ -174,7 +173,7 @@ module.exports = {
             const forfeitRatePerLoss = (totalFFs / (totalFFs + matchLosses) * 100).toFixed(2);
 
             return {
-                text: `/me • MCSR Ranked Statistics for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L/T: ${wins}/${losses}/${ties} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${totalPlayed} (${seasonPlayed} this season) • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
+                text: `/me • Current Season MCSR Ranked Statistics for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L: ${wins}/${losses} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${seasonPlayed} • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
             }
 
         } catch (err) {
