@@ -80,25 +80,24 @@ module.exports = {
                 mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}`).json();
             } catch (err) {
                 return {
-                    text: `One of these usernames are not registered in MCSR Ranked! oshDank`, reply: true
+                    text: `User(s) not found! oshDank`, reply: true
                 }
             }
 
             // P1 Info
-            const p1Player = mcsrData.data.users[0].nickname
-            const p1Badge = badgeIcon(mcsrData.data.users[0].badge)
+            const p1Player = mcsrData.data.players[0].nickname
+            const p1Badge = badgeIcon(mcsrData.data.players[0].roleType)
 
             // P2 Info
-            const p2Player = mcsrData.data.users[1].nickname
-            const p2Badge = badgeIcon(mcsrData.data.users[1].badge)
+            const p2Player = mcsrData.data.players[1].nickname
+            const p2Badge = badgeIcon(mcsrData.data.players[1].roleType)
 
-            const seasons = Object.values(mcsrData.data.win_count);
-            const season = seasons[seasons.length - 1];
-            const p1WinCount = season[mcsrData.data.users[0].uuid];
-            const p2WinCount = season[mcsrData.data.users[1].uuid];
-            const total = season.total
+            const results = Object.values(mcsrData.data.results.ranked);
 
-            console.log(season)
+            const p1WinCount = results[1];
+            const p2WinCount = results[2];
+            const total = results[0]
+
             return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played`, reply:true}
 
         } catch (err) {
