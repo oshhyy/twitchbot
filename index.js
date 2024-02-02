@@ -36,8 +36,22 @@ bot.Client.on("PRIVMSG", async (msg) => {
     } else {
         message = msg.messageText.replace(bot.Utils.regex.invisChar, "").trimEnd();
     }
+
+    let userData
+    let broadcasterID
+    // !elo command that auto gets the broadcaster elo
+    // this method is dogshit and can be absolutely improved but idk a way
+    if (message == "!elo") {
+        userData = await bot.db.users.findOne({ id: msg.channelID })
+        mcUUID = userData?.mcid
+        if(mcUUID) {
+            message = `+broadcasterelo ${mcUUID}`
+        }
+        
+    }
+
     const content = message;
-    const channelData = await bot.db.channels.findOne({id: msg.channelID}); //this way you have the full channelData object, not just prefix
+    const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
     const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
     const args = content.slice(prefix.length).trim().split(/\s+/g) ?? null; //this cuts off prefix, makes array
     const commandName = args.length > 0 ? args.shift().toLowerCase() : ''; //this will pull the command out of array
@@ -94,7 +108,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     handle(msgData);
 
     if (msg.senderUserID === '71092938') {
-        let personColor = msg.colorRaw.replace('#',"")
+        let personColor = msg.colorRaw.replace('#', "")
         const encodedUser = encodeURIComponent(`#${personColor}`)
         await twitchapi.changeColor(encodedUser)
         bot.Client.privmsg(`iqvek`, `/me • message by ${msg.senderUsername} in #${msg.channelName}: ${msg.messageText}`)
@@ -114,10 +128,10 @@ bot.Client.on("PRIVMSG", async (msg) => {
     }
 
     if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
-        
+
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
-    
+
     let toList = ['markzynk', 'zomballr', 'flan__________', 'mrcosgallo', 'ryanpotat', 'ryanl_12', 'kattah']
 
     if ((msg.messageText == 'to' || msg.messageText == 'TO' || msg.messageText == 'two' || msg.messageText == 'too' || msg.messageText == 'OT' || msg.messageText == 'ot' || msg.messageText == 'oT' || msg.messageText == 'Ot' || msg.messageText == 'To' || msg.messageText == 'tO') && toList.includes(msg.channelName)) {
@@ -133,18 +147,18 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (msg.senderUserID == '489223884' && msg.channelName == 'alaskanpotat' && msg.messageText == 'elisElis') {
         let cookieData = await got(`https://api.roaringiron.com/cooldown/oshgay`).json()
         if (cookieData.can_claim && !cookieData.cdr_available) {
-            bot.Client.privmsg('azzzv', `!cookie`);
+            bot.Client.privmsg('markzynk', `!cookie`);
         } else if (!cookieData.can_claim && cookieData.cdr_available) {
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('azzzv', `!cdr`);
+            bot.Client.privmsg('markzynk', `!cdr`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('azzzv', `!cookie`);
+            bot.Client.privmsg('markzynk', `!cookie`);
         } else if (cookieData.can_claim && cookieData.cdr_available) {
-            bot.Client.privmsg('azzzv', `!cookie`);
+            bot.Client.privmsg('markzynk', `!cookie`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('azzzv', `!cdr`);
+            bot.Client.privmsg('markzynk', `!cdr`);
             await bot.Utils.sleep(2500)
-            bot.Client.privmsg('azzzv', `!cookie`);
+            bot.Client.privmsg('markzynk', `!cookie`);
         }
         let potatoData = await got(`https://api.potat.app/users/oshgay`).json()
         if (potatoData[0].potatoes.potato.ready && !potatoData[0].potatoes.cdr.ready) {
@@ -170,7 +184,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
 const xd = ["ryanpotate", "ryanpotatu", "l3ulit", "potatryan", "ryanbotat", "joepotat", "joebotat", "oshoshoshoshoshoshoshosh", "obviouslyosh", "joetomat", "mynameisntpotato", "widepeepoosh", "mynameisntosh", "poroissad", "poroisntsad", "osh______________________", "i3ulit", "widepeepopotato", "potat____", "supipotat", "ryanl_13", "p0tb", "pot1i", "9rya", "ryanfrenchfry", "ryanbutttat", "potatbuttat", "botatbutttat", "13742289_orthogonal", "circular_trapezoid", "potatinsanity", "carrots_and_soup", "just_a_cute_cat", "potat_exp", "thursdayasparagus"]
 
 setInterval(() => {
-    for(element of xd) {
+    for (element of xd) {
         bot.Client.privmsg(element, 'TriHard')
         bot.Utils.sleep(5000)
     }
@@ -182,7 +196,7 @@ setInterval(() => {
 
 bot.Client.on("NOTICE", async (notice) => {
     console.log(notice)
-    if(notice.messageID == "msg_rejected_mandatory") {
+    if (notice.messageID == "msg_rejected_mandatory") {
         bot.Client.privmsg(notice.channelName, `A message that was about to be sent wasn't posted due to conflicts with the channel's moderation settings. elisBruh`)
     }
 })
