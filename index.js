@@ -38,7 +38,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     }
 
     let userData
-    let broadcasterID
+    let mcUUID
     // !elo command that auto gets the broadcaster elo
     // this method is dogshit and can be absolutely improved but idk a way
     if (message == "!elo") {
