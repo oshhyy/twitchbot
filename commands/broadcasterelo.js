@@ -2,7 +2,7 @@ const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js')
 
 module.exports = {
-    name: "elo",
+    name: "broadcasterelo",
     cooldown: 3000,
     aliases: [],
     description: `shit fix`,

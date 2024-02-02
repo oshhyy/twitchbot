@@ -46,6 +46,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         mcUUID = userData?.mcid
         if(mcUUID) {
             message = `+broadcasterelo ${mcUUID}`
+            console.log(mcUUID)
         }
         
     }
