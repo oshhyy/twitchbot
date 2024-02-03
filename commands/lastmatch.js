@@ -113,8 +113,8 @@ module.exports = {
                         winner = player.nickname
                     }
                 }
-                if(mostRecentNonDecayMatch.forfeit) {
-                    finalTime = `Forfeit`
+                if(mostRecentNonDecayMatch.forfeited) {
+                    finalTime = `Forfeit at ${msToTime(mostRecentNonDecayMatch.result.time)}`
                 } else {
                     finalTime = msToTime(mostRecentNonDecayMatch.result.time)
                 }
