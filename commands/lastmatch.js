@@ -103,7 +103,7 @@ module.exports = {
 
             let finalTime
             let winner
-            if(mostRecentNonDecayMatch.winner == null) {
+            if(mostRecentNonDecayMatch.uuid == null) {
                 // DRAW
                 winner = "N/A"
                 finalTime = "DRAW"
