@@ -140,7 +140,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         else bot.Client.privmsg(msg.channelName, msg.messageText);
     }
 
-    if ((msg.messageText == 'oh' || msg.messageText == 'wait' || msg.messageText == 'POGGERS') && msg.channelName == "markzynk") {
+    if ((msg.messageText == 'oh' || msg.messageText == 'wait' || msg.messageText == 'POGGERS' || msg.messageText == 'alright') && msg.channelName == "markzynk") {
         if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
         else bot.Client.privmsg(msg.channelName, msg.messageText);
     }
