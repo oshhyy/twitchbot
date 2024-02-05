@@ -182,15 +182,6 @@ bot.Client.on("PRIVMSG", async (msg) => {
     }
 });
 
-const xd = ["ryanpotate", "ryanpotatu", "l3ulit", "potatryan", "ryanbotat", "joepotat", "joebotat", "oshoshoshoshoshoshoshosh", "obviouslyosh", "joetomat", "mynameisntpotato", "widepeepoosh", "mynameisntosh", "poroissad", "poroisntsad", "osh______________________", "i3ulit", "widepeepopotato", "potat____", "supipotat", "ryanl_13", "p0tb", "pot1i", "9rya", "ryanfrenchfry", "ryanbutttat", "potatbuttat", "botatbutttat", "13742289_orthogonal", "circular_trapezoid", "potatinsanity", "carrots_and_soup", "just_a_cute_cat", "potat_exp", "thursdayasparagus"]
-
-setInterval(() => {
-    for (element of xd) {
-        bot.Client.privmsg(element, 'TriHard')
-        bot.Utils.sleep(5000)
-    }
-}, 120000);
-
 setInterval(() => {
     bot.Client.privmsg("alaskanpotat", "elisElis")
 }, 3601000);
