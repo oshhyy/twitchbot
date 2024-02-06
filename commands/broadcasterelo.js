@@ -12,7 +12,7 @@ module.exports = {
             function msToTime(s) {
                 // Pad to 2 or 3 digits, default is 2
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
-                return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
+                return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0);
             }
             function getRank(elo) {
                 if (!elo) { return "Unrated or Hidden" }
@@ -106,7 +106,7 @@ module.exports = {
             const losses = mcsrData.data.statistics.season.loses.ranked
 
             var bestTime = msToTime(mcsrData.data.statistics.season.bestTime.ranked)
-            const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
+            const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
             const color = rankColor(rankName)
 
             await twitchapi.changeColor(color)
@@ -138,7 +138,7 @@ module.exports = {
             const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} ranked stats: elo ${elo} (peak ${bestElo}) • ${rankName} (#${rank}) • w/l: ${wins}/${losses} (${WinPercent}%) • played ${seasonPlayed} matches • fastest time ${bestTime} (avg ${matchAvg}) • ff rate: ${forfeitRatePerMatch}%`, reply: true
+                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} ranked stats: elo ${elo} (peak ${bestElo}) • ${rankName} (#${rank}) • w/l: ${wins}/${losses} (${WinPercent}%) • played ${seasonPlayed} matches • fastest time ${bestTime} (avg ${matchAvg}) • ff rate ${forfeitRatePerMatch}%`, reply: true
             }
 
         } catch (err) {
