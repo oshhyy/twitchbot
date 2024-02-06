@@ -164,7 +164,7 @@ module.exports = {
             const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Ranked Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}%`, reply: true
+                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}%`, reply: true
             }
 
         } catch (err) {
