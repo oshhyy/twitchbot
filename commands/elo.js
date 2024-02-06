@@ -130,11 +130,8 @@ module.exports = {
             const seasonPlayed = mcsrData.data.statistics.season.playedMatches.ranked
             const wins = mcsrData.data.statistics.season.wins.ranked
             const losses = mcsrData.data.statistics.season.loses.ranked
-            const highestWS = mcsrData.data.statistics.season.highestWinStreak.ranked
-            const currentWS = mcsrData.data.statistics.season.currentWinStreak.ranked
 
             var bestTime = msToTime(mcsrData.data.statistics.season.bestTime.ranked)
-            const WLRatio = (wins / losses).toFixed(2);
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(2);
             const color = rankColor(rankName)
 
@@ -165,10 +162,9 @@ module.exports = {
 
             const matchAvg = msToTime(totalTime / matchWins)
             const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
-            const forfeitRatePerLoss = (forfeits / (forfeits + losses) * 100).toFixed(2);
 
             return {
-                text: `/me • Current Season MCSR Ranked Statistics for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L Ratio: ${WLRatio} • W/L: ${wins}/${losses} (${WinPercent}% winrate) • WS: ${currentWS} (Highest: ${highestWS}) • Total Games Played: ${seasonPlayed} • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}% (${forfeitRatePerLoss}% per loss)`, reply: true
+                text: `/me • Ranked Stats for ${badge} ${bot.Utils.unping(mcsrData.data.nickname)}: Elo: ${elo} (Peak: ${bestElo}) • Rank: ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played: ${seasonPlayed} matches • Fastest Time: ${bestTime} (avg ${matchAvg}) • FF Rate: ${forfeitRatePerMatch}%`, reply: true
             }
 
         } catch (err) {
