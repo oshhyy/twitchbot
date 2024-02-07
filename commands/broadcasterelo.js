@@ -100,7 +100,7 @@ module.exports = {
             const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
 
-            let phasePoints
+            let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
                 phasePoints = `• Phase Points: ${mcsrData.data.seasonResult.last.phasePoint}`
             }
