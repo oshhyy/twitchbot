@@ -102,7 +102,7 @@ module.exports = {
 
             let phasePoints
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
-                phasePoints = `• Phase Points: ${phasePoints}`
+                phasePoints = `• Phase Points: ${mcsrData.data.seasonResult.last.phasePoint}`
             }
 
             const bestElo = mcsrData.data.seasonResult.highest
