@@ -100,6 +100,11 @@ module.exports = {
             const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
 
+            let phasePoints
+            if(mcsrData.data.seasonResult.last.phasePoint != 0) {
+                phasePoints = `• Phase Points: ${phasePoints}`
+            }
+
             const bestElo = mcsrData.data.seasonResult.highest
             const seasonPlayed = mcsrData.data.statistics.season.playedMatches.ranked
             const wins = mcsrData.data.statistics.season.wins.ranked
@@ -138,7 +143,7 @@ module.exports = {
             const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}%`, reply: true
+                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}% ${phasePoints}`, reply: true
             }
 
         } catch (err) {
