@@ -73,24 +73,7 @@ module.exports = {
                     player1 = context.message.args[0]
                     player2 = context.message.args[1]
                 }
-            } 
-
-            // to fix caps issue, can be removed when case insensitivity is added back
-            
-            let mojangData;
-            mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${player1}`, { throwHttpErrors: false }).json()
-            if (mojangData.errorMessage) {
-                return { text: mojangData.errorMessage, reply: true }
             }
-
-            player1 = mojangData.name
-
-            mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${player2}`, { throwHttpErrors: false }).json()
-            if (mojangData.errorMessage) {
-                return { text: mojangData.errorMessage, reply: true }
-            }
-            
-            player2 = mojangData.name
 
             let mcsrData;
             try {
