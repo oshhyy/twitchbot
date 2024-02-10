@@ -146,7 +146,7 @@ module.exports = {
             // below is the dogshit code to get ff rate and shit
             let totalTime = 0
             let matchWins = 0
-            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches?filter=2`;
+            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
 
             await getAllMatches(apiUrl)
                 .then(data => {
