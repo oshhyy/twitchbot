@@ -17,7 +17,7 @@ module.exports = {
             let type = context.message.args[0]
             let name = context.message.args[1]
             let data, userInfo, newUser
-            if (!name) { return { text:'Enter the username of the account you want to link!', reply: true } }
+            if (!name) { return { text:'usage: +link <mc|lastfm> <username> !', reply: true } }
             if (type == "lastfm") {
                 data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${name}&api_key=${config.lastfmKey}&format=json`, { throwHttpErrors: false }).json()
                 if (data.message) {
