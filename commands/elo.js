@@ -59,7 +59,7 @@ module.exports = {
 
                 while (true) {
                     try {
-                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2`).json();
+                        const response = await got(`${url}?page=${page}&count=50&excludedecay&filter=2`).json();
 
                         if (response.data && response.status === 'success') {
                             const matches = response.data;
@@ -146,7 +146,7 @@ module.exports = {
             // below is the dogshit code to get ff rate and shit
             let totalTime = 0
             let matchWins = 0
-            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
+            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches?filter=2`;
 
             await getAllMatches(apiUrl)
                 .then(data => {
