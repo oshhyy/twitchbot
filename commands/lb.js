@@ -27,7 +27,9 @@ module.exports = {
 
             if (context.message.args[0]) {
                 let timeNames = ["time", "record", "",]
+                let phaseNames = ["phase", "phasepoints", "points",]
                 if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
+                if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
             }
 
@@ -46,12 +48,20 @@ module.exports = {
                 for(let i = 0; i < 10; i++) {
                     message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in s${mcsrData.data[i].season})`)
                 }
+            } else if (lbType == "phase-") {
+                // phase lb
+                message = message.concat(`Phase LB for Ranked Season ${mcsrData.data.season.number}:`)
+                for(let i = 0; i < 10; i++) {
+                    message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
+                }
+                message = message.concat(`• phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(mcsrData.data.phase.endsAt)}`)
             } else {
                 // elo lb
                 message = message.concat(`Elo LB for Ranked Season ${mcsrData.data.season.number}`)
                 for(let i = 0; i < 10; i++) {
                     message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
                 }
+
             }
 
             return {text:message, reply:true}
