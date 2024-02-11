@@ -50,7 +50,7 @@ module.exports = {
                 }
             } else if (lbType == "phase-") {
                 // phase lb
-                message = message.concat(`Phase LB for Ranked Season ${mcsrData.data.season.number}:`)
+                message = message.concat(`Phase LB for Ranked Season ${mcsrData.data.phase.season}:`)
                 for(let i = 0; i < 10; i++) {
                     message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                 }
