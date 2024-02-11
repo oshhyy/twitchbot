@@ -42,6 +42,7 @@ module.exports = {
                 }
             }
             let message = ""
+            const currentTimeInMilliseconds = new Date().getTime();
             if(lbType == "record-") {
                 // record lb
                 message = message.concat(`All-Time Record LB:`)
@@ -54,14 +55,14 @@ module.exports = {
                 for(let i = 0; i < 10; i++) {
                     message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                 }
-                message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(mcsrData.data.phase.endsAt)}`)
+                message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - mcsrData.data.phase.endsAt)}`)
             } else {
                 // elo lb
                 message = message.concat(`Elo LB:`)
                 for(let i = 0; i < 10; i++) {
                     message = message.concat(` • ${mcsrData.data.users[i].eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
                 }
-                message = message.concat(` • season ${mcsrData.data.season.number} ends in ${bot.Utils.humanize(mcsrData.data.season.endsAt)}`)
+                message = message.concat(` • season ${mcsrData.data.season.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - mcsrData.data.season.endsAt)}`)
             }
 
             return {text:message, reply:true}
