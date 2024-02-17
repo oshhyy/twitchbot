@@ -41,14 +41,18 @@ bot.Client.on("PRIVMSG", async (msg) => {
     let mcUUID
     // !elo command that auto gets the broadcaster elo
     // this method is dogshit and can be absolutely improved but idk a way
-    if (message == "!elo") {
-        userData = await bot.db.users.findOne({ id: msg.channelID })
-        mcUUID = userData?.mcid
-        if(mcUUID) {
-            message = `+broadcasterelo ${mcUUID}`
-            console.log(mcUUID)
-        }
-        
+    if (message.startsWith("!elo")) {
+        let asd = content.slice(1).trim().split(/\s+/g) ?? null
+        if(asd[0]) {
+            message = `+elo ${asd[0]}`
+        } else {
+            userData = await bot.db.users.findOne({ id: msg.channelID })
+            mcUUID = userData?.mcid
+            if(mcUUID) {
+                message = `+broadcasterelo ${mcUUID}`
+                console.log(mcUUID)
+            }
+        }        
     }
 
     const content = message;
