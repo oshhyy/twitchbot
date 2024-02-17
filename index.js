@@ -42,7 +42,8 @@ bot.Client.on("PRIVMSG", async (msg) => {
     // !elo command that auto gets the broadcaster elo
     // this method is dogshit and can be absolutely improved but idk a way
     if (message.startsWith("!elo")) {
-        let asd = content.slice(1).trim().split(/\s+/g) ?? null
+        let asd = message.slice(1).trim().split(/\s+/g) ?? null
+        console.log(asd)
         if(asd[0]) {
             message = `+elo ${asd[0]}`
         } else {
