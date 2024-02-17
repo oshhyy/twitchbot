@@ -44,8 +44,8 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (message.startsWith("!elo")) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         console.log(asd)
-        if(asd[0]) {
-            message = `+elo ${asd[0]}`
+        if(asd[1]) {
+            message = `+elo ${asd[1]}`
         } else {
             userData = await bot.db.users.findOne({ id: msg.channelID })
             mcUUID = userData?.mcid
