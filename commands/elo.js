@@ -98,7 +98,7 @@ module.exports = {
 
             let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
-                phasePoints = `• Phase Points: ${mcsrData.data.seasonResult.last.phasePoint}`
+                phasePoints = `• ${mcsrData.data.seasonResult.last.phasePoint} Phase Points`
             }
 
             const bestElo = mcsrData.data.seasonResult.highest
@@ -118,7 +118,7 @@ module.exports = {
             const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}% ${phasePoints}`, reply: true
+                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: ${elo} Elo (${bestElo} Peak) • ${rankName} (#${rank}) • ${wins}/${losses} W/L (${WinPercent}%) • ${seasonPlayed} Matches Played • ${bestTime} Fastest Time (${matchAvg} avg) • ${forfeitRatePerMatch}% FF Rate ${phasePoints}`, reply: true
             }
 
         } catch (err) {
