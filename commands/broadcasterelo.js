@@ -60,12 +60,16 @@ module.exports = {
             } catch (err) {
                 console.log(err)
             }
+            const rankName = getRank(elo)
+            const color = rankColor(rankName)
+            await twitchapi.changeColor(color)
+            await bot.Utils.sleep(500)
+            
 
             let badge = badgeIcon(mcsrData.data.roleType)
 
             const elo = mcsrData.data.eloRate
             const rank = mcsrData.data.eloRank ?? "?"
-            const rankName = getRank(elo)
 
             let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
@@ -79,10 +83,6 @@ module.exports = {
 
             var bestTime = msToTime(mcsrData.data.statistics.season.bestTime.ranked)
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
-            const color = rankColor(rankName)
-
-            await twitchapi.changeColor(color)
-            await bot.Utils.sleep(500)
 
             let totalTime = mcsrData.data.statistics.season.completionTime.ranked
             let completions = mcsrData.data.statistics.season.completions.ranked
