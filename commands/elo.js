@@ -86,6 +86,7 @@ module.exports = {
                     text: `This username is not registered in MCSR Ranked! oshDank`, reply: true
                 }
             }
+            const elo = mcsrData.data.eloRate
             const rankName = getRank(elo)
             const color = rankColor(rankName)
             await twitchapi.changeColor(color)
@@ -93,9 +94,7 @@ module.exports = {
             
             let badge = badgeIcon(mcsrData.data.roleType)
 
-            const elo = mcsrData.data.eloRate
             const rank = mcsrData.data.eloRank ?? "?"
-            
 
             let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {

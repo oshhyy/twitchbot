@@ -60,15 +60,14 @@ module.exports = {
             } catch (err) {
                 console.log(err)
             }
+            const elo = mcsrData.data.eloRate
             const rankName = getRank(elo)
             const color = rankColor(rankName)
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(500)
-            
 
             let badge = badgeIcon(mcsrData.data.roleType)
-
-            const elo = mcsrData.data.eloRate
+            
             const rank = mcsrData.data.eloRank ?? "?"
 
             let phasePoints = ""
