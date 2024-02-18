@@ -52,39 +52,6 @@ module.exports = {
                 if (badge == 3) { return "❖" }
                 return ""
             }
-            async function getAllMatches(url) {
-                let allMatches = [];
-
-                let page = 0;
-
-                while (true) {
-                    try {
-                        const response = await got(`${url}?page=${page}&count=50&excludedecay&type=2`).json();
-
-                        if (response.data && response.status === 'success') {
-                            const matches = response.data;
-
-                            if (matches.length > 0) {
-                                allMatches = allMatches.concat(matches);
-                                page++;
-                            } else {
-                                break; // No more matches to fetch
-                            }
-                        } else {
-                            console.error('Invalid API response format:', JSON.stringify(response.data, null, 2));
-                            break;
-                        }
-                    } catch (error) {
-                        console.error('Error fetching matches:', error.message);
-                        break;
-                    }
-
-                    console.log(`Fetched page ${page - 1}, total matches: ${allMatches.length}`);
-                }
-
-                console.log('Finished fetching all pages. Total matches:', allMatches.length);
-                return allMatches;
-            }
 
             let userData, mcUUID
             if (!context.message.args[0]) {
@@ -143,29 +110,12 @@ module.exports = {
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(500)
 
-            // below is the dogshit code to get ff rate and shit
-            let totalTime = 0
-            let matchWins = 0
-            const apiUrl = `https://mcsrranked.com/api/users/${mcUUID}/matches`;
-
-            await getAllMatches(apiUrl)
-                .then(data => {
-                    for (match of data) {
-                        if (match.result.uuid == mcUUID) {
-                            if (!match.forfeited) {
-                                totalTime += match.result.time
-                                matchWins++
-                            }
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error.message);
-                });
+            let totalTime = mcsrData.data.statistics.season.completionTime.ranked
+            let completions = mcsrData.data.statistics.season.completions.ranked
 
             const forfeits = mcsrData.data.statistics.season.forfeits.ranked
 
-            const matchAvg = msToTime(totalTime / matchWins)
+            const matchAvg = msToTime(totalTime / completions)
             const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
