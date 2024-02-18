@@ -140,7 +140,7 @@ module.exports = {
             const forfeits = mcsrData.data.statistics.season.forfeits.ranked
 
             const matchAvg = msToTime(totalTime / matchWins)
-            const forfeitRatePerMatch = (forfeits / (forfeits + seasonPlayed) * 100).toFixed(2);
+            const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
                 text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: Elo ${elo} (Peak ${bestElo}) • ${rankName} (#${rank}) • W/L: ${wins}/${losses} (${WinPercent}%) • Played ${seasonPlayed} Matches • Fastest Time ${bestTime} (avg ${matchAvg}) • FF Rate ${forfeitRatePerMatch}% ${phasePoints}`, reply: true
