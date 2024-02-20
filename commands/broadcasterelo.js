@@ -46,15 +46,6 @@ module.exports = {
                 if (color) { encodedColor = encodeURIComponent(`#${color}`) }
                 return encodedColor
             }
-            function podiumColor(n) {
-                let colorASD
-                let encodedColorASD
-                if (n == 1) { colorASD = "EDE59A" }
-                if (n == 2) { colorASD = "CFCBCA" }
-                if (n == 3) { colorASD = "B57F6B" }
-                if (colorASD) { encodedColorASD = encodeURIComponent(`#${colorASD}`) }
-                return encodedColorASD
-            }
             function badgeIcon(badge) {
                 if (badge == 1) { return "◇" }
                 if (badge == 2) { return "◈" }
@@ -72,11 +63,7 @@ module.exports = {
             const elo = mcsrData.data.eloRate
             const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
-            let color
-            if (rank < 4) {
-                color = podiumColor(rankName)
-            } else { color = rankColor(rankName) }
-            
+            let color = rankColor(rankName)
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(1000)
 
