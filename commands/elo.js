@@ -46,6 +46,15 @@ module.exports = {
                 if (color) { encodedColor = encodeURIComponent(`#${color}`) }
                 return encodedColor
             }
+            function podiumColor(rank) {
+                let color
+                let encodedColor
+                if (rank == 1) { color = "EDE59A" }
+                if (rank == 2) { color = "CFCBCA" }
+                if (rank == 3) { color = "B57F6B" }
+                if (color) { encodedColor = encodeURIComponent(`#${color}`) }
+                return encodedColor
+            }
             function badgeIcon(badge) {
                 if (badge == 1) { return "◇" }
                 if (badge == 2) { return "◈" }
@@ -87,14 +96,17 @@ module.exports = {
                 }
             }
             const elo = mcsrData.data.eloRate
+            const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
-            const color = rankColor(rankName)
+            let color
+            if (rank <= 3) {
+                color = podiumColor(rankName)
+            } else { color = rankColor(rankName) }
+            
             await twitchapi.changeColor(color)
-            await bot.Utils.sleep(500)
+            await bot.Utils.sleep(1000)
             
             let badge = badgeIcon(mcsrData.data.roleType)
-
-            const rank = mcsrData.data.eloRank ?? "?"
 
             let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
