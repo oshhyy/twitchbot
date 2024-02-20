@@ -46,6 +46,15 @@ module.exports = {
                 if (color) { encodedColor = encodeURIComponent(`#${color}`) }
                 return encodedColor
             }
+            function podiumColor(n) {
+                let colorASD
+                let encodedColorASD
+                if (n == 1) { colorASD = "EDE59A" }
+                if (n == 2) { colorASD = "CFCBCA" }
+                if (n == 3) { colorASD = "B57F6B" }
+                if (colorASD) { encodedColorASD = encodeURIComponent(`#${colorASD}`) }
+                return encodedColorASD
+            }
             function badgeIcon(badge) {
                 if (badge == 1) { return "◇" }
                 if (badge == 2) { return "◈" }
@@ -61,14 +70,17 @@ module.exports = {
                 console.log(err)
             }
             const elo = mcsrData.data.eloRate
+            const rank = mcsrData.data.eloRank ?? "?"
             const rankName = getRank(elo)
-            const color = rankColor(rankName)
+            let color
+            if (rank < 4) {
+                color = podiumColor(rankName)
+            } else { color = rankColor(rankName) }
+            
             await twitchapi.changeColor(color)
-            await bot.Utils.sleep(500)
+            await bot.Utils.sleep(1000)
 
             let badge = badgeIcon(mcsrData.data.roleType)
-            
-            const rank = mcsrData.data.eloRank ?? "?"
 
             let phasePoints = ""
             if(mcsrData.data.seasonResult.last.phasePoint != 0) {
@@ -92,7 +104,7 @@ module.exports = {
             const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: ${elo} Elo (${bestElo} Peak) • ${rankName} (#${rank}) • ${wins}/${losses} W/L (${WinPercent}%) • ${seasonPlayed} Matches Played • ${bestTime} Fastest Time (${matchAvg} avg) • ${forfeitRatePerMatch}% FF Rate ${phasePoints}`, reply: true
+                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: ${elo} Elo (${bestElo} Peak) • ${rankName} (#${rank}) • W/L ${wins}/${losses} (${WinPercent}%) • ${seasonPlayed} Matches Played • ${bestTime} pb (${matchAvg} avg) • ${forfeitRatePerMatch}% FF Rate ${phasePoints}`, reply: true
             }
 
         } catch (err) {
