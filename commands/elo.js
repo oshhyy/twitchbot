@@ -52,7 +52,7 @@ module.exports = {
                 if (n == 1) { colorASD = "EDE59A" }
                 if (n == 2) { colorASD = "CFCBCA" }
                 if (n == 3) { colorASD = "B57F6B" }
-                if (colorASD) { encodedColorASD = encodeURIComponent(`#${color}`) }
+                if (colorASD) { encodedColorASD = encodeURIComponent(`#${colorASD}`) }
                 return encodedColorASD
             }
             function badgeIcon(badge) {
