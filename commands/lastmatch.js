@@ -167,7 +167,7 @@ module.exports = {
 
             await twitchapi.changeColor(eloColor)
             await bot.Utils.sleep(1000)
-            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${bot.Utils.unping(p1Player)} (${p1Elo}) VS #${p2Rank} ${p2Badge}${bot.Utils.unping(p2Player)} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${bot.Utils.unping(p1Player)} ${p1Change} → ${p1NewElo} | ${bot.Utils.unping(p2Player)} ${p2Change} → ${p2NewElo} • Seed Type: ${seedType} • https://mcsrrankedstats.vercel.app/oshgay/${mostRecentNonDecayMatch.id}`, reply: true}
+            return{text: `/me • Ranked Match Stats (${matchDate} ago) • #${p1Rank} ${p1Badge}${bot.Utils.unping(p1Player)} (${p1Elo}) VS #${p2Rank} ${p2Badge}${bot.Utils.unping(p2Player)} (${p2Elo}) • Winner: ${winner} (${finalTime}) • Elo Change: ${bot.Utils.unping(p1Player)} ${p1Change} → ${p1NewElo} | ${bot.Utils.unping(p2Player)} ${p2Change} → ${p2NewElo} • Seed Type: ${seedType} • https://mcsrrankedstats.vercel.app/${p1Player}/${mostRecentNonDecayMatch.id}`, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
