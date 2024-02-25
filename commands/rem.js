@@ -38,9 +38,6 @@ module.exports = {
             }));
 
             const result = [];
-
-            let listOfEmotes = [];
-            let phrase = ''
             
             for (const setData of subEmoteSets) {
                 const emotes = []; for (const emote of setData.emotes) { emotes.push(emote.token); } 
@@ -64,6 +61,9 @@ module.exports = {
                         text: `I can't perform this command because I am not moderator or vip! NOIDONTTHINKSO`, reply: true
                     };
                 }
+
+                let phrase = xd.join(' ')
+
                 const len = 475
                 let curr = len;
                 let prev = 0;
