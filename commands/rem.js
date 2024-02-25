@@ -75,7 +75,8 @@ module.exports = {
                         curr += len;
                     }
                 }
-
+                emoteList.push(phrase.substr(prev));
+                
                 for(const element of emoteList) {
                     bot.Client.privmsg(context.channel.login, element)
                 }
