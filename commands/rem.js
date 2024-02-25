@@ -67,7 +67,7 @@ module.exports = {
                 const len = 475
                 let curr = len;
                 let prev = 0;
-                let emoteList = xd;
+                let emoteList = [];
                 while (phrase[curr]) {
                     if (phrase[curr++] === ' ') {
                         emoteList.push(phrase.substring(prev, curr));
