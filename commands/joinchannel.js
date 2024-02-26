@@ -75,7 +75,7 @@ module.exports = {
                     bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${channel} • \n\nAdded by ${context.user.name}`);
 
                     return {
-                        text: `Joined channel #${channel} docArrive`, reply: true
+                        text: `Joined channel #${channel} docArrive It is recommended that you mod the bot, as authorizing will soon become a requirement due to Twitch API changes.`, reply: true
                     }
                 } else {
                     return {
