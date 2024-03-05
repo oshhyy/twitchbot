@@ -50,7 +50,13 @@ module.exports = {
                 if (badge == 1) { return "◇" }
                 if (badge == 2) { return "◈" }
                 if (badge == 3) { return "❖" }
-                return ""
+                return "•"
+            }
+            function medal(rank) {
+                if (rank == 1) { return "🥇" }
+                if (rank == 2) { return "🥈" }
+                if (rank == 3) { return "🥉" }
+                return `#${rank}`
             }
 
             let mcUUID = context.message.args[0]
@@ -61,7 +67,7 @@ module.exports = {
                 console.log(err)
             }
             const elo = mcsrData.data.eloRate
-            const rank = mcsrData.data.eloRank ?? "?"
+            const rank = medal(mcsrData.data.eloRank ?? "?")
             const rankName = getRank(elo)
             let color = rankColor(rankName)
             await twitchapi.changeColor(color)
@@ -91,7 +97,7 @@ module.exports = {
             const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
-                text: `/me • ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: ${elo} Elo (${bestElo} Peak) • ${rankName} (#${rank}) • W/L ${wins}/${losses} (${WinPercent}%) • ${seasonPlayed} Matches Played • ${bestTime} pb (${matchAvg} avg) • ${forfeitRatePerMatch}% FF Rate ${phasePoints}`, reply: true
+                text: `/me ${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Stats: ${elo} Elo (${bestElo} Peak) • ${rankName} (#${rank}) • W/L ${wins}/${losses} (${WinPercent}%) • ${seasonPlayed} Played • ${bestTime} pb (${matchAvg} avg) • ${forfeitRatePerMatch}% FF Rate ${phasePoints}`, reply: true
             }
 
         } catch (err) {
