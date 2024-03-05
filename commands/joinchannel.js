@@ -36,7 +36,7 @@ module.exports = {
                 bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${context.user.login} • ${context.user.id}`);
 
                 return {
-                    text: `Joined channel #${context.user.login} docArrive`, reply: true
+                    text: `Joined channel #${context.user.login} docArrive It is recommended that you mod the bot, as authorizing will soon become a requirement due to Twitch API changes.`, reply: true
                 }
             }
 
@@ -75,7 +75,7 @@ module.exports = {
                     bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${channel} • \n\nAdded by ${context.user.name}`);
 
                     return {
-                        text: `Joined channel #${channel} docArrive It is recommended that you mod the bot, as authorizing will soon become a requirement due to Twitch API changes.`, reply: true
+                        text: `Joined channel #${channel} docArrive`, reply: true
                     }
                 } else {
                     return {
