@@ -4,7 +4,7 @@ const config = require("../config.json");
 module.exports = {
     name: "lastfm",
     cooldown: 3000,
-    aliases: ["lastfmstats"],
+    aliases: ["lastfmstats", "fmstats"],
     description: `lastfm [lastfm-username] - shows stats for last.fm`,
     execute: async context => {
         try {
