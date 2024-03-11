@@ -78,7 +78,7 @@ module.exports = {
                     let mojangData;
                     mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
                     if (mojangData.errorMessage) {
-                        return { text: mojangData.errorMessage, reply: true }
+                        return { text: `Mojang Error: ${mojangData.errorMessage} FallCry`, reply: true }
                     }
                     mcUUID = mojangData.id
                 }
@@ -89,7 +89,7 @@ module.exports = {
                 mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
             } catch (err) {
                 return {
-                    text: `This username is not registered in MCSR Ranked! oshDank`, reply: true
+                    text: `No ranked profile found. FallCry`, reply: true
                 }
             }
             const elo = mcsrData.data.eloRate
