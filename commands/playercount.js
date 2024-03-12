@@ -8,8 +8,9 @@ module.exports = {
     execute: async context => {
         try {
             // command code
+            let rankedData
             try {
-            const rankedData = await got(`https://mcsrranked.com/api/live`, {throwHttpErrors:false}).json();
+            rankedData = await got(`https://mcsrranked.com/api/live`, {throwHttpErrors:false}).json();
         } catch(err) {
             return {
                 ext:'An API error occured. FallCry', reply:true
