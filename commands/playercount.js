@@ -16,8 +16,8 @@ module.exports = {
                 ext:'An API error occured. FallCry', reply:true
             };
         }
-
-            return{text:`there are ${rankedData.data.players} players currently playing ranked.`, return:true}
+        
+        return{text:`there are ${rankedData.data.players} players currently playing ranked.`, reply:true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
