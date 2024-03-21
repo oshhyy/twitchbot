@@ -12,7 +12,7 @@ module.exports = {
             const userData = await bot.db.users.findOne({id: context.user.id})
             const lastfmName = context.message.args[0] ?? userData?.lastfm
             if(!lastfmName){
-                return{text:`No last.fm username provided! To link your account, do '+link <username>'`, reply:true}
+                return{text:`No last.fm username provided! To link your account, do '+link lastfm <username>'`, reply:true}
             }
             const data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastfmName}&api_key=${config.lastfmKey}&format=json&limit=1&extended=1`, {throwHttpErrors:false}).json()
             if(data.message) {
