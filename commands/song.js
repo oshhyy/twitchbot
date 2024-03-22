@@ -42,16 +42,22 @@ module.exports = {
             }
             if(status == 'no'){
                 return{text:`User ${lastfmName} is currently not listening to anything!`, reply:true}
-            } else {
-                const songName = data.recenttracks.track[0].name
-                const artistName = data.recenttracks.track[0].artist.name
-                const url = data.recenttracks.track[0].url
-                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url}`, reply:true}
             }
+            let songName, artistName, url
+            try {
+                songName = data.recenttracks.track[0].name
+                artistName = data.recenttracks.track[0].artist.name
+                url = data.recenttracks.track[0].url
+            } catch(err) {
+                songName = data.recenttracks.track.name
+                artistName = data.recenttracks.track.artist.name
+                url = data.recenttracks.track.url
+            }
+                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url}`, reply:true}
             
         } catch (err) {
             console.log(err);
-            bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} NAILS`)
         }
     },
 };
