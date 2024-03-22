@@ -30,8 +30,16 @@ module.exports = {
             if(data.message) {
                 return{text:data.message, reply:true}
             }
-            
-            const status = data.recenttracks.track[0][`@attr`]?.nowplaying ? `yes` : `no`
+            let status
+            try{
+                status = data.recenttracks.track[0][`@attr`]?.nowplaying ? `yes` : `no`
+            } catch(err) {
+                try{
+                    status = data.recenttracks.track[`@attr`]?.nowplaying ? `yes` : `no`
+                } catch (err) {
+                    return {text:`No songs on last.fm profile! Remember to link your last.fm account and spotify on the website.`, reply:true}
+                }
+            }
             if(status == 'no'){
                 return{text:`User ${lastfmName} is currently not listening to anything!`, reply:true}
             } else {
