@@ -47,7 +47,7 @@ module.exports = {
                 // record lb
                 message = message.concat(`All-Time Record LB`)
                 for(let i = 0; i < 10; i++) {
-                    message = message.concat(` • ${i + 1}: ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in s${mcsrData.data[i].season})`)
+                    message = message.concat(` • #${i + 1} ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in s${mcsrData.data[i].season})`)
                 }
             } else if (lbType == "phase-") {
                 // phase lb
