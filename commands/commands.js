@@ -7,7 +7,7 @@ module.exports = {
         try {
             const commands = []; 
             bot.Command.Commands.forEach((command) => commands.push(command.name))
-            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
+            const { prefix } = await bot.db.channels.findOne({id: context.channel.id}) ?? '+';
             
             return {
                 text: `prefix: ${prefix} • command list: https://bot.oshgay.xyz/ (wip site :) )`,

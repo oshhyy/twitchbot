@@ -14,7 +14,7 @@ module.exports = {
             const usage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
             const channels = (await bot.db.channels.find({ isChannel: true })).map(c => c.username);
             const nodeVersion = process.version;
-            const { prefix } = await bot.db.channels.findOne({id: context.channel.id});
+            const { prefix } = await bot.db.channels.findOne({id: context.channel.id}) ?? '+';
 
             return {
                 text: `oshBleh 🏓 ${latency}ms • ${botUptime} uptime • ${channels.length} channels • ${usage}MB usage • node ${nodeVersion} • prefix: ${prefix}`,
