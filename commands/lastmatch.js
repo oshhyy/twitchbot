@@ -147,14 +147,14 @@ module.exports = {
                         p1Change = `+${player.change}`
                     } else { p1Change = player.change }
 
-                    p1NewElo = player.eloRate
+                    p1NewElo = player.eloRate ?? 0
                     
                 } else {
                     if (player.change >= 0) {
                         p2Change = `+${player.change}`
                     } else { p2Change = player.change }
 
-                    p2NewElo = player.eloRate
+                    p2NewElo = player.eloRate ?? 0
                 }
             }
 
