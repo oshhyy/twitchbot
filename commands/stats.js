@@ -3,7 +3,7 @@ const got = require("got");
 module.exports = {
     name: "stats",
     cooldown: 15000,
-    aliases: ['user'],
+    aliases: ['user', 'u'],
     description: `stats [user] https://bot.oshgay.xyz/util/stats`,
     execute: async context => {
         try {
