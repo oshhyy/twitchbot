@@ -24,12 +24,12 @@ module.exports = {
             }
             
             let userPlayCount = ""
-            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.artist.userplaycount}`}
+            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.artist.stats.userplaycount}`}
             let artist = data.artist.name
 
             let url = data.artist.url
 
-            return{text:`${artist} ${userPlayCount} • total plays: ${data.artist.playcount} • ${url}`, reply:true}
+            return{text:`${artist} ${userPlayCount} • total plays: ${data.artist.stats.playcount} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
