@@ -2,7 +2,7 @@ const got = require("got");
 const config = require("../config.json");
 
 module.exports = {
-    name: "album",
+    name: "artist",
     cooldown: 3000,
     aliases: ["getartist"],
     description: `artist <artist> - gets artist info from last.fm`,
@@ -29,7 +29,7 @@ module.exports = {
 
             let url = data.artist.url
 
-            return{text:`${artist} • ${userPlayCount} • total plays: ${data.artist.playcount} • ${url}`, reply:true}
+            return{text:`${artist} ${userPlayCount} • total plays: ${data.artist.playcount} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
