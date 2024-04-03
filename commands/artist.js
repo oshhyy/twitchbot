@@ -9,6 +9,9 @@ module.exports = {
     execute: async context => {
         try {
             const artistName = context.message.args[0];
+            if(!artist) {
+                return{text:`Usage: +artist <artist>`, reply:true}
+            }
 
             const userData = await bot.db.users.findOne({id: context.user.id})
             const lastfmName = userData?.lastfm
