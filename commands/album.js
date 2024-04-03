@@ -1,6 +1,5 @@
 const got = require("got");
 const config = require("../config.json");
-const lastfm = require("./lastfm");
 
 module.exports = {
     name: "album",
