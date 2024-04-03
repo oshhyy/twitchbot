@@ -37,7 +37,7 @@ module.exports = {
 
             let url = data.track.url
 
-            return{text:`${track} by ${artist} ${userPlayCount} • total plays: ${data.atracklbum.playcount} • ${url}`, reply:true}
+            return{text:`${track} by ${artist} ${userPlayCount} • total plays: ${data.track.playcount} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
