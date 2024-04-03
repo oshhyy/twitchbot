@@ -47,6 +47,7 @@ module.exports = {
             return{text:` ${album} (album) by ${artist} ${userPlayCount} • tracks: ${data.album.tracks.track.length} • total plays: ${data.album.playcount.toLocaleString()} ${tags} • ${url}`, reply:true}
             
         } catch (err) {
+            bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
             bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
         }
