@@ -9,7 +9,7 @@ module.exports = {
     execute: async context => {
         try {
             const artistName = context.message.args[0];
-            if(!artist) {
+            if(!artistName) {
                 return{text:`Usage: +artist <artist>`, reply:true}
             }
 
