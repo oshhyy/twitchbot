@@ -33,7 +33,7 @@ module.exports = {
             let url = data.artist.url
             const tags = data.artist.tags.tag.map(tag => tag.name);
 
-            return{text:`${artist} ${userPlayCount} • total plays: ${data.artist.stats.playcount} • ${url} • tags: ${tags.split(", ")}`, reply:true}
+            return{text:`${artist} ${userPlayCount} • total plays: ${data.artist.stats.playcount} • ${url} • tags: ${tags.join(", ")}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
