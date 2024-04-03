@@ -28,9 +28,7 @@ module.exports = {
             }
             
             let userPlayCount = ""
-            if(nameParam != "&username=none") {
-                userPlayCount = `• play count: ${data.album.userplaycount.toLocaleString()}`
-            }
+            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.album.userplaycount.toLocaleString()}`}
             let album = data.album.name
             let artist = data.album.artist
 
