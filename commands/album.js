@@ -5,7 +5,7 @@ module.exports = {
     name: "album",
     cooldown: 3000,
     aliases: ["getalbum"],
-    description: `topalbums [lastfm-username] - gets album info from last.fm`,
+    description: `album <album-name> by <artist> - gets album info from last.fm`,
     execute: async context => {
         try {
             const input = context.message.args.join(' ');
