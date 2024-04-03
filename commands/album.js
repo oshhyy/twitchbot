@@ -8,18 +8,18 @@ module.exports = {
     description: `album <album-name> by <artist> - gets album info from last.fm`,
     execute: async context => {
         try {
-            try{
-                const input = context.message.args.join(' ');
-            
+            const input = context.message.args.join(' ');
+            let albumName, artistName
+            try{            
                 const [albumPart, artistPart] = input.split(" by ");
-                const albumName = albumPart.trim();
-                const artistName = artistPart.trim();
-    
-                const userData = await bot.db.users.findOne({id: context.user.id})
-                const lastfmName = userData?.lastfm
+                albumName = albumPart.trim();
+                artistName = artistPart.trim();
             } catch (err) {
                 return{text:`Usage: +album <album-name> by <artist>`, reply:true}
             }
+
+            const userData = await bot.db.users.findOne({id: context.user.id})
+            const lastfmName = userData?.lastfm
 
             // for some reason in lfm api the album name doesnt show if there is no username so junk username will have to be put in
             let nameParam = "&username=none"
