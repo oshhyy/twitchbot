@@ -24,13 +24,12 @@ module.exports = {
             }
             
             let userPlayCount = ""
-            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.album.userplaycount.toLocaleString()}`}
-            let album = data.album.name
-            let artist = data.album.artist
+            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.artist.userplaycount.toLocaleString()}`}
+            let artist = data.artist.name
 
-            let url = data.album.url
+            let url = data.artist.url
 
-            return{text:` ${album} (album) by ${artist} ${userPlayCount} • tracks: ${data.album.tracks.track.length} • total plays: ${data.album.playcount.toLocaleString()} • ${url}`, reply:true}
+            return{text:`${artist} • ${userPlayCount} • total plays: ${data.artist.playcount.toLocaleString()} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
