@@ -4,15 +4,11 @@ const config = require("../config.json");
 module.exports = {
     name: "album",
     cooldown: 3000,
-    aliases: ["getalbum"],
-    description: `album <album-name> by <artist> - gets album info from last.fm`,
+    aliases: ["getartist"],
+    description: `artist <artist> - gets artist info from last.fm`,
     execute: async context => {
         try {
-            const input = context.message.args.join(' ');
-            
-            const [albumPart, artistPart] = input.split(" by ");
-            const albumName = albumPart.trim();
-            const artistName = artistPart.trim();
+            const artistName = context.message.args[0];
 
             const userData = await bot.db.users.findOne({id: context.user.id})
             const lastfmName = userData?.lastfm
@@ -22,18 +18,19 @@ module.exports = {
             if(lastfmName){
                 nameParam = `&username=${lastfmName}`
             }
-            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&album=${albumName}&autocorrect=1${nameParam}&format=json`, {throwHttpErrors:false}).json()
+            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&autocorrect=1${nameParam}&format=json`, {throwHttpErrors:false}).json()
             if(data.message) {
                 return{text:data.message, reply:true}
             }
             
             let userPlayCount = ""
-            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.artist.stats.userplaycount.toLocaleString()}`}
-            let artist = data.artist.name
+            if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.album.userplaycount.toLocaleString()}`}
+            let album = data.album.name
+            let artist = data.album.artist
 
-            let url = data.artist.url
+            let url = data.album.url
 
-            return{text:`${artist} • ${userPlayCount} • tracks: ${data.album.tracks.track.length} • total plays: ${data.artist.stats.playcount.toLocaleString()} • ${url}`, reply:true}
+            return{text:` ${album} (album) by ${artist} ${userPlayCount} • tracks: ${data.album.tracks.track.length} • total plays: ${data.album.playcount.toLocaleString()} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
