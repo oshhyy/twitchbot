@@ -35,10 +35,10 @@ module.exports = {
             let artist = data.album.artist
             let tags = "• tags: "
 
-            for (tag of album.tags.tag) {
-                tags = tags.concat(`${tag.name}`)
-                if(tag != album.tags.tag[album.tags.tag.length - 1]) {
-                    tags = tags.concat(`,`)
+            for (let i = 0; i < album.tags.tag.length; i++) {
+                tags += tags[i].name;
+                if (i !== album.tags.tag.length - 1) {
+                    tags += ", ";
                 }
             }
 
