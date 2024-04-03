@@ -25,7 +25,7 @@ module.exports = {
             if(lastfmName){
                 nameParam = `&username=${lastfmName}`
             }
-            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${track}&autocorrect=1${nameParam}&format=json`, {throwHttpErrors:false}).json()
+            const data = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${trackName}&autocorrect=1${nameParam}&format=json`, {throwHttpErrors:false}).json()
             if(data.message) {
                 return{text:data.message, reply:true}
             }
@@ -37,7 +37,7 @@ module.exports = {
 
             let url = data.track.url
 
-            return{text:`${track} (track) by ${artist} ${userPlayCount} • tracks: ${data.track.tracks.track.length} • total plays: ${data.atracklbum.playcount} • ${url}`, reply:true}
+            return{text:`${track} by ${artist} ${userPlayCount} • tracks: ${data.track.tracks.track.length} • total plays: ${data.atracklbum.playcount} • ${url}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
