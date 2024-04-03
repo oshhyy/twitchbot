@@ -33,7 +33,7 @@ module.exports = {
             let userPlayCount = ""
             if(nameParam === `&username=${lastfmName}`) {userPlayCount = `• play count: ${data.track.userplaycount}`}
             let track = data.track.name
-            let artist = data.track.artist
+            let artist = data.track.artist.name
 
             let url = data.track.url
 
