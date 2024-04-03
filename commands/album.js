@@ -15,7 +15,7 @@ module.exports = {
             const artistName = artistPart.trim();
 
             const userData = await bot.db.users.findOne({id: context.user.id})
-            const lastfmName = context.message.args[0] ?? userData?.lastfm
+            const lastfmName = userData?.lastfm
 
             // for some reason in lfm api the album name doesnt show if there is no username so junk username will have to be put in
             let nameParam = "&username=none"
