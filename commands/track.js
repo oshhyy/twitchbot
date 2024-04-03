@@ -36,8 +36,9 @@ module.exports = {
             let artist = data.track.artist.name
 
             let url = data.track.url
+            const tags = data.track.toptags.tag.map(tag => tag.name);
 
-            return{text:`${track} by ${artist} ${userPlayCount} • total plays: ${data.track.playcount} • ${url}`, reply:true}
+            return{text:`${track} by ${artist} ${userPlayCount} • total plays: ${data.track.playcount} • ${url} • tags: ${tags.split(", ")}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
