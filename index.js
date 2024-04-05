@@ -137,19 +137,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
 
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
-
-    let toList = ['markzynk', 'zomballr', 'flan__________', 'mrcosgallo', 'ryanpotat', 'ryanl_12', 'kattah']
-
-    if ((msg.messageText == 'to' || msg.messageText == 'TO' || msg.messageText == 'two' || msg.messageText == 'too' || msg.messageText == 'OT' || msg.messageText == 'ot' || msg.messageText == 'oT' || msg.messageText == 'Ot' || msg.messageText == 'To' || msg.messageText == 'tO') && toList.includes(msg.channelName)) {
-        if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
-        else bot.Client.privmsg(msg.channelName, msg.messageText);
-    }
-
-    if ((msg.messageText == 'oh' || msg.messageText == 'wait' || msg.messageText == 'POGGERS' || msg.messageText == 'alright') && msg.channelName == "markzynk") {
-        if (msg.senderUserID == "489223884" || msg.senderUserID == '757096536') return;
-        else bot.Client.privmsg(msg.channelName, msg.messageText);
-    }
-
+    
     if (msg.senderUserID == '489223884' && msg.channelName == 'alaskanpotat' && msg.messageText == 'elisElis') {
         let cookieData = await got(`https://api.roaringiron.com/cooldown/oshgay`).json()
         if (cookieData.can_claim && !cookieData.cdr_available) {
