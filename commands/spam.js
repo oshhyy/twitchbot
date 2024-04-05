@@ -39,7 +39,7 @@ module.exports = {
             if (context.user.id == '489223884') {
                 message = message.filter(x => !x.includes("fill:") && !x.includes("delay:") && !x.includes("channel:") && !x.includes("p:") && !x.includes("ann:") && !x.includes("announce:"));
                 if (context.message.args[0] > 100 ) {
-                    delay = context.message.params.delay ?? 15;
+                    delay = context.message.params.delay ?? 30;
                 }
             }
             else {
