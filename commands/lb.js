@@ -80,7 +80,8 @@ module.exports = {
             const currentTimeInMilliseconds = new Date().getTime();
             if (context.message.args[0] == "predicted") {
                 // predicted phase lb
-                for (user in mcsrData.data.users) {
+                for (user of mcsrData.data.users) {
+                    console.log(user)
                     predictedPhasePoints = predictedPhase(user.number, user.eloRank)
                     user.seasonResult.phasePoint += predictedPhasePoints
                 }
