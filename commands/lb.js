@@ -21,9 +21,43 @@ module.exports = {
                 if (badge == 3) {return "❖ "}
                 return " "
             }
+            function predictedPhase(phase, rank) {
+                if (phase == 1) {
+                    if(rank == 1) return 50
+                    if(rank == 2) return 40
+                    if(rank == 3) return 35
+                    if(rank == 4) return 30
+                    if(rank <= 8) return 25
+                    if(rank <= 16) return 20
+                    if(rank <= 32) return 15
+                    if(rank <= 50) return 10
+                    if(rank <= 100) return 5
+                } else if (phase == 2) {
+                    if(rank == 1) return 60
+                    if(rank == 2) return 50
+                    if(rank == 3) return 40
+                    if(rank == 4) return 35
+                    if(rank <= 8) return 30
+                    if(rank <= 16) return 25
+                    if(rank <= 32) return 20
+                    if(rank <= 50) return 15
+                    if(rank <= 100) return 10
+                } else if (phase == 3) {
+                    if(rank == 1) return 75
+                    if(rank == 2) return 65
+                    if(rank == 3) return 55
+                    if(rank == 4) return 50
+                    if(rank <= 8) return 40
+                    if(rank <= 16) return 30
+                    if(rank <= 32) return 20
+                    if(rank <= 50) return 15
+                    if(rank <= 100) return 10
+                } else return 0
+            }
 
             let lbType = ""
             let lbSeason = 0
+            let predictedPhasePoints = 0
 
             if (context.message.args[0]) {
                 let timeNames = ["time", "record", "",]
@@ -31,6 +65,7 @@ module.exports = {
                 if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
                 if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
+                let isPredicted = (context.message.args[0] == "predicted") ? true : false;
             }
 
             let mcsrData;
@@ -56,6 +91,13 @@ module.exports = {
                     message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                 }
                 message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
+            } else if (isPredicted) {
+                // predicted phase lb
+                message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
+                for(let i = 0; i < 12; i++) {
+                    predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
+                    message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
+                }
             } else {
                 // elo lb
                 message = message.concat(`Elo LB`)
