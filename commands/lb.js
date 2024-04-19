@@ -61,14 +61,10 @@ module.exports = {
 
             if (context.message.args[0]) {
                 let timeNames = ["time", "record", "",]
-                let phaseNames = ["phase", "phasepoints", "points",]
+                let phaseNames = ["phase", "phasepoints", "points", "predicted"]
                 if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
                 if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
-                let isPredicted
-                if (context.message.args[0] == "predicted") {
-                    isPredicted = true
-                } else isPredicted = false
             }
 
             let mcsrData;
@@ -81,14 +77,14 @@ module.exports = {
             }
             let message = ""
             const currentTimeInMilliseconds = new Date().getTime();
-            if (isPredicted) {
+            if (context.message.args[0] == "predicted") {
                 // predicted phase lb
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
                 for(let i = 0; i < 12; i++) {
                     predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
                     message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
                 }
-            } if(lbType == "record-") {
+            } else if(lbType == "record-") {
                 // record lb
                 message = message.concat(`All-Time Record LB`)
                 for(let i = 0; i < 10; i++) {
