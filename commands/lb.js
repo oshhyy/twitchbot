@@ -58,10 +58,11 @@ module.exports = {
             let lbType = ""
             let lbSeason = 0
             let predictedPhasePoints = 0
+            let sortedData
 
             if (context.message.args[0]) {
                 let timeNames = ["time", "record", "",]
-                let phaseNames = ["phase", "phasepoints", "points", "predicted"]
+                let phaseNames = ["phase", "phasepoints", "points"]
                 if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
                 if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
@@ -79,10 +80,13 @@ module.exports = {
             const currentTimeInMilliseconds = new Date().getTime();
             if (context.message.args[0] == "predicted") {
                 // predicted phase lb
+                for (user in mcsrData.data.users) {
+                    predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
+                }
+                sortedData = mcsrData.data.users.sort((a, b) => b.seasonResult.phasePoint - a.seasonResult.phasePoint);
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
                 for(let i = 0; i < 12; i++) {
-                    predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
-                    message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
+                    message = message.concat(` • ${badgeIcon(sortedData.roleType)}${bot.Utils.unping(sortedData.nickname)} (${sortedData.seasonResult.phasePoint + predictedPhasePoints})`)
                 }
                 message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
             } else if(lbType == "record-") {
