@@ -65,7 +65,10 @@ module.exports = {
                 if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
                 if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
-                let isPredicted = (context.message.args[0] == "predicted") ? true : false;
+                let isPredicted
+                if (context.message.args[0] == "predicted") {
+                    isPredicted = true
+                } else isPredicted = false
             }
 
             let mcsrData;
@@ -78,7 +81,14 @@ module.exports = {
             }
             let message = ""
             const currentTimeInMilliseconds = new Date().getTime();
-            if(lbType == "record-") {
+            if (isPredicted) {
+                // predicted phase lb
+                message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
+                for(let i = 0; i < 12; i++) {
+                    predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
+                    message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
+                }
+            } if(lbType == "record-") {
                 // record lb
                 message = message.concat(`All-Time Record LB`)
                 for(let i = 0; i < 10; i++) {
@@ -91,13 +101,6 @@ module.exports = {
                     message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                 }
                 message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
-            } else if (isPredicted) {
-                // predicted phase lb
-                message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
-                for(let i = 0; i < 12; i++) {
-                    predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
-                    message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
-                }
             } else {
                 // elo lb
                 message = message.concat(`Elo LB`)
