@@ -84,6 +84,7 @@ module.exports = {
                     predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
                     message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint + predictedPhasePoints})`)
                 }
+                message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
             } else if(lbType == "record-") {
                 // record lb
                 message = message.concat(`All-Time Record LB`)
