@@ -52,7 +52,9 @@ module.exports = {
                     if(rank <= 32) return 20
                     if(rank <= 50) return 15
                     if(rank <= 100) return 10
-                } else return 0
+                }
+                
+                return 0
             }
 
             let lbType = ""
@@ -81,11 +83,11 @@ module.exports = {
             if (context.message.args[0] == "predicted") {
                 // predicted phase lb
                 for (user of mcsrData.data.users) {
-                    console.log(user)
-                    predictedPhasePoints = predictedPhase(user.number, user.eloRank)
+                    predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, user.eloRank)
                     user.seasonResult.phasePoint += predictedPhasePoints
                 }
                 sortedData = mcsrData.data.users.sort((a, b) => b.seasonResult.phasePoint - a.seasonResult.phasePoint);
+                console.log(sortedData)
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
                 for(let i = 0; i < 12; i++) {
                     message = message.concat(` • ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
