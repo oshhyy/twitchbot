@@ -86,7 +86,7 @@ module.exports = {
                 sortedData = mcsrData.data.users.sort((a, b) => b.seasonResult.phasePoint - a.seasonResult.phasePoint);
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
                 for(let i = 0; i < 12; i++) {
-                    message = message.concat(` • ${badgeIcon(sortedData.roleType)}${bot.Utils.unping(sortedData.nickname)} (${sortedData.seasonResult.phasePoint + predictedPhasePoints})`)
+                    message = message.concat(` • ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
                 }
                 message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
             } else if(lbType == "record-") {
