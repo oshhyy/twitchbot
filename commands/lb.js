@@ -81,7 +81,8 @@ module.exports = {
             if (context.message.args[0] == "predicted") {
                 // predicted phase lb
                 for (user in mcsrData.data.users) {
-                    predictedPhase(mcsrData.data.phase.number, mcsrData.data.users[i].eloRank)
+                    predictedPhasePoints = predictedPhase(user.number, user.eloRank)
+                    user.seasonResult.phasePoint += predictedPhasePoints
                 }
                 sortedData = mcsrData.data.users.sort((a, b) => b.seasonResult.phasePoint - a.seasonResult.phasePoint);
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
