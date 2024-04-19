@@ -6,7 +6,7 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            if (!context.badges.hasModerator && !context.badges.hasBroadcaster && !context.badges.hasVIP) {
+            if (!context.badges.hasModerator && !context.badges.hasBroadcaster) {
                 return {};
             }
 

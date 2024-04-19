@@ -10,7 +10,7 @@ module.exports = {
         try {
             // command code
             console.log(context.message.args.slice(0)) 
-            if (!context.badges.hasModerator && !context.badges.hasBroadcaster && !context.badges.hasVIP && context.user.id != "489223884") {
+            if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                 return {};
             }
             if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasBroadcaster && !context.message.params.channel) {
