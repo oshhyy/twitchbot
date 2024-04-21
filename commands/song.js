@@ -55,7 +55,7 @@ module.exports = {
             }
 
             const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
-            let playCount = songData.track?.userplaycount + 1
+            let playCount = songData.track.userplaycount + 1
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} • play #${playCount}`, reply:true}
             
