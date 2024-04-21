@@ -67,7 +67,7 @@ module.exports = {
             }
             
 
-            return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${playCount}`, reply:true}
+            return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${userPlayCount}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
