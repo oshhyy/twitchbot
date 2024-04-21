@@ -78,12 +78,21 @@ module.exports = {
                     text: `An error has occured getting the leaderboard!`, reply: true
                 }
             }
-
-            if(!mcsrData.data.users[0]) {
-                return {
-                    text: `the lb is blank cuh`, reply: true
+            
+            if(lbType == "record-") {
+                if(!mcsrData.data[0]) {
+                    return {
+                        text: `the lb is blank cuh`, reply: true
+                    }
+                }
+            } else {
+                if(!mcsrData.data?.users[0]) {
+                    return {
+                        text: `the lb is blank cuh`, reply: true
+                    }
                 }
             }
+            
 
             let message = ""
             const currentTimeInMilliseconds = new Date().getTime();
