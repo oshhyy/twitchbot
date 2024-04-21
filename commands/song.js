@@ -8,6 +8,12 @@ module.exports = {
     description: `song [lastfm-username] - shows what you are listening to on last.fm! if no username is chosen, linked username using '+link <username>' will be used!`,
     execute: async context => {
         try {
+
+            function incrementString(str) {
+                var count = str.match(/\d*$/);
+                return str.substr(0, count.index) + (++count[0]);
+              };
+              
             // command code
             let userData
             let lastfmName
@@ -55,7 +61,7 @@ module.exports = {
             }
 
             const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
-            let playCount = songData.track.userplaycount ?? "?"
+            let playCount = incrementString(songData.track?.userplaycount)
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} • play #${playCount}`, reply:true}
             
