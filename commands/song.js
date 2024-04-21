@@ -53,7 +53,11 @@ module.exports = {
                 artistName = data.recenttracks.track.artist.name
                 url = data.recenttracks.track.url
             }
-                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url}`, reply:true}
+
+            const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
+            let playCount = data.track.playcount ?? "?"
+
+                return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} • play #${playCount}`, reply:true}
             
         } catch (err) {
             console.log(err);
