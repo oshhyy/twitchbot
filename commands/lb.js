@@ -78,14 +78,15 @@ module.exports = {
                     text: `An error has occured getting the leaderboard!`, reply: true
                 }
             }
-            let message = ""
-            const currentTimeInMilliseconds = new Date().getTime();
 
-            if(!mcsrData.data.users) {
+            if(!mcsrData.data.users[0]) {
                 return {
                     text: `the lb is blank cuh`, reply: true
                 }
             }
+
+            let message = ""
+            const currentTimeInMilliseconds = new Date().getTime();
 
             if (context.message.args[0] == "predicted") {
                 // predicted phase lb
