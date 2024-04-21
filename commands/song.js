@@ -19,7 +19,7 @@ module.exports = {
             let lastfmName
             if(context.message.args[0]?.startsWith("@")) {
                 userData = await bot.db.users.findOne({username: context.message.args[0].replace("@", "")})
-                lastfmName = userData.lastfm
+                lastfmName = userData?.lastfm
                 if(!lastfmName){
                     return{text:`This user does not have a linked last.fm profile!`, reply:true}
                 }
@@ -61,6 +61,7 @@ module.exports = {
             }
 
             const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
+            console.log(songData.track.userplaycount)
             let playCount = incrementString(songData.track?.userplaycount)
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} • play #${playCount}`, reply:true}
