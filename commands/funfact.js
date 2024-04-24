@@ -11,7 +11,7 @@ module.exports = {
             // command code
             const apiKey = config.apiNinjasKey;
 
-            const data = await got(`https://api.api-ninjas.com/v1/facts?limit=1`, {headers: {'X-Api-Key': apiKey}}).json()
+            const data = await got(`https://api.api-ninjas.com/v1/facts`, {headers: {'X-Api-Key': apiKey}}).json()
             return { text: `${data[0].fact} forsenScoots`, reply: true }
 
         } catch (err) {
