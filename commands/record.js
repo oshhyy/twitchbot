@@ -68,10 +68,41 @@ module.exports = {
                     if (!player1) {
                         return { text: `Usage: +record [minecraft-username] [minecraft-username] | If you want to see your record against this player, link your account by doing +link mc <mc-username>`, reply: true }
                     }
-                    player2 = context.message.args[0]
+
+                    if (context.message.args[0]?.startsWith("@")) {
+                        userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
+                        player2 = userData?.mcid
+                        if (!player2) {
+                            return { text: `User ${context.message.args[0]} does not have a linked mc account!`, reply: true }
+                        }
+    
+                    } else {
+                        player2 = context.message.args[0];
+                    }
                 } else {
-                    player1 = context.message.args[0]
-                    player2 = context.message.args[1]
+                    if (context.message.args[0]?.startsWith("@")) {
+                        userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
+                        player1 = userData?.mcid
+                        if (!player1) {
+                            return { text: `User ${context.message.args[0]} does not have a linked mc account!`, reply: true }
+                        }
+    
+                    } else {
+                        player1 = context.message.args[0];
+                    }
+
+                    if (context.message.args[1]?.startsWith("@")) {
+                        userData = await bot.db.users.findOne({ username: context.message.args[1].replace("@", "") })
+                        player2 = userData?.mcid
+                        if (!player2) {
+                            return { text: `User ${context.message.args[1]} does not have a linked mc account!`, reply: true }
+                        }
+    
+                    } else {
+                        player2 = context.message.args[1]
+                    }
+
+                    
                 }
             }
 
