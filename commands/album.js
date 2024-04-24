@@ -38,9 +38,16 @@ module.exports = {
 
             let url = data.album.url
 
-            const tags = data.album.tags.tag.map(tag => tag.name);
+            let tags = ""
 
-            return{text:`${album} (album) by ${artist} ${userPlayCount} • tracks: ${data.album.tracks.track.length} • total plays: ${data.album.playcount} • ${url} • tags: ${tags.join(", ")}`, reply:true}
+            console.log(data)
+
+            if(data.album.tags) {
+                tags = `• tags${data.album.tags.tag.map(tag => tag.name).join(", ")}`
+            }
+            
+
+            return{text:`${album} (album) by ${artist} ${userPlayCount} • tracks: ${data.album.tracks?.track.length} • total plays: ${data.album.playcount} • ${url} ${tags}`}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
