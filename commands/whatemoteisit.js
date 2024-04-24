@@ -7,19 +7,11 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            let emote = context.message.args[0] ?? context.user.login;
-            if (!context.message.args[0]) {}
-            else { 
-                if (context.message.args[0].includes('/')) {
-                    return {
-                        text:'No Emote Provided. oshDank', reply:true
-                    };
-                }
-            }
+            let emote = context.message.args[0]
             
             let data
             try {
-                data = await got(`https://api.ivr.fi/v2/twitch/emotes/${emote}`).json();
+                data = await got(`https://api.potat.app/twitch/emotes?name=${emote}`).json();
             }
             catch(err) {
                 return {
@@ -29,29 +21,22 @@ module.exports = {
 
             let imageLink = ""
             if (context.badges.hasModerator || context.badges.hasBroadcaster || context.badges.hasVIP) {
-                imageLink = data.emoteURL.replace("/1.0", "/3.0")
+                imageLink = data.data[0].emoteURL
             }
 
-            if(data.emoteState == "ARCHIVED") { // EMOTE NOT ENABLED 
-                return{
-                    text:`${data.emoteCode} • ID: ${data.emoteID} • Archived ${data.emoteAssetType.toLowerCase()} emote from channel ${data.channelName} ${imageLink}`, reply:true
-                }
+            let artist = ""
+            if(data.data[0].artist) {
+                artist = `• artist: @${data.data[0].artist.login}`
             }
 
-            if(data.emoteType == "BITS_BADGE_TIERS") { // BITS EMOTE 
+            if(data.data[0].emoteType == "BITS_BADGE_TIERS") { // BITS EMOTE 
                 return{
-                    text:`${data.emoteCode} • ID: ${data.emoteID} • ${data.emoteAssetType[0].toUpperCase() + data.emoteAssetType.slice(1).toLowerCase()} ${data.emoteBitCost} bits emote from channel ${data.channelName} ${imageLink}`, reply:true
-                }
-            }
-
-            if(data.emoteType == "BITS_BADGE_TIERS") { // FOLLOWER EMOTE 
-                return{
-                    text:`${data.emoteCode} • ID: ${data.emoteID} • ${data.emoteAssetType[0].toUpperCase() + data.emoteAssetType.slice(1).toLowerCase()} follower emote from channel ${data.channelName} ${imageLink}`, reply:true
+                    text:`${data.data[0].emoteCode} • ID: ${data.data[0].emoteID} • ${data.data[0].emoteAssetType[0].toUpperCase() + data.data[0].emoteAssetType.slice(1).toLowerCase()} ${data.data[0].emoteType[0].toUpperCase() + data.data[0].emoteType.slice(1).toLowerCase()} ${data.data[0].bitCost} bits emote from channel @${data.data[0].channelName} ${artist} ${imageLink}`, reply:true
                 }
             }
 
             return{
-                text:`${data.emoteCode} • ID: ${data.emoteID} • ${data.emoteAssetType[0].toUpperCase() + data.emoteAssetType.slice(1).toLowerCase()} Tier ${data.emoteTier} emote from channel ${data.channelName} ${imageLink}`, reply:true
+                text:`${data.data[0].emoteCode} • ID: ${data.data[0].emoteID} • ${data.data[0].emoteAssetType[0].toUpperCase() + data.data[0].emoteAssetType.slice(1).toLowerCase()}  ${data.data[0].emoteType[0].toUpperCase() + data.data[0].emoteType.slice(1).toLowerCase()} emote from channel @${data.data[0].channelName} ${artist} ${imageLink}`, reply:true
             }
 
         } catch (err) {
