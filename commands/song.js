@@ -63,11 +63,11 @@ module.exports = {
             const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
             let playCount = ""
             if(songData.track.userplaycount) {
-                userPlayCount = incrementString(`• play #${songData.track.userplaycount}`)
+                playCount = incrementString(`• play #${songData.track.userplaycount}`)
             }
             
 
-            return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${userPlayCount}`, reply:true}
+            return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${playCount}`, reply:true}
             
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
