@@ -18,13 +18,21 @@ module.exports = {
                     return { text: `No MC username provided! To link your account, do '+link mc <username>'`, reply: true }
                 }
             } else {
-                let mojangData;
-                mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                if (mojangData.errorMessage) {
-                    return { text: mojangData.errorMessage, reply: true }
-                }
+                if (context.message.args[0]?.startsWith("@")) {
+                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
+                    mcUUID = userData?.mcid
+                    if (!mcUUID) {
+                        return { text: `This user does not have a linked mc account!`, reply: true }
+                    }
 
-                mcUUID = mojangData.id
+                } else {
+                    let mojangData;
+                    mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
+                    if (mojangData.errorMessage) {
+                        return { text: `Mojang Error: ${mojangData.errorMessage} FallCry`, reply: true }
+                    }
+                    mcUUID = mojangData.id
+                }
             }
             console.log(mcUUID)
             let hypixelData;
