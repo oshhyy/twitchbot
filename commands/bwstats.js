@@ -8,6 +8,12 @@ module.exports = {
     description: `bwstats [minecraft-username] | provides hypixel bedwars stats. currently only supports overall stats, may add specific mode soon`,
     execute: async context => {
         try {
+            function getRank(rank) {
+                if (!rank) return;
+                if (rank == "VIP_PLUS") { return "VIP+" }
+                if (rank == "MVP_PLUS") { return "MVP+" }
+                return rank
+            }
             // command code
             let userData, mcUUID
 
@@ -48,11 +54,11 @@ module.exports = {
             console.log(hypixelData)
             console.log(hypixelData.player.stats.Bedwars)
 
-            let stars = `[★${hypixelData.player.achievements.bedwars_level}]`
+            let stars = `[${hypixelData.player.achievements.bedwars_level}★]`
 
             let rank = ""
             if(hypixelData.player.rank || hypixelData.player.newPackageRank) {
-                rank = `[${hypixelData.player.rank ?? hypixelData.player.newPackageRank}]`
+                rank = `[${getRank(hypixelData.player.rank ?? hypixelData.player.newPackageRank)}]`
             }
 
             let gamesPlayed = hypixelData.player.stats.Bedwars.games_played_bedwars ?? 0;
@@ -70,8 +76,28 @@ module.exports = {
 
             let winstreak = hypixelData.player.stats.Bedwars.winstreak ?? 0
 
+            // getting online data
+            let onlineData
+            try {
+                onlineData = await got(`https://api.hypixel.net/v2/status?uuid=${mcUUID}`, {headers: {'API-Key': config.hypixelKey}}).json()
+            } catch (err) {
+                console.log(err)
+                return {
+                    text: `Error getting hypixel data monkaS`, reply: true
+                }
+            }
+            console.log(onlineData)
+
+            let onlineText = ""
+            if(onlineData.session.online) {
+                onlineText = `• currently online in ${onlineData.session.gameType[0].toUpperCase() + onlineData.session.gameType.slice(1).toLowerCase()} ${onlineData.session.mode[0].toUpperCase() + onlineData.session.mode.slice(1).toLowerCase()}`
+            } else {
+                const currentTimeInMilliseconds = new Date().getTime();
+                onlineText = `• last online ${bot.Utils.humanize(hypixelData.player.lastLogout - currentTimeInMilliseconds)} ago`
+            }
+
             return {
-                text: `/me ${stars} ${rank} ${bot.Utils.unping(hypixelData.player.playername)} W/L ${wins}/${losses} (${WinPercent}%) • ${gamesPlayed} Games Played • FKDR: ${fkdr} (${finalKills}/${finalDeaths}) • BBLR ${bblr} (${bedsBroken}/${bedsLost}) ${winstreak} winstreak •  `, reply: true
+                text: `/me ${stars} ${rank} ${bot.Utils.unping(hypixelData.player.displayname)} W/L ${wins}/${losses} (${WinPercent}%) • ${gamesPlayed} Games Played • FKDR: ${fkdr} (${finalKills}/${finalDeaths}) • BBLR ${bblr} (${bedsBroken}/${bedsLost}) ${winstreak} winstreak ${onlineText} `, reply: true
             }
 
         } catch (err) {
