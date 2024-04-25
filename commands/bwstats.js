@@ -14,6 +14,24 @@ module.exports = {
                 if (rank == "MVP_PLUS") { return "MVP+" }
                 return rank
             }
+            function starColor(stars) {
+                let color
+                let encodedColor
+                if (stars < 100) {color = "555555"}
+                else if (stars < 200) {color = "FCFCFC"}
+                else if (stars < 300) {color = "FCA800"}
+                else if (stars < 400) {color = "54FCFC"}
+                else if (stars < 500) {color = "00AA00"}
+                else if (stars < 600) {color = "00AAAA"}
+                else if (stars < 700) {color = "AA0000"}
+                else if (stars < 800) {color = "FF55FF"}
+                else if (stars < 900) {color = "5555FF"}
+                else if (stars < 1000) {color = "AA00AA"}
+                else {color = "55FF55"}
+
+                if (color) { encodedColor = encodeURIComponent(`#${color}`) }
+                return encodedColor
+            }
             // command code
             let userData, mcUUID
 
@@ -54,6 +72,10 @@ module.exports = {
             console.log(hypixelData)
             console.log(hypixelData.player.stats.Bedwars)
 
+            let color = starColor(hypixelData.player.achievements.bedwars_level)
+            await twitchapi.changeColor(color)
+            await bot.Utils.sleep(1000)
+
             let stars = `[${hypixelData.player.achievements.bedwars_level}★]`
 
             let rank = ""
@@ -90,14 +112,14 @@ module.exports = {
 
             let onlineText = ""
             if(onlineData.session.online) {
-                onlineText = `• currently online in ${onlineData.session.gameType[0].toUpperCase() + onlineData.session.gameType.slice(1).toLowerCase()} ${onlineData.session.mode[0].toUpperCase() + onlineData.session.mode.slice(1).toLowerCase()}`
+                onlineText = `• currently online in ${onlineData.session.gameType[0].toUpperCase() + onlineData.session.gameType.slice(1).toLowerCase()}: ${onlineData.session.mode}`
             } else {
                 const currentTimeInMilliseconds = new Date().getTime();
                 onlineText = `• last online ${bot.Utils.humanize(hypixelData.player.lastLogout - currentTimeInMilliseconds)} ago`
             }
 
             return {
-                text: `/me ${stars} ${rank} ${bot.Utils.unping(hypixelData.player.displayname)} W/L ${wins}/${losses} (${WinPercent}%) • ${gamesPlayed} Games Played • FKDR: ${fkdr} (${finalKills}/${finalDeaths}) • BBLR ${bblr} (${bedsBroken}/${bedsLost}) ${winstreak} winstreak ${onlineText} `, reply: true
+                text: `/me ${stars} ${rank} ${bot.Utils.unping(hypixelData.player.displayname)} W/L ${wins}/${losses} (${WinPercent}%) • ${gamesPlayed} Games Played • FKDR: ${fkdr} (${finalKills}/${finalDeaths}) • BBLR ${bblr} (${bedsBroken}/${bedsLost}) • ${winstreak} winstreak ${onlineText} `, reply: true
             }
 
         } catch (err) {
