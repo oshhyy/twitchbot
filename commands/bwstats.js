@@ -5,7 +5,7 @@ const twitchapi = require('../lib/utils/twitchapi.js')
 module.exports = {
     name: "bwstats",
     cooldown: 3000,
-    aliases: ['bw'],
+    aliases: ['bw', 'bedwars', 'bedwarsstats'],
     description: `bwstats [minecraft-username] | provides hypixel bedwars stats. currently only supports overall stats, may add specific mode soon`,
     execute: async context => {
         try {
