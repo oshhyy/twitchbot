@@ -77,27 +77,27 @@ module.exports = {
             await twitchapi.changeColor(color)
             await bot.Utils.sleep(1000)
 
-            let stars = `[${hypixelData.player.achievements.bedwars_level}★]`
+            let stars = `[${hypixelData.player.achievements?.bedwars_level ?? 0}★]`
 
             let rank = ""
             if(hypixelData.player.rank || hypixelData.player.newPackageRank) {
                 rank = `[${getRank(hypixelData.player.rank ?? hypixelData.player.newPackageRank)}]`
             }
 
-            let gamesPlayed = hypixelData.player.stats.Bedwars.games_played_bedwars ?? 0;
-            let wins = hypixelData.player.stats.Bedwars.wins_bedwars ?? 0;
-            let losses = hypixelData.player.stats.Bedwars.losses_bedwars ?? 0;
+            let gamesPlayed = hypixelData.player.stats.Bedwars?.games_played_bedwars ?? 0;
+            let wins = hypixelData.player.stats.Bedwars?.wins_bedwars ?? 0;
+            let losses = hypixelData.player.stats.Bedwars?.losses_bedwars ?? 0;
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
 
-            let finalKills = hypixelData.player.stats.Bedwars.final_kills_bedwars ?? 0;
-            let finalDeaths = hypixelData.player.stats.Bedwars.final_deaths_bedwars ?? 0;
+            let finalKills = hypixelData.player.stats.Bedwars?.final_kills_bedwars ?? 0;
+            let finalDeaths = hypixelData.player.stats.Bedwars?.final_deaths_bedwars ?? 0;
             const fkdr = (finalKills / finalDeaths).toFixed(2);
 
-            let bedsBroken = hypixelData.player.stats.Bedwars.beds_broken_bedwars ?? 0;
-            let bedsLost = hypixelData.player.stats.Bedwars.beds_lost_bedwars ?? 0;
+            let bedsBroken = hypixelData.player.stats.Bedwars?.beds_broken_bedwars ?? 0;
+            let bedsLost = hypixelData.player.stats.Bedwars?.beds_lost_bedwars ?? 0;
             const bblr = (bedsBroken / bedsLost).toFixed(2);
 
-            let winstreak = hypixelData.player.stats.Bedwars.winstreak ?? 0
+            let winstreak = hypixelData.player.stats.Bedwars?.winstreak ?? 0
 
             // getting online data
             let onlineData
