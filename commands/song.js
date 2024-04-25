@@ -60,11 +60,14 @@ module.exports = {
                 url = data.recenttracks.track.url
             }
 
-            const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
             let playCount = ""
-            if(songData.track.userplaycount) {
-                playCount = incrementString(`• play #${songData.track.userplaycount ?? 0}`)
-            }
+            
+            try{
+                const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
+                if(songData.track.userplaycount) {
+                    playCount = incrementString(`• play #${songData.track.userplaycount ?? 0}`)
+                }
+            } catch {}
             
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${playCount}`, reply:true}
