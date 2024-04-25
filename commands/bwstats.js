@@ -1,5 +1,6 @@
 const got = require("got");
 const config = require("../config.json");
+const twitchapi = require('../lib/utils/twitchapi.js')
 
 module.exports = {
     name: "bwstats",
