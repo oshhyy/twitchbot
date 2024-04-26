@@ -23,14 +23,14 @@ module.exports = {
                 }
             }
 
-            if(!pacemanData.eventList[0]) {
+            if(!pacemanData[0]) {
                 return {
                     text: `No current daily record found! oshAlright`, reply: true
                 }
             }
 
-            const time = msToTime(pacemanData.eventList[0].time)
-            const player = bot.Utils.unping(pacemanData.eventList[0].nickname)
+            const time = msToTime(pacemanData[0].time)
+            const player = bot.Utils.unping(pacemanData[0].nickname)
             
             return {
                 text: `Daily PaceMan Record: ${time} by ${player}`,
