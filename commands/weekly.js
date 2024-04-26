@@ -3,7 +3,7 @@ module.exports = {
     name: "weekly",
     cooldown: 3000,
     aliases: ["weeklyrecord"],
-    description: `weekly - shows weekly PaceMan record `,
+    description: `weekly - shows weekly PaceMan record https://bot.oshgay.xyz/mc/daily-weekly-monthly`,
     execute: async context => {
         try {
             // command code

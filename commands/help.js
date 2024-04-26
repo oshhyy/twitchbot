@@ -9,7 +9,7 @@ module.exports = {
             const prefix = context.channel.prefix
             
             if (!commandName) {
-                return { text: `type "${prefix}help <command name>" t󠀀o get help for a certain command. t󠀀o see a list of commands, type "${prefix}commands"`, reply: true } 
+                return { text: `type "${prefix}help <command name>" t󠀀o get help for a certain command. the full command list can be found here: https://bot.oshgay.xyz/`, reply: true } 
             }
 
             const command = bot.Command.get(commandName); 
