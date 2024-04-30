@@ -1,9 +1,9 @@
 const got = require("got");
 module.exports = {
-    name: "nethers",
+    name: "session",
     cooldown: 3000,
-    aliases: ["enters", "enter", "nether"],
-    description: `nethers [minecraft-username] | shows amount of nethers + average for current session`,
+    aliases: ["sessionstats", "pacestats", "pacemanstats"],
+    description: `session [minecraft-username] | shows splits + average for current day`,
     execute: async context => {
         try {
             // command code
@@ -44,20 +44,52 @@ module.exports = {
 
             let mcName = mcNameData.name;
 
-            let netherData;
+            let sessionData;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${mcName}&hours=16&hoursBetween=2`).json();
+                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${mcName}&hours=16&hoursBetween=3`).json();
             } catch (err) {
                 return {
-                    text: `This user has no submitted runs in the last 16 hours!`, reply: true
+                    text: `This user has no submitted runs!`, reply: true
                 }
             }
 
-            const count = netherData.count
-            const average = netherData.avg
+            let netherText = firstStructureText = secondStructureText = firstPortalText = strongholdText = endText = finishText = "";
+
+            if(sessionData.nether.count != 0) {
+                netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg)`
+            } else {
+                return {
+                    text: `No data in the last 24 hours for ${bot.Utils.unping(mcNameData.name)}. FallCry`,
+                    reply: true,
+                };
+            }
+
+            if(sessionData.first_structure.count != 0) {
+                firstStructureText = `• first structures: ${sessionData.first_structure.count} (${sessionData.first_structure.avg} avg)`
+            }
+
+            if(sessionData.second_structure.count != 0) {
+                secondStructureText = `• second structures: ${sessionData.second_structure.count} (${sessionData.second_structure.avg} avg)`
+            }
+
+            if(sessionData.first_portal.count != 0) {
+                firstPortalText = `• first portals: ${sessionData.first_portal.count} (${sessionData.first_portal.avg} avg)`
+            }
+
+            if(sessionData.stronghold.count != 0) {
+                strongholdText = `• strongholds: ${sessionData.stronghold.count} (${sessionData.stronghold.avg} avg)`
+            }
+
+            if(sessionData.end.count != 0) {
+                endText = `• end enters: ${sessionData.end.count} (${sessionData.end.avg} avg)`
+            } 
+
+            if(sessionData.finish.count != 0) {
+                finishText = `• finishes: ${sessionData.finish.count} (${sessionData.finish.avg} avg)`
+            } 
             
             return {
-                text: `${bot.Utils.unping(mcNameData.name)}: ${count} Enters  (${average} avg)`,
+                text: `${bot.Utils.unping(mcNameData.name)} Session Stats: ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
