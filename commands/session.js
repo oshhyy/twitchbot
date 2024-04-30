@@ -59,7 +59,7 @@ module.exports = {
                 netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg)`
             } else {
                 return {
-                    text: `No data in the last 24 hours for ${bot.Utils.unping(mcNameData.name)}. FallCry`,
+                    text: `No data in the last 16 hours for ${bot.Utils.unping(mcNameData.name)}. FallCry`,
                     reply: true,
                 };
             }
