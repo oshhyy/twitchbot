@@ -7,7 +7,7 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            let name = context.message.args[0]?.replace("@", "") ?? context.message.args[0];
+            let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
 
             let netherData;
             try {

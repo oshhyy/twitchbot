@@ -8,7 +8,7 @@ module.exports = {
         try {
             // command code
 
-            let name = context.message.args[0]?.replace("@", "") ?? context.message.args[0];
+            let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
 
             let sessionData;
             try {
