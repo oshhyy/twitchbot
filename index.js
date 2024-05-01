@@ -56,6 +56,11 @@ bot.Client.on("PRIVMSG", async (msg) => {
         }        
     }
 
+    // same with session now ome ome ome
+    if (message.startsWith("!session")) {
+        message = `+broadcastersession`
+    }
+
     const content = message;
     const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
     const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
