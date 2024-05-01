@@ -2,7 +2,7 @@ const got = require("got");
 module.exports = {
     name: "session",
     cooldown: 3000,
-    aliases: ["sessionstats", "pacestats", "pacemanstats"],
+    aliases: ["sessionstats", "pacestats", "pacemanstats", "today"],
     description: `session [minecraft-username] | shows splits + average for current day`,
     execute: async context => {
         try {
