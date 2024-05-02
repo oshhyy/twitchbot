@@ -14,9 +14,7 @@ module.exports = {
             try {
                 sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=16&hoursBetween=3`).json();
             } catch (err) {
-                return {
-                    text: `This user does not have a paceman.gg profile!`, reply: true
-                }
+                return {}
             }
 
             let netherText = firstStructureText = secondStructureText = firstPortalText = strongholdText = endText = finishText = "";
