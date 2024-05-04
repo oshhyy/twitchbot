@@ -58,7 +58,8 @@ bot.Client.on("PRIVMSG", async (msg) => {
 
     // same with session now ome ome ome
     if (message.startsWith("!session")) {
-        message = `+broadcastersession`
+        let asd = message.slice(1).trim().split(/\s+/g) ?? ""
+        message = `+broadcastersession ${asd}`
     }
 
     const content = message;
