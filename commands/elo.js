@@ -93,10 +93,9 @@ module.exports = {
                     mcUUID = userData?.mcid
                     mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
                 } catch (err){
-                    
-                }
-                return {
-                    text: `No ranked profile found. FallCry`, reply: true
+                    return {
+                        text: `No ranked profile found. FallCry`, reply: true
+                    }
                 }
             }
             const elo = mcsrData.data.eloRate
