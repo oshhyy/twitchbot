@@ -26,7 +26,7 @@ module.exports = {
             const average = netherData.avg
             
             return {
-                text: `${bot.Utils.unping(mcNameData.name)}: ${count} Enters  (${average} avg)`,
+                text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg)`,
                 reply: true,
             };
         } catch (err) {
