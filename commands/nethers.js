@@ -22,7 +22,7 @@ module.exports = {
                 }
             }
 
-            const count = c.count
+            const count = netherData.count
             const average = netherData.avg
             
             return {
