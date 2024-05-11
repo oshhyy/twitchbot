@@ -15,7 +15,8 @@ module.exports = {
                 sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=16&hoursBetween=3`).json();
             } catch (err) {
                 try{
-                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${context.channel.login}&hours=16&hoursBetween=3`).json();
+                    name = context.channel.login;
+                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=16&hoursBetween=3`).json();
                 } catch(err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
