@@ -9,7 +9,7 @@ module.exports = {
             // command code
             let netherData;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=oshgay,ContraVz,pulsar32,Voxio,Dfanm,isqqcle,Anjouu,biiased,Ranik_,paplerr,Mar1n,aadrn,kruin7,ekuboh,NoFearr1337,marimari_en,kohout135,newfroggy,zaintew,Marimarilove,feinGG,meebie,aleen,priffin,erikfzf,hdmicables,emia,Greetings_1&hours=999999&hoursBetween=999999&start=1716030000`).json();
+                netherData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=oshgay,pauule,ContraVz,pulsar32,Voxio,Dfanm,isqqcle,Anjouu,biiased,Ranik_,paplerr,Mar1n,aadrn,kruin7,ekuboh,NoFearr1337,marimari_en,kohout135,newfroggy,zaintew,Marimarilove,feinGG,meebie,aleen,priffin,erikfzf,valentical,hdmicables,emia,Greetings_1&hours=999999&hoursBetween=999999&start=1716030000`).json();
             } catch (err) {
                 return {
                     text: `there was a freaking error bwo`, reply: true
