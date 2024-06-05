@@ -67,6 +67,16 @@ bot.Client.on("PRIVMSG", async (msg) => {
         }        
     }
 
+    if (message.startsWith("!nethers") || message.startsWith("!enters") ) {
+        let asd = message.slice(1).trim().split(/\s+/g) ?? null
+        console.log(asd)
+        if(asd[1]) {
+            message = `+broadcasternethers ${asd[1]}`
+        } else {
+            message = `+broadcasternethers`
+        }        
+    }
+
     const content = message;
     const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
     const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
