@@ -27,7 +27,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     // if (msg.senderUserID === '489223884') {
     //     gql.badgeCycler(msg.channelName)
     // }
-
+    twitchapi.loopMods();
     const start = Date.now();
     let message
 

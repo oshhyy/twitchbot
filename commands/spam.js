@@ -13,7 +13,7 @@ module.exports = {
             if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                 return {};
             }
-            if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasBroadcaster && !context.message.params.channel) {
+            if(!ModeratorOf.includes(context.channel.id) && !context.message.params.channel) {
                 return {
                     text: `I can't perform this command because I am not moderator! forsenNOIDONTTHINKSO`, reply: true
                 };
