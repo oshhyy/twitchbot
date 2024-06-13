@@ -10,9 +10,9 @@ module.exports = {
                 return {};
             }
 
-            if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasVIP && !context.botBadges.badges.hasBroadcaster) {
+            if(!ModeratorOf.includes(context.channel.id)) {
                 return {
-                    text: `I can't perform this command because I am not mod or vip! forsenNOIDONTTHINKSO`, reply: true
+                    text: `I can't perform this command because I am not mod! buh`, reply: true
                 };
             }
                 
