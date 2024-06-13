@@ -9,15 +9,13 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-
-            let botColor = bot.Client.userStateTracker.globalState.colorRaw
             let user = context.message.args[0] ?? context.user.login;
             user = user.replace('@','');
             let color;
             let delay;
             let data;
 
-            if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasVIP && !context.botBadges.badges.hasBroadcaster) {
+            if(!ModeratorOf.includes(context.channel.id)) {
                 delay = 1000
             } else {
                 delay = 0
