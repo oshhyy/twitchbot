@@ -51,10 +51,6 @@ module.exports = {
             if (data[0].banned) {
                 banText = `⛔ ${data[0].banReason} LuL GuitarTime •`
             }
-    
-            if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasVIP && context.user.id == '489223884') {
-                await bot.Utils.sleep(2000)
-            }
 
             let prefixText
             if (data[0].roles.isAffiliate || data[0].roles.isPartner) {
