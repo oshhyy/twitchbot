@@ -25,7 +25,7 @@ module.exports = {
                     bot.Client.join(context.user.login);
                     bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
                     return {
-                        text: `Joined channel #${context.user.login} docArrive`, reply: true
+                        text: `Joined channel #${context.user.login} feinArrive`, reply: true
                     }
                 }
 
@@ -36,7 +36,7 @@ module.exports = {
                 bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${context.user.login} • ${context.user.id}`);
 
                 return {
-                    text: `Joined channel #${context.user.login} docArrive It is recommended that you mod the bot, as authorizing will soon become a requirement due to Twitch API changes.`, reply: true
+                    text: `Joined channel #${context.user.login} feinArrive`, reply: true
                 }
             }
 
@@ -52,7 +52,7 @@ module.exports = {
                 if (xd[0]) {
                     if (channels.includes(xd[0].id)) {
                         return {
-                            text: `I am already in this channel! oshDank`, reply: true
+                            text: `I am already in the channel @${channel} oshDank`, reply: true
                         }
                     }
 
@@ -75,7 +75,7 @@ module.exports = {
                     bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${channel} • \n\nAdded by ${context.user.name}`);
 
                     return {
-                        text: `Joined channel #${channel} docArrive`, reply: true
+                        text: `Joined channel #${channel} feinArrive`, reply: true
                     }
                 } else {
                     return {

@@ -34,7 +34,7 @@ module.exports = {
 
             if (channels.includes(xd[0].id)) {
                 await bot.db.channels.updateOne( { id: xd[0].id}, { $set: { isChannel: false } } )
-                bot.Client.privmsg(context.channel.login, `Parting channel ${channel} iqvekSaj 👋`)
+                bot.Client.privmsg(context.channel.login, `Parting channel ${channel} FallCry 👋`)
                 bot.Client.part(channel)
                 bot.Webhook.colorEmbed(`16744576`, `Parted channel!`, `${channel} - ${xd[0].id} • parted by ${context.user.login}`);
                 return;
