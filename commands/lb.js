@@ -52,6 +52,16 @@ module.exports = {
                     if(rank <= 32) return 20
                     if(rank <= 50) return 15
                     if(rank <= 100) return 10
+                } else if (phase == 4) {
+                    if(rank == 1) return 95
+                    if(rank == 2) return 85
+                    if(rank == 3) return 70
+                    if(rank == 4) return 65
+                    if(rank <= 8) return 45
+                    if(rank <= 16) return 35
+                    if(rank <= 32) return 25
+                    if(rank <= 50) return 20
+                    if(rank <= 100) return 15
                 }
                 
                 return 0
