@@ -157,7 +157,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     }
 
     // for pap 2k enter thing
-    if (msg.senderUserID == '85951736' && msg.messageText.startsWith("!progress") && args[args.length - 1] == "🪤") {
+    if (msg.senderUserID == '85951736' && msg.messageText.startsWith("!progress")) {
         await bot.Utils.sleep(2500);
         let progressData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=paplerr&hours=999999&hoursBetween=999999&start=1718615099`).json()
         bot.Client.privmsg("paplerr", `Current Progress: ${progressData.count}/2000 Nethers (${progressData.avg} avg)`);
