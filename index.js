@@ -156,8 +156,14 @@ bot.Client.on("PRIVMSG", async (msg) => {
         bot.Client.privmsg("markzynk", `$$trap`);
     }
 
-    if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
+    // for pap 2k enter thing
+    if (msg.senderUserID == '85951736' && msg.messageText.startsWith("!progress") && args[args.length - 1] == "🪤") {
+        await bot.Utils.sleep(2500);
+        let progressData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=paplerr&hours=999999&hoursBetween=999999&start=1718615099`).json()
+        bot.Client.privmsg("paplerr", `Current Progress: ${progressData.count}/2000 Nethers (${progressData.avg} avg)`);
+    }
 
+    if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
     
