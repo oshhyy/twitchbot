@@ -16,7 +16,7 @@ module.exports = {
                 trackingData = await got(`https://7tv.markzynk.com/c/${user}`).json()
             } catch(err) {
                 return {
-                    text:`This channel's 7tv emote usage is not tracked! oshDank`, reply:true
+                    text:`This channel's 7tv emote usage is not tracked. To enable tracking, open a suggestion using +suggest tracking <channelname>`, reply:true
                 }
             }
 
