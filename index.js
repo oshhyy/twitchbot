@@ -166,7 +166,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (msg.channelID == '699251645' && msg.messageText.startsWith("!progress")) {
         await bot.Utils.sleep(2500);
         let progressData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=erikfzf&hours=999999&hoursBetween=999999&start=1719597600`).json()
-        bot.Client.privmsg("paplerr", `Current Progress: ${progressData.count}/1000 Nethers ${((progressData.count / 1000) * 100).toFixed(1)}% (${progressData.avg} avg)`);
+        bot.Client.privmsg("erikfzfz", `Current Progress: ${progressData.count}/1000 Nethers ${((progressData.count / 1000) * 100).toFixed(1)}% (${progressData.avg} avg)`);
     }
 
     if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
