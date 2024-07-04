@@ -31,8 +31,8 @@ module.exports = {
 
             let outputText = `Latest PaceMan Run: "${netherData.runName}" `
         
-            if(!netherData.nether) {
-                outputText = outputText.concat(`• nether enter: ${msToTime(netherData.nether)}`)
+            if(!netherData[0].nether) {
+                outputText = outputText.concat(`• nether enter: ${msToTime(netherData[0].nether)}`)
             }
 
             
