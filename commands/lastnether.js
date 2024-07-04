@@ -32,9 +32,9 @@ module.exports = {
             let outputText = `Latest PaceMan Run: "${netherData.runName}" `
         
             if(!netherData.nether) {
-                outputText = outputText.append(`• nether enter: ${msToTime(netherData.nether)}`)
+                outputText = outputText.push(`• nether enter: ${msToTime(netherData.nether)}`)
             }
-            
+
             
             return {
                 text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg)`,
