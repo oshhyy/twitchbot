@@ -37,7 +37,7 @@ module.exports = {
 
             
             return {
-                text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg)`,
+                text: `${outputText}`,
                 reply: true,
             };
         } catch (err) {
