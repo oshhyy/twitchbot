@@ -51,10 +51,9 @@ module.exports = {
                     durationInMs = givenDate.getTime() - currentDate.getTime();
     
                     let gifter = data.meta.giftMeta.gifter.displayName
-                    let gifterNonPing = gifter.slice(0, 3) + "󠀀" + gifter.slice(3)
     
     
-                    return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} with a Tier ${data.meta.tier} gifted sub by ${gifterNonPing}. This user's Subscription Status is hidden. This sub expires in ${bot.Utils.humanize(durationInMs)}.`, reply:true}
+                    return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} with a Tier ${data.meta.tier} gifted sub by ${bot.Utils.unping(gifter)}. This user's Subscription Status is hidden. This sub expires in ${bot.Utils.humanize(durationInMs)}.`, reply:true}
                 }
                 
                 return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} at Tier ${data.meta.tier}. This user's Subscription Status is hidden.`, reply:true}
@@ -85,9 +84,8 @@ module.exports = {
 
                 if(data.meta.giftMeta.gifter) {
                     let gifter = data.meta.giftMeta.gifter.displayName
-                    let gifterNonPing = gifter.slice(0, 3) + "󠀀" + gifter.slice(3)
 
-                    return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} with a Tier ${data.meta.tier} gifted sub by ${gifterNonPing}. They have been subscribed for ${data.cumulative.months} months. This sub expires in ${bot.Utils.humanize(durationInMs)}.`, reply:true}
+                    return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} with a Tier ${data.meta.tier} gifted sub by ${bot.Utils.unping(gifter)}. They have been subscribed for ${data.cumulative.months} months. This sub expires in ${bot.Utils.humanize(durationInMs)}.`, reply:true}
                 } else { // ANON GIFT SUB
                     return{text:`User ${data.user.displayName} is currently subscribed to ${data.channel.displayName} with a Tier ${data.meta.tier} gifted sub by an anonymous user. They have been subscribed for ${data.cumulative.months} months. This sub expires in ${bot.Utils.humanize(durationInMs)}.`, reply:true}
                 }
