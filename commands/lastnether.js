@@ -44,14 +44,14 @@ module.exports = {
             }
 
             if(netherData[0].fortress && netherData[0].bastion > netherData[0].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fortress enter `)
+                outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fort `)
                 if(netherData[0].bastion) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion enter `)
+                    outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion `)
                 }
             } else if(netherData[0].bastion && netherData[0].bastion < netherData[0].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion enter `)
+                outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion `)
                 if(netherData[0].fortress) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fortress enter `)
+                    outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fort `)
                 }
             }
             
