@@ -10,18 +10,18 @@ module.exports = {
             function msToTime(s) {
                 // Pad to 2 or 3 digits, default is 2
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
-                return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
+                return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0);
             }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
 
             let netherData;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getRecentTimestamps/?name=${name}&limit=1`).json();
+                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`).json();
             } catch (err) {
                 try{
                     name = context.channel.login;
-                    netherData = await got(`https://paceman.gg/stats/api/getRecentTimestamps/?name=${name}&limit=1`).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`).json();
                 } catch(err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
@@ -29,13 +29,48 @@ module.exports = {
                 }
             }
 
-            let outputText = `Latest PaceMan Run: "${netherData[0].runName}" `
+            const epochTimeInSeconds = netherData[0].time;
+            const currentTimeInMilliseconds = new Date().getTime();
+            const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
+            const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
+
+            let start = bot.Utils.humanize(timeDifferenceInMilliseconds)
+            console.log(start)
+
+            let outputText = `Latest ${bot.Utils.unping(name)} PaceMan Run: (${start} ago) `
         
-            if(!netherData[0].nether) {
-                outputText = outputText.concat(`• nether enter: ${msToTime(netherData[0].nether)}`)
+            if(netherData[0].nether) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].nether)} nether enter `)
             }
 
+            if(netherData[0].fortress && netherData[0].bastion > netherData[0].fortress) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fortress enter `)
+                if(netherData[0].bastion) {
+                    outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion enter `)
+                }
+            } else if(netherData[0].bastion && netherData[0].bastion < netherData[0].fortress) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion enter `)
+                if(netherData[0].fortress) {
+                    outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fortress enter `)
+                }
+            }
             
+            if(netherData[0].first_portal) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].first_portal)} first portal `)
+            }
+
+            if(netherData[0].stronghold) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].stronghold)} stronghold `)
+            }
+
+            if(netherData[0].end) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].end)} end enter `)
+            }
+
+            if(netherData[0].finish) {
+                outputText = outputText.concat(`• ${msToTime(netherData[0].finish)} finish `)
+            }
+
             return {
                 text: `${outputText}`,
                 reply: true,
