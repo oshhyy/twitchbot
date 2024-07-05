@@ -25,9 +25,13 @@ module.exports = {
 
             const count = netherData.count
             const average = netherData.avg
+            let nph
+            if(netherData.rnph) {
+                nph = ` • ${netherData.rnph} nph`
+            }
             
             return {
-                text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg)`,
+                text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg${nph})`,
                 reply: true,
             };
         } catch (err) {
