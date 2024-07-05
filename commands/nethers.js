@@ -25,7 +25,7 @@ module.exports = {
 
             const count = netherData.count
             const average = netherData.avg
-            let nph
+            let nph = ""
             if(netherData.rnph) {
                 nph = ` • ${netherData.rnph} nph`
             }
