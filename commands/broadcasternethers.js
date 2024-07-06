@@ -12,11 +12,11 @@ module.exports = {
 
             let netherData;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=16&hoursBetween=3`).json();
+                netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=999&hoursBetween=3`).json();
             } catch (err) {
                 try{
                     name = context.channel.login;
-                    netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=16&hoursBetween=3`).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=999&hoursBetween=3`).json();
                 } catch(err) {
                     return {}
                 }

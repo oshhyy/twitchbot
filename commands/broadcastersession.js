@@ -12,7 +12,7 @@ module.exports = {
 
             let sessionData;
             try {
-                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=16&hoursBetween=3`).json();
+                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
             } catch (err) {
                 return {}
             }
@@ -23,7 +23,7 @@ module.exports = {
                 netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg)`
             } else {
                 return {
-                    text: `No data in the last 16 hours for ${bot.Utils.unping(name)}. FallCry`,
+                    text: `No session data found for ${bot.Utils.unping(name)}. FallCry`,
                     reply: true,
                 };
             }
