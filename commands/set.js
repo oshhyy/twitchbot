@@ -13,7 +13,13 @@ module.exports = {
             let ivr
             let userID
             if(context.message.args[0]){
-                ivr = await got(`https://api.ivr.fi/v2/twitch/user?login=${user}`).json();
+                try {
+                    ivr = await got(`https://api.ivr.fi/v2/twitch/user?login=${user}`).json();
+                } catch(err) {
+                    return {
+                        text:`This twitch user does not exist. FallHalp`, reply:true
+                    }
+                }
                 userID = ivr[0].id
             } else {
                 userID = context.user.id
