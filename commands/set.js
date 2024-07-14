@@ -14,7 +14,7 @@ module.exports = {
             let userID
             if(context.message.args[0]){
                 ivr = await got(`https://api.ivr.fi/v2/twitch/user?login=${user}`).json();
-                if(!ivr[0].id) {
+                if(!ivr[0]?.id) {
                     return {
                         text:`This twitch user does not exist. FallHalp`, reply:true
                     }
