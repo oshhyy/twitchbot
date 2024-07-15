@@ -75,8 +75,8 @@ module.exports = {
             if (context.message.args[0]) {
                 let timeNames = ["time", "record", "",]
                 let phaseNames = ["phase", "phasepoints", "points", "predicted"]
-                if (timeNames.includes(context.message.args[0])) { lbType = "record-" }
-                if (phaseNames.includes(context.message.args[0])) { lbType = "phase-" }
+                if (timeNames.includes(context.message.args[0].toLowerCase())) { lbType = "record-" }
+                if (phaseNames.includes(context.message.args[0].toLowerCase())) { lbType = "phase-" }
                 if (context.message.args.includes("-ls")) { lbSeason = 1 }
             }
 
