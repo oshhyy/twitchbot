@@ -4,7 +4,7 @@ module.exports = {
     name: "weather",
     cooldown: 3000,
     aliases: ['w'],
-    description: `weather <city|town> - shows the weather 4Head`,
+    description: `weather <city|town> - shows the weather`,
     execute: async context => {
         try {
             // command code
@@ -20,9 +20,9 @@ module.exports = {
                 }
                 if (code == 1003) { res = '🌤'}
                 if (code == 1006 || code == 1009 || code == 1030) { res = '☁'}
-                if (code == 1066 || code == 1255 || code == 1258) { res = '🌤 SoSnowy'}
-                if (code == 1069) { res = '🌦 SoSnowy'}
-                if (code == 1072) { res = '☁ SoSnowy'}
+                if (code == 1066 || code == 1255 || code == 1258) { res = '🌤❄️'}
+                if (code == 1069) { res = '🌦❄️'}
+                if (code == 1072) { res = '☁❄️'}
                 if (code == 1087) { res = '☀🌩'}
                 if (code == 1114 || code == 1117) { res = '🌨💨'}
                 if (code == 1135) { res = '🌫'}
@@ -30,27 +30,38 @@ module.exports = {
                 if (code == 1150 || code == 1153 || code == 1183 || code == 1189 || code == 1195) { res = '🌧'}
                 if (code == 1168 || code == 1171 || code == 1198 || code == 1201) { res = '🌨'}
                 if (code == 1063 || code == 1180 || code == 1186 || code == 1192 || code == 1240 || code == 1243 || code == 1246) { res = '🌦'}
-                if (code == 1204 || code == 1207) { res = '🌧 SoSnowy'}
+                if (code == 1204 || code == 1207) { res = '🌧❄️'}
                 if (code == 1210 || code == 1216 || code == 1222) {res = '☀🌨'}
                 if (code == 1213 || code == 1219 || code == 1225) {res = '🌨'}
                 if (code == 1237) {res = '⚪'}
-                if (code == 1249 || code == 1252) { res = '🌦 SoSnowy'}
+                if (code == 1249 || code == 1252) { res = '🌦❄️'}
                 if (code == 1261 || code == 1264) { res = '🌤⚪'}
                 if (code == 1273 || code == 1276) { res = '⛈'}
-                if (code == 1279 || code == 1282) { res = '⛈ SoSnowy'}
+                if (code == 1279 || code == 1282) { res = '⛈❄️'}
 
                 return res;
             }
 
-
-            let city = context.message.args.slice(0).join(" ")
-            if(!city) {
-                return{text: `Please provide a city name! oshDank`, reply:true}
+            let userData
+            let location
+            if(context.message.args[0]?.startsWith("@")) {
+                userData = await bot.db.users.findOne({username: context.message.args[0].replace("@", "")})
+                location = userData?.location
+                if(!location){
+                    return{text:`This user does not have a linked location!`, reply:true}
+                }
+            } else {
+                userData = await bot.db.users.findOne({id: context.user.id})
+                location = context.message.args[0] ?? userData?.location
+                if(!location){
+                    return{text:`No location provided!`, reply:true}
+                }
             }
+
             let key = config.weatherKey;
             let data
             try {
-                data = await got(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`).json()
+                data = await got(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${location}&aqi=no`).json()
             } catch(err) {
                 return{text: `No Matching Location Found.`, reply:true}
             }

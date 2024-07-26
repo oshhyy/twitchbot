@@ -17,7 +17,7 @@ module.exports = {
             let type = context.message.args[0]
             let name = context.message.args[1]
             let data, userInfo, newUser
-            if (!name) { return { text:'usage: +link <mc|lastfm> <username> !', reply: true } }
+            if (!name) { return { text:'usage: +link <type> <username> - current types: mc, lastfm, location', reply: true } }
             if (type == "lastfm") {
                 data = await got(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${name}&api_key=${config.lastfmKey}&format=json`, { throwHttpErrors: false }).json()
                 if (data.message) {
@@ -57,6 +57,28 @@ module.exports = {
                 }
 
                 return { text: `Your minecraft account has successfully linked to "${data.name}"!`, reply: true }
+
+            } else if (type == "location" || type == "weather") {
+                let key = config.weatherKey;
+                data = await got(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${name}&aqi=no`, { throwHttpErrors: false }).json()
+                if(data.errorMessage) {
+                    return { text: data.error.message, reply: true }
+                }
+
+                userInfo = await bot.db.users.findOne({ id: context.user.id })
+                if (!userInfo) {
+                    newUser = new bot.db.users({
+                        id: context.user.id,
+                        username: context.user.login,
+                        level: "1",
+                        location: data.location.name,
+                    })
+                    await newUser.save();
+                } else {
+                    await bot.db.users.updateOne({ id: context.user.id }, { $set: { location: data.location.name } })
+                }
+
+                return { text: `Your location has successfully set to "${data.location.name}"!`, reply: true }
 
             }
             
