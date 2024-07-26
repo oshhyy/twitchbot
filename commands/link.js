@@ -78,7 +78,7 @@ module.exports = {
                     await bot.db.users.updateOne({ id: context.user.id }, { $set: { location: data.location.name } })
                 }
 
-                return { text: `Your location has successfully set to "${data.location.name}"!`, reply: true }
+                return { text: `Your location has successfully set to ${data.location.name}, ${data.location.region} (${data.location.country})!`, reply: true }
 
             }
             
