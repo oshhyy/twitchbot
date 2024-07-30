@@ -13,7 +13,12 @@ module.exports = {
             function msToTime(s) {
                 // Pad to 2 or 3 digits, default is 2
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
-                return pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0) + '.' + pad(s % 1000, 3);
+                
+                var minutes = Math.floor(s / 60000);
+                var seconds = Math.floor((s % 60000) / 1000); 
+                var milliseconds = s % 1000;
+                
+                return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
             }
             function badgeIcon(badge) {
                 if (badge == 1) {return "◇ "}
