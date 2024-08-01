@@ -82,12 +82,12 @@ module.exports = {
                 let phaseNames = ["phase", "phasepoints", "points", "predicted"]
                 if (timeNames.includes(context.message.args[0].toLowerCase())) { lbType = "record-" }
                 if (phaseNames.includes(context.message.args[0].toLowerCase())) { lbType = "phase-" }
-                if (context.message.args.includes("-ls")) { lbSeason = 1 }
+                if (context.message.params.season) { lbSeason = context.message.params.season }
             }
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?type=${lbSeason}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?season=${lbSeason}`).json();
             } catch (err) {
                 return {
                     text: `An error has occured getting the leaderboard!`, reply: true
@@ -126,13 +126,15 @@ module.exports = {
                         message = message.concat(` • ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
                     }
                 }
-                message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
+                if(lbSeason == 0) {
+                    message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
+                }
             } else if(lbType == "record-") {
                 // record lb
-                message = message.concat(`All-Time Record LB`)
+                message = message.concat(`Season ${mcsrData.data[0].season} Record LB`)
                 for(let i = 0; i < 10; i++) {
                     if(mcsrData.data[i]) {
-                        message = message.concat(` • #${i + 1} ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in s${mcsrData.data[i].season})`)
+                        message = message.concat(` • #${i + 1} ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in)`)
                     }
                 }
             } else if (lbType == "phase-") {
@@ -143,16 +145,21 @@ module.exports = {
                         message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                     }
                 }
-                message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
+                if(lbSeason == 0) {
+                    message = message.concat(` • phase ${mcsrData.data.phase.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.phase.endsAt * 1000))}`)
+                }
             } else {
                 // elo lb
-                message = message.concat(`Elo LB`)
+                message = message.concat(`Season ${mcsrData.data.season.number} Elo LB`)
                 for(let i = 0; i < 10; i++) {
                     if(mcsrData.data.users[i]) {
                         message = message.concat(` • ${mcsrData.data.users[i]?.eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
                     }
                 }
-                message = message.concat(` • season ${mcsrData.data.season.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.season.endsAt * 1000))}`)
+
+                if(lbSeason == 0) {
+                    message = message.concat(` • season ${mcsrData.data.season.number} ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.season.endsAt * 1000))}`)
+                }
             }
 
             return {text:message, reply:true}
