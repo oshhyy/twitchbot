@@ -37,7 +37,7 @@ module.exports = {
             }
 
             const countData = await got(`https://api.potat.app/twitch/badges?badge=${badgeID}`).json();
-            let usage = countData.data[0].badge.user_count
+            let usage = countData.data[0].user_count
 
             return {
                 text: `applied vanity badge for ${user}: ${badgeName} • ${badgeDescription} (id: ${badgeID}) • there are ${usage} users with this badge applied.`,
