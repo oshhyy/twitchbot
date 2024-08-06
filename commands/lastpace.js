@@ -30,11 +30,11 @@ module.exports = {
 
             let netherData;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=50`).json();
+                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=100`).json();
             } catch (err) {
                 try{
                     name = context.channel.login;
-                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=50`).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=100`).json();
                 } catch(err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
@@ -46,7 +46,7 @@ module.exports = {
 
             if(n == -1) {
                 return {
-                    text: `No pace was found for ${bot.Utils.unping(name)} in the last 50 nethers!`,
+                    text: `No pace was found for ${bot.Utils.unping(name)} in the last 100 nethers!`,
                     reply: true,
                 }
             }
