@@ -15,7 +15,7 @@ module.exports = {
                 var seconds = Math.floor((s % 60000) / 1000); 
                 var milliseconds = s % 1000;
                 
-                return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
+                return pad(minutes) + ':' + pad(seconds);
             }
             function isValidEntry(entry) {
                 if (entry.hasOwnProperty('fortress') && entry.hasOwnProperty('bastion') &&

@@ -15,7 +15,7 @@ module.exports = {
                 var seconds = Math.floor((s % 60000) / 1000); 
                 var milliseconds = s % 1000;
                 
-                return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
+                return pad(minutes) + ':' + pad(seconds);
             }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;

@@ -18,13 +18,13 @@ module.exports = {
                 var seconds = Math.floor((s % 60000) / 1000); 
                 var milliseconds = s % 1000;
                 
-                return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
+                return pad(minutes) + ':' + pad(seconds);
             }
             function badgeIcon(badge) {
                 if (badge == 1) {return "◇ "}
                 if (badge == 2) {return "◈ "}
                 if (badge == 3) {return "❖ "}
-                return " "
+                return "• "
             }
             function predictedPhase(phase, rank) {
                 if (phase == 1) {
@@ -123,7 +123,7 @@ module.exports = {
                 message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
                 for(let i = 0; i < 12; i++) {
                     if(sortedData[i]) {
-                        message = message.concat(` • ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
+                        message = message.concat(` ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
                     }
                 }
                 if(lbSeason == 0) {
@@ -134,7 +134,7 @@ module.exports = {
                 message = message.concat(`Season ${mcsrData.data[0].season} Record LB`)
                 for(let i = 0; i < 10; i++) {
                     if(mcsrData.data[i]) {
-                        message = message.concat(` • #${i + 1} ${badgeIcon(mcsrData.data[i].user.roleType)}${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)} in)`)
+                        message = message.concat(` ${badgeIcon(mcsrData.data[i].user.roleType)}#${i + 1} ${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)})`)
                     }
                 }
             } else if (lbType == "phase-") {
@@ -142,7 +142,7 @@ module.exports = {
                 message = message.concat(`Season ${mcsrData.data.phase.season} Phase LB`)
                 for(let i = 0; i < 12; i++) {
                     if(mcsrData.data.users[i]) {
-                        message = message.concat(` • ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
+                        message = message.concat(` ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].seasonResult.phasePoint})`)
                     }
                 }
                 if(lbSeason == 0) {
@@ -153,7 +153,7 @@ module.exports = {
                 message = message.concat(`Season ${mcsrData.data.season.number} Elo LB`)
                 for(let i = 0; i < 10; i++) {
                     if(mcsrData.data.users[i]) {
-                        message = message.concat(` • ${mcsrData.data.users[i]?.eloRank}: ${badgeIcon(mcsrData.data.users[i].roleType)}${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
+                        message = message.concat(` ${badgeIcon(mcsrData.data.users[i].roleType)}#${mcsrData.data.users[i]?.eloRank} ${bot.Utils.unping(mcsrData.data.users[i].nickname)} (${mcsrData.data.users[i].eloRate})`)
                     }
                 }
 
