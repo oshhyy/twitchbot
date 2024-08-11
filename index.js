@@ -43,7 +43,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     let mcUUID
     // !elo command that auto gets the broadcaster elo
     // this method is dogshit and can be absolutely improved but idk a way
-    if (message.startsWith("!elo")) {
+    if (message.toLowerCase().startsWith("!elo")) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         console.log(asd)
         if(asd[1]) {
@@ -59,7 +59,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     } 
 
     // same with session now ome ome ome
-    if (message.startsWith("!session")) {
+    if (message.toLowerCase().startsWith("!session")) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         console.log(asd)
         if(asd[1]) {
@@ -69,7 +69,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         }        
     }
 
-    if (message.startsWith("!nethers") || message.startsWith("!enters") ) {
+    if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         console.log(asd)
         if(asd[1]) {
