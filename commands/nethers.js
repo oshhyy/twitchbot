@@ -2,7 +2,7 @@ const got = require("got");
 module.exports = {
     name: "nethers",
     cooldown: 3000,
-    aliases: ["enters", "enter", "nether"],
+    aliases: ["enters", "enter", "nether", "nph", "avg", "rpe"],
     description: `nethers [minecraft-username] | shows amount of nethers + average for current session`,
     execute: async context => {
         try {
