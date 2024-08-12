@@ -82,7 +82,7 @@ module.exports = {
             data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
             if(!data.error) {
                 const playtime = humanizeNoHours(data.playtime + data.walltime)
-                const resets = data.totalResets
+                const resets = data.totalResets.toLocaleString()
                 rsgText = `RSG Playtime: ${playtime.replace(/,\s/g, "")} w/o nethers, ${resets} resets •`
             }
 
