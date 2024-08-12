@@ -73,7 +73,7 @@ module.exports = {
             if(mcsrData.status != "error") {
                 const playtimeTotal = humanizeNoHours(mcsrData.data.statistics.total.playtime.ranked)
                 const playtimeSeason = humanizeNoHours(mcsrData.data.statistics.season.playtime.ranked)
-                rankedText = `Ranked Playtime: ${playtimeSeason} this season, ${playtimeTotal} total`
+                rankedText = `Ranked Playtime: ${playtimeSeason.replace(/,\s/g, "")} this season, ${playtimeTotal.replace(/,\s/g, "")} total`
             }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
@@ -83,7 +83,7 @@ module.exports = {
             if(!data.error) {
                 const playtime = humanizeNoHours(data.playtime + data.walltime)
                 const resets = data.totalResets
-                rsgText = `RSG Playtime: ${playtime} w/o nethers, ${resets} resets •`
+                rsgText = `RSG Playtime: ${playtime.replace(/,\s/g, "")} w/o nethers, ${resets} resets •`
             }
 
             if(rankedText == "" && rsgText == "") {
