@@ -7,31 +7,37 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
+            function msToTime(s) {
+                // Pad to 2 or 3 digits, default is 2
+                var pad = (n, z = 2) => ('00' + n).slice(-z);
+                
+                var minutes = Math.floor(s / 60000);
+                var seconds = Math.floor((s % 60000) / 1000); 
+                var milliseconds = s % 1000;
+                
+                return pad(minutes) + ':' + pad(seconds);
+            }
 
-            let netherData;
+            let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
+            let data;
             try {
-                netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=999&hoursBetween=3`).json();
+                data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`).json();
             } catch (err) {
                 try{
                     name = context.channel.login;
-                    netherData = await got(`https://paceman.gg/stats/api/getSessionNethers/?name=${name}&hours=999&hoursBetween=3`).json();
+                    data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`).json();
                 } catch(err) {
-                    return {
-                        text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
-                    }
+                    return {}
                 }
             }
-
-            const count = netherData.count
-            const average = netherData.avg
-            let nph = ""
-            if(netherData.rnph) {
-                nph = ` • ${netherData.rnph} nph`
-            }
             
+            const count = data.count
+            const average = msToTime(data.avg.toFixed(0))
+            const nph = data.rnph
+            const rpe = data.rpe.toFixed(0)
+
             return {
-                text: `${bot.Utils.unping(name)}: ${count} Enters  (${average} avg${nph})`,
+                text: `${bot.Utils.unping(name)}: ${count} Session Enters (${average} avg, ${nph} nph, ${rpe} rpe)`,
                 reply: true,
             };
         } catch (err) {
