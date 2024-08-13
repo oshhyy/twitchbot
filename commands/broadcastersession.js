@@ -1,9 +1,9 @@
 const got = require("got");
 const humanize = require('humanize-duration');
 module.exports = {
-    name: "session",
+    name: "broadcastersession",
     cooldown: 3000,
-    aliases: ["sessionstats", "pacestats", "pacemanstats", "today"],
+    aliases: [],
     description: `session [minecraft-username] | shows splits + average for current day`,
     execute: async context => {
         try {
@@ -32,18 +32,8 @@ module.exports = {
                 }
                 return humanize(seconds, options);
             }
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
 
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000);
-                var milliseconds = s % 1000;
-
-                return pad(minutes) + ':' + pad(seconds);
-            }
-
-            let name = context.message.args[0]?.replace("@", "") ?? context.channel.login;
+            let name = context.message.args[0]?.replace("@", "") ?? context.session.login;
 
             let sessionData;
             let nphData;
