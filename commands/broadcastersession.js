@@ -65,7 +65,7 @@ module.exports = {
             let netherText = firstStructureText = secondStructureText = firstPortalText = strongholdText = endText = finishText = "";
 
             if (sessionData.nether.count != 0) {
-                netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg, ${msToTime(nphData.avg.toFixed(0))} nph, ${nphData.rpe.toFixed(0)} rpe)`
+                netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg, ${nphData.rnph} nph, ${nphData.rpe.toFixed(0)} rpe)`
             } else {
                 return {
                     text: `No session data found for ${bot.Utils.unping(name)}. FallCry`,

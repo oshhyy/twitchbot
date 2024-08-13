@@ -32,16 +32,6 @@ module.exports = {
                 }
                 return humanize(seconds, options);
             }
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000);
-                var milliseconds = s % 1000;
-
-                return pad(minutes) + ':' + pad(seconds);
-            }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
 
@@ -65,7 +55,7 @@ module.exports = {
             let netherText = firstStructureText = secondStructureText = firstPortalText = strongholdText = endText = finishText = "";
 
             if (sessionData.nether.count != 0) {
-                netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg, ${msToTime(nphData.avg.toFixed(0))} nph, ${nphData.rpe.toFixed(0)} rpe)`
+                netherText = `• nethers: ${sessionData.nether.count} (${sessionData.nether.avg} avg, ${nphData.rnph} nph, ${nphData.rpe.toFixed(0)} rpe)`
             } else {
                 return {
                     text: `No session data found for ${bot.Utils.unping(name)}. FallCry`,
