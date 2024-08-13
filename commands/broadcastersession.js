@@ -33,7 +33,7 @@ module.exports = {
                 return humanize(seconds, options);
             }
 
-            let name = context.message.args[0]?.replace("@", "") ?? context.session.login;
+            let name = context.message.args[0]?.replace("@", "") ?? context.channel.login;
 
             let sessionData;
             let nphData;
