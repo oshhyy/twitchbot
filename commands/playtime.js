@@ -11,12 +11,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function badgeIcon(badge) {
-                if (badge == 1) {return "◇ "}
-                if (badge == 2) {return "◈ "}
-                if (badge == 3) {return "❖ "}
-                return " "
-            }
             function humanizeNoHours(seconds) {
                     const options = {
                         language: "shortEn",
@@ -79,7 +73,7 @@ module.exports = {
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
             let data;
             let rsgText = ""
-            data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
+            data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=99999&hoursBetween=99999`, { throwHttpErrors: false }).json();
             if(!data.error) {
                 const playtime = humanizeNoHours(data.playtime + data.walltime)
                 const resets = data.totalResets.toLocaleString()
