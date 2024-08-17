@@ -94,10 +94,14 @@ module.exports = {
             const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
             const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
 
-            let start = bot.Utils.humanize(timeDifferenceInMilliseconds)
+            let start = bot.Utils.humanize(timeDifferenceInMilliseconds).match(/(\d+)h/g)
+            let startText = ""
+            if(start != null) {
+                startText = ` ${startText} ago`
+            }
 
             return {
-                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}, ${start.match(/(\d+)h/g)} ago): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
+                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")},${startText}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
