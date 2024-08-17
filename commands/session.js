@@ -97,11 +97,11 @@ module.exports = {
             let start = bot.Utils.humanize(timeDifferenceInMilliseconds).match(/(\d+)h/g)
             let startText = ""
             if(start != null) {
-                startText = ` ${start} ago`
+                startText = `, ${start} ago`
             }
 
             return {
-                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")},${startText}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
+                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}${startText}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
