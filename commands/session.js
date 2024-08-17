@@ -97,7 +97,7 @@ module.exports = {
             let start = bot.Utils.humanize(timeDifferenceInMilliseconds).match(/(\d+)h/g)
             let startText = ""
             if(start != null) {
-                startText = ` ${startText} ago`
+                startText = ` ${start} ago`
             }
 
             return {
