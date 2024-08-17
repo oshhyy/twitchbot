@@ -39,12 +39,14 @@ module.exports = {
             let nphData;
             try {
                 sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=99999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`).json();
             } catch (err) {
                 try {
                     name = context.channel.login;
                     sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=99999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`, { throwHttpErrors: false }).json();
                 } catch (err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
@@ -87,8 +89,15 @@ module.exports = {
                 finishText = `• finishes: ${sessionData.finish.count} (${sessionData.finish.avg} avg)`
             }
 
+            const epochTimeInSeconds = netherData[0].time;
+            const currentTimeInMilliseconds = new Date().getTime();
+            const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
+            const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
+
+            let start = bot.Utils.humanize(timeDifferenceInMilliseconds)
+
             return {
-                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
+                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}, ${start.replace(/(\d+)h/g, "")} ago): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
