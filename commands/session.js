@@ -94,7 +94,7 @@ module.exports = {
             const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
             const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
 
-            let start = bot.Utils.humanize(timeDifferenceInMilliseconds).match(/(\d+)h/g)
+            let start = bot.Utils.humanize(timeDifferenceInMilliseconds).match(/\d+(?!s)/g)
             let startText = ""
             if(start != null) {
                 startText = `, ${start} ago`
