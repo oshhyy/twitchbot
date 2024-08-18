@@ -121,7 +121,7 @@ module.exports = {
             let start = `${hoursDaysMonths(timeDifferenceInMilliseconds).replace(/,\s/g, "")} ago`
 
             return {
-                text: `${bot.Utils.unping(name)} Session Stats (${onlyHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")} ${start}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
+                text: `${bot.Utils.unping(name)} Session Stats (${onlyHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}, ${start}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
