@@ -8,7 +8,7 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function humanizeNoHours(seconds) {
+            function onlyHours(seconds) {
                 const options = {
                     language: "shortEn",
                     languages: {
@@ -23,7 +23,31 @@ module.exports = {
                             ms: () => "ms",
                         },
                     },
-                    units: ["h", "m", "s"],
+                    units: ["h","m"],
+                    largest: 3,
+                    round: true,
+                    conjunction: "",
+                    spacer: "",
+
+                }
+                return humanize(seconds, options);
+            }
+            function hoursDaysMonths(seconds) {
+                const options = {
+                    language: "shortEn",
+                    languages: {
+                        shortEn: {
+                            y: () => "y",
+                            mo: () => "mo",
+                            w: () => "w",
+                            d: () => "d",
+                            h: () => "h",
+                            m: () => "m",
+                            s: () => "s",
+                            ms: () => "ms",
+                        },
+                    },
+                    units: ["mo","d","h"],
                     largest: 3,
                     round: true,
                     conjunction: "",
@@ -94,7 +118,7 @@ module.exports = {
             const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
             const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
 
-            let start = `${humanizeNoHours(timeDifferenceInMilliseconds).replace(/,\s/g, "")} ago`
+            let start = `${hoursDaysMonths(timeDifferenceInMilliseconds).replace(/,\s/g, "")} ago`
 
             return {
                 text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")} ${start}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
