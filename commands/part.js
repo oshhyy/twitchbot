@@ -12,14 +12,14 @@ module.exports = {
             const channels = (await bot.db.channels.find({ isChannel: true })).map(c => c.id);
             let channel = context.channel.login
 
-            if (!context.badges.hasBroadcaster && !context.badges.hasModerator) {
-                if(!context.channel.id == "489223884") {
+            if (!context.channel.id == "489223884") {
+                if(!context.badges.hasBroadcaster && !context.badges.hasModerator) {
                     return{}
                 } else {
-                    channel = context.user.login
+                    channel = context.channel.login
                 }
             } else {
-                channel = context.channel.login
+                channel = context.user.login
             }
 
             if(context.message.params.channel) {

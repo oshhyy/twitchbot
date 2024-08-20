@@ -9,8 +9,8 @@ module.exports = {
         try {
             // command code
 
-            const channels = (await bot.db.channels.find({ isChannel: true })).map(c => c.id);
-            const channelsOff = (await bot.db.channels.find({ isChannel: false })).map(c => c.id);
+            const channels = (await bot.db.channels.find({ isChannel: true })).map(c => c.username);
+            const channelsOff = (await bot.db.channels.find({ isChannel: false })).map(c => c.username);
             if (!context.message.params.channel) {
                 if (context.channel.id != "489223884") { return }
 
@@ -20,8 +20,8 @@ module.exports = {
                     }
                 }
 
-                if(channelsOff.includes(context.user.id)) { // if bot has been in users channel before
-                    await bot.db.channels.update( { id: context.user.id}, { $set: { isChannel: true, username: context.user.login } } )
+                if(channelsOff.includes(context.user.login)) { // if bot has been in users channel before
+                    await bot.db.channels.updateOne( { id: context.user.id}, { $set: { isChannel: true } } )
                     bot.Client.join(context.user.login);
                     bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
                     return {
