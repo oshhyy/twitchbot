@@ -21,7 +21,7 @@ module.exports = {
                 }
 
                 if(channelsOff.includes(context.user.id)) { // if bot has been in users channel before
-                    await bot.db.channels.updateOne( { id: context.user.id}, { $set: { isChannel: true, username: context.user.login } } )
+                    await bot.db.channels.update( { id: context.user.id}, { $set: { isChannel: true, username: context.user.login } } )
                     bot.Client.join(context.user.login);
                     bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
                     return {
