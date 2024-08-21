@@ -22,7 +22,7 @@ module.exports = {
             try {
                 pacemanData = await got(`https://paceman.gg/api/cs/leaderboard?filter=0&removeDuplicates=1&date=${currentTimeInMilliseconds}`).json();
             } catch (err) {
-                bot.Logger.error(err)
+                bot.Logger.error(err.message)
                 return {
                     text: `Error getting LB data. FallCry`, reply: true
                 }
