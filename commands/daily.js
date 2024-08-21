@@ -21,6 +21,7 @@ module.exports = {
             let pacemanData;
             try {
                 pacemanData = await got(`https://paceman.gg/api/cs/leaderboard?filter=0&removeDuplicates=1&date=${currentTimeInMilliseconds}`).json();
+                console.log(pacemanData)
             } catch (err) {
                 return {
                     text: `Error getting LB data. FallCry`, reply: true
