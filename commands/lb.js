@@ -118,9 +118,14 @@ module.exports = {
                     predictedPhasePoints = predictedPhase(mcsrData.data.phase.number, user?.eloRank)
                     user.seasonResult.phasePoint += predictedPhasePoints
                 }
-                sortedData = mcsrData.data.users.sort((a, b) => b.seasonResult.phasePoint - a.seasonResult.phasePoint);
+                sortedData = mcsrData.data.users.sort((a, b) => {
+                    if (b.seasonResult.phasePoint !== a.seasonResult.phasePoint) {
+                        return b.seasonResult.phasePoint - a.seasonResult.phasePoint;
+                    }
+                    return b.seasonResult.elo - a.seasonResult.elo;
+                });
                 console.log(sortedData)
-                message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB`)
+                message = message.concat(`Season ${mcsrData.data.phase.season} Predicted Phase LB (Top 12)`)
                 for(let i = 0; i < 12; i++) {
                     if(sortedData[i]) {
                         message = message.concat(` ${badgeIcon(sortedData[i].roleType)}${bot.Utils.unping(sortedData[i].nickname)} (${sortedData[i].seasonResult.phasePoint + predictedPhasePoints})`)
