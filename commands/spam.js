@@ -31,7 +31,6 @@ module.exports = {
                     text:"Delay can't be more than 5000ms (5 Seconds) oshDank",reply:true
                 }
             }
-            let channel = context.message.params.channel ?? context.channel.login;
 
             let phrase = ''
             let message = context.message.args.slice(1)
@@ -75,13 +74,7 @@ module.exports = {
                 return{text:"Message contains banned phrase! elisBruh", reply:true};
             }
 
-            if(context.message.params.ann || context.message.params.announce) {
-                if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasBroadcaster) {
-                    return {
-                        text: `You do not have permission do add an announcement parameter! oshDank`, reply: true
-                    };
-                }
-                let channelSpamID = context.channel.id
+            let channelSpamID = context.channel.id
                 if(context.message.params.channel) {
                     const data = await got(`https://api.ivr.fi/v2/twitch/user?login=${context.message.params.channel}`).json();
                     if (!data[0]) {
@@ -91,18 +84,15 @@ module.exports = {
                     }
                     channelSpamID = data[0].id
                 }
+
+            if(context.message.params.ann || context.message.params.announce) {
                 for (let i = 0; i < context.message.args[0]; i++) {
                     twitchapi.announceMessage(channelSpamID, phrase)
                     await bot.Utils.sleep(delay)
                 }
-            } else if(!context.message.params.p) {
+            } else {
                 for (let i = 0; i < context.message.args[0]; i++) {
-                    bot.Client.privmsg(channel, `${phrase}`)
-                    await bot.Utils.sleep(delay)
-                }
-            } else{
-                for (let i = 0; i < context.message.args[0]; i++) {
-                    bot.Client.say(channel, `${phrase}`)
+                    twitchapi.sendMessage(channelSpamID, `. ${phrase}`)
                     await bot.Utils.sleep(delay)
                 }
             }

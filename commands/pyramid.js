@@ -1,3 +1,5 @@
+const twitchapi = require('../lib/utils/twitchapi.js')
+
 module.exports = {
     name: "pyramid",
     cooldown: 15000,
@@ -8,11 +10,11 @@ module.exports = {
             // command code
 
             if (context.user.id == '489223884') {
-                message = context.message.args.slice(1).filter(x => !x.includes("delay:") && !x.includes("channel:"));
+                message = context.message.args.slice(1).filter(x => !x.includes("delay:"));
 
             }
             else {
-                message = context.message.args.slice(1).filter(x => !x.includes("!") && !x.includes("|") && !x.includes("$") && !x.includes("*") && !x.includes("delay:") && !x.includes("channel:"));
+                message = context.message.args.slice(1).filter(x => !x.includes("!") && !x.includes("|") && !x.includes("$") && !x.includes("*") && !x.includes("delay:"));
             }
 
             let phrase = `${message.join(" ")} `
@@ -21,7 +23,7 @@ module.exports = {
             if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                 return {};
             }
-            if(!ModeratorOf.includes(context.channel.id) && !context.message.params.channel) {
+            if(!ModeratorOf.includes(context.channel.id)) {
                 return {
                     text:"I can't perform this command because I am not moderator! buh",reply:true
                 };
@@ -46,13 +48,6 @@ module.exports = {
             }
 
             let delay = context.message.params.delay ?? 35;
-            let channel = context.message.params.channel ?? context.channel.login;
-            
-            if(context.message.params.channel) {
-                if (context.user.id != '489223884') {
-                    return { text:'You do not have permission to specify channel!', reply:true }
-                }
-            }
 
             if (phrase.charAt(0) == "+") {
                 phrase = phrase.replace("+", "➕")
@@ -64,12 +59,12 @@ module.exports = {
 
             console.log(context.message.args[0])
             for (let i = 1; i <= context.message.args[0] ; i++) {
-                bot.Client.privmsg(channel, `. ${phrase.repeat(i)}`);
+                twitchapi.sendMessage(context.channel.id, `. ${phrase.repeat(i)}`)
                 await bot.Utils.sleep(delay)
             }
 
             for (let i = (context.message.args[0] - 1); i > 0; i--) {
-                bot.Client.privmsg(channel, `. ${phrase.repeat(i)}`);
+                twitchapi.sendMessage(context.channel.id, `. ${phrase.repeat(i)}`)
                 await bot.Utils.sleep(delay)
             }
         } catch (err) {
