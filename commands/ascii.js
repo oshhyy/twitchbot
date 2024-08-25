@@ -21,7 +21,7 @@ module.exports = {
             }
 
             return {
-                text: data.msg, reply: true
+                text: `.me ${data.msg}`, reply: true
             }
 
         } catch (err) {
