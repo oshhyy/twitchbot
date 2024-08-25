@@ -53,11 +53,9 @@ module.exports = {
             try {
                 songName = data.recenttracks.track[0].name
                 artistName = data.recenttracks.track[0].artist.name
-                url = data.recenttracks.track[0].url
             } catch(err) {
                 songName = data.recenttracks.track.name
                 artistName = data.recenttracks.track.artist.name
-                url = data.recenttracks.track.url
             }
 
             let playCount = ""
@@ -69,6 +67,8 @@ module.exports = {
                 }
             } catch {}
             
+            const urlData = await got(`https://songwhip.com/api?q=${encodeURIComponent(`${songName} ${artistName}`)}`, {throwHttpErrors:false}).json()
+            url = urlData.data.tracks[0].sourceUrl
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${playCount}`, reply:true}
             
