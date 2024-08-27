@@ -156,18 +156,6 @@ bot.Client.on("PRIVMSG", async (msg) => {
         bot.Client.privmsg("markzynk", `$$trap`);
     }
 
-    // for pap 2k enter thing
-    if (msg.messageText.startsWith("!progress")) {
-        let progressData
-        if(msg.channelID == '85951736') {
-            progressData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=paplerr&hours=999999&hoursBetween=999999&start=1718615099`).json()
-            bot.Client.privmsg("paplerr", `Current Progress: ${progressData.count}/2000 Nethers ${((progressData.count / 2000) * 100).toFixed(1)}% (${progressData.avg} avg)`);
-        } else if(msg.channelID == '699251645') {
-            progressData = await got(`https://paceman.gg/stats/api/getCombinedNethers/?names=erikfzf&hours=999999&hoursBetween=999999&start=1719597600`).json()
-        bot.Client.privmsg("erikfzfz", `Current Progress: ${progressData.count}/1000 Nethers ${((progressData.count / 1000) * 100).toFixed(1)}% (${progressData.avg} avg)`);
-        }
-    }
-
     if (msg.senderUserID == '757096536' && msg.messageText == "ppBounce" && msg.channelID == "88492428") {
         bot.Client.privmsg(msg.channelName, `ppBounce`);
     }
@@ -189,20 +177,20 @@ bot.Client.on("PRIVMSG", async (msg) => {
             bot.Client.privmsg('markzynk', `!cookie`);
         }
         let potatoData = await got(`https://api.potat.app/users/oshgay`).json()
-        if (potatoData[0].potatoes.potato.ready && !potatoData[0].potatoes.cdr.ready) {
+        if (potatoData.data[0].potatoes.potato.ready && !potatoData.data[0].potatoes.cdr.ready) {
             bot.Client.privmsg('alaskanpotat', `#potato`);
-        } else if (!potatoData[0].potatoes.potato.ready && potatoData[0].potatoes.cdr.ready) {
+        } else if (!potatoData.data[0].potatoes.potato.ready && potatoData.data[0].potatoes.cdr.ready) {
             bot.Client.privmsg('alaskanpotat', `#cdr`);
             await bot.Utils.sleep(2500)
             bot.Client.privmsg('alaskanpotat', `#potato`);
-        } else if (potatoData[0].potatoes.potato.ready && potatoData[0].potatoes.cdr.ready) {
+        } else if (potatoData.data[0].potatoes.potato.ready && potatoData.data[0].potatoes.cdr.ready) {
             bot.Client.privmsg('alaskanpotat', `#potato`);
             await bot.Utils.sleep(3500)
             bot.Client.privmsg('alaskanpotat', `#cdr`);
             await bot.Utils.sleep(3500)
             bot.Client.privmsg('alaskanpotat', `#potato`);
         }
-        if (potatoData[0].potatoes.steal.ready) {
+        if (potatoData.data[0].potatoes.steal.ready) {
             await bot.Utils.sleep(3500)
             bot.Client.privmsg('alaskanpotat', `#steal`);
         }
