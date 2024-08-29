@@ -22,7 +22,7 @@ module.exports = {
 
                 while (true) {
                     try {
-                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2&excludedecay=true&season=${lbSeason}`).json();
+                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2&excludedecay=true&season=${season}`).json();
 
                         if (response.data && response.status === 'success') {
                             const matches = response.data;
@@ -73,12 +73,12 @@ module.exports = {
                     mcUUID = mojangData.id
                 }
             }
-            let lbSeason = 0
-            if (context.message.params.season) { lbSeason = context.message.params.season }
+            let season = 0
+            if (context.message.params.season) { season = context.message.params.season }
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
             } catch (err) {
                 try{
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
@@ -97,7 +97,7 @@ module.exports = {
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
             let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Winrate: ${wins}/${losses} (${WinPercent}%) • `
 
-            let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`, lbSeason)
+            let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`, season)
             console.log(matchesData)
             
             let villageWins = 0, rpWins = 0, btWins = 0, shipWins = 0, templeWins = 0

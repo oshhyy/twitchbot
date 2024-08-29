@@ -85,12 +85,12 @@ module.exports = {
                     
                 }
             }
-            let lbSeason = 0
-            if (context.message.params.season) { lbSeason = context.message.params.season }
+            let season = 0
+            if (context.message.params.season) { season = context.message.params.season }
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${lbSeason}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${season}`).json();
             } catch (err) {
                 return {
                     text: `User(s) not found! oshDank`, reply: true
@@ -111,7 +111,12 @@ module.exports = {
             const p2WinCount = results[2];
             const total = results[0]
 
-            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played in season`, reply:true}
+            let seasonText
+            if(season == 0) {
+               seasonText = `current season.`
+            } else {seasonText = `season ${season}`}
+
+            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played in ${seasonText}`, reply:true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
