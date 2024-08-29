@@ -22,7 +22,7 @@ module.exports = {
 
                 while (true) {
                     try {
-                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2&excludedecay=true&season=${season}`).json();
+                        const response = await got(`${url}?page=${page}&count=50&nodecay&type=2&excludedecay=true&season=${season}`).json();
 
                         if (response.data && response.status === 'success') {
                             const matches = response.data;
