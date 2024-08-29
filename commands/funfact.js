@@ -12,7 +12,7 @@ module.exports = {
             const apiKey = config.apiNinjasKey;
 
             const data = await got(`https://api.api-ninjas.com/v1/facts`, {headers: {'X-Api-Key': apiKey}}).json()
-            return { text: `${data[0].fact} forsenScoots`, reply: true }
+            return { text: `${data[0].fact} :)`, reply: true }
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
