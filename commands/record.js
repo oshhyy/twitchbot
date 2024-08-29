@@ -30,26 +30,11 @@ module.exports = {
                 if(elo >= 2000)  {return "Netherite"}
                 else {return "Unrated"}
             }
-            function rankColor(rank) {
-                let color
-                let encodedColor
-                if (rank.startsWith("Coal")) { color = "A8A8A8" }
-                if (rank.startsWith("Iron")) { color = "FCFCFC" }
-                if (rank.startsWith("Gold")) { color = "FCA800" }
-                if (rank.startsWith("Emerald")) { color = "54FC54" }
-                if (rank.startsWith("Diamond")) { color = "54FCFC" }
-                if (rank.startsWith("Netherite")) { color = "A783FA" }
-                if (color) { encodedColor = encodeURIComponent(`#${color}`) }
-                return encodedColor
-            }
             function badgeIcon(badge) {
                 if (badge == 1) {return "◇ "}
                 if (badge == 2) {return "◈ "}
                 if (badge == 3) {return "❖ "}
                 return " "
-            }
-            function capitalizeEveryWord(str) {
-                return str.replace(/\b\w/g, match => match.toUpperCase());
             }
 
             let userData, player1, player2
@@ -100,10 +85,12 @@ module.exports = {
                     
                 }
             }
+            let lbSeason = 0
+            if (context.message.params.season) { lbSeason = context.message.params.season }
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${lbSeason}`).json();
             } catch (err) {
                 return {
                     text: `User(s) not found! oshDank`, reply: true
@@ -124,7 +111,7 @@ module.exports = {
             const p2WinCount = results[2];
             const total = results[0]
 
-            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played this season`, reply:true}
+            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played in season`, reply:true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)

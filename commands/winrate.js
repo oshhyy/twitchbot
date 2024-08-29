@@ -5,7 +5,7 @@ module.exports = {
     name: "winrate",
     cooldown: 3000,
     aliases: ['wl'],
-    description: `elo [minecraft-username] | provides elo as well as W/L ratio for a given player in MCSR Ranked`,
+    description: `winrate [minecraft-username] | provides W/L ratio for a given player and different seedtypes in MCSR Ranked`,
     execute: async context => {
         try {
             // command code
@@ -15,14 +15,14 @@ module.exports = {
                 if (badge == 3) { return "❖" }
                 return "•"
             }
-            async function getAllMatches(url) {
+            async function getAllMatches(url, season) {
                 let allMatches = [];
 
                 let page = 0;
 
                 while (true) {
                     try {
-                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2&excludedecay=true`).json();
+                        const response = await got(`${url}?page=${page}&count=50&nodecay&filter=2&excludedecay=true&season=${lbSeason}`).json();
 
                         if (response.data && response.status === 'success') {
                             const matches = response.data;
@@ -73,6 +73,8 @@ module.exports = {
                     mcUUID = mojangData.id
                 }
             }
+            let lbSeason = 0
+            if (context.message.params.season) { lbSeason = context.message.params.season }
 
             let mcsrData;
             try {
@@ -95,7 +97,7 @@ module.exports = {
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
             let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Winrate: ${wins}/${losses} (${WinPercent}%) • `
 
-            let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`)
+            let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`, lbSeason)
             console.log(matchesData)
             
             let villageWins = 0, rpWins = 0, btWins = 0, shipWins = 0, templeWins = 0
