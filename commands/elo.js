@@ -89,14 +89,17 @@ module.exports = {
                 }
             }
 
+            let season = 0
+            if (context.message.params.season) { season = context.message.params.season }
+
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
             } catch (err) {
                 try{
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
                     mcUUID = userData?.mcid
-                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
                 } catch (err){
                     return {
                         text: `No ranked profile found. FallCry`, reply: true
