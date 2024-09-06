@@ -45,6 +45,47 @@ bot.Client.on("PRIVMSG", async (msg) => {
     const args = content.slice(prefix.length).trim().split(/\s+/g) ?? null; //this cuts off prefix, makes array
     const commandName = args.length > 0 ? args.shift().toLowerCase() : ''; //this will pull the command out of array
 
+    let userData
+    let mcUUID
+    // !elo command that auto gets the broadcaster elo
+    // this method is dogshit and can be absolutely improved but idk a way
+    if (message.toLowerCase().startsWith("!elo")) {
+        let asd = message.slice(1).trim().split(/\s+/g) ?? null
+        console.log(asd)
+        if(asd[1]) {
+            message = `+elo ${asd[1]}`
+        } else {
+            userData = await bot.db.users.findOne({ id: msg.channelID })
+            mcUUID = userData?.mcid
+            if(mcUUID) {
+                message = `+broadcasterelo ${mcUUID}`
+                console.log(mcUUID)
+            }
+        }        
+    } 
+
+    // same with session now ome ome ome
+    if (message.toLowerCase().startsWith("!session")) {
+        if(args[0]) {
+            message = `+broadcastersession ${context.message.args.join(" ")}`
+        } else {
+            message = `+broadcastersession`
+        }        
+    }
+
+    if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
+        if(args[0]) {
+            message = `+broadcasternethers ${context.message.args.join(" ")}`
+        } else {
+            message = `+broadcasternethers`
+        }        
+    }
+
+
+
+
+
+
     const botBadges = bot.Client.userStateTracker.channelStates[msg.channelName];
 
     const params = {};
@@ -95,43 +136,6 @@ bot.Client.on("PRIVMSG", async (msg) => {
     };
 
     handle(msgData);
-
-    
-    let userData
-    let mcUUID
-    // !elo command that auto gets the broadcaster elo
-    // this method is dogshit and can be absolutely improved but idk a way
-    if (message.toLowerCase().startsWith("!elo")) {
-        let asd = message.slice(1).trim().split(/\s+/g) ?? null
-        console.log(asd)
-        if(asd[1]) {
-            message = `+elo ${asd[1]}`
-        } else {
-            userData = await bot.db.users.findOne({ id: msg.channelID })
-            mcUUID = userData?.mcid
-            if(mcUUID) {
-                message = `+broadcasterelo ${mcUUID}`
-                console.log(mcUUID)
-            }
-        }        
-    } 
-
-    // same with session now ome ome ome
-    if (message.toLowerCase().startsWith("!session")) {
-        if(context.message.args) {
-            message = `+broadcastersession ${context.message.args.join(" ")}`
-        } else {
-            message = `+broadcastersession`
-        }        
-    }
-
-    if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
-        if(context.message.args) {
-            message = `+broadcasternethers ${context.message.args.join(" ")}`
-        } else {
-            message = `+broadcasternethers`
-        }        
-    }
 
     if (msg.senderUserID === '71092938') {
         let personColor = msg.colorRaw.replace('#', "")
