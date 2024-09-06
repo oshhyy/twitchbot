@@ -60,20 +60,16 @@ bot.Client.on("PRIVMSG", async (msg) => {
 
     // same with session now ome ome ome
     if (message.toLowerCase().startsWith("!session")) {
-        let asd = message.slice(1).trim().split(/\s+/g) ?? null
-        console.log(asd)
-        if(asd[1]) {
-            message = `+broadcastersession ${asd[1]}`
+        if(context.message.args) {
+            message = `+broadcastersession ${context.message.args.join(" ")}`
         } else {
             message = `+broadcastersession`
         }        
     }
 
     if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
-        let asd = message.slice(1).trim().split(/\s+/g) ?? null
-        console.log(asd)
-        if(asd[1]) {
-            message = `+broadcasternethers ${asd[1]}`
+        if(context.message.args) {
+            message = `+broadcasternethers ${context.message.args.join(" ")}`
         } else {
             message = `+broadcasternethers`
         }        
