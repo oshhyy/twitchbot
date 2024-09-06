@@ -67,7 +67,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     // same with session now ome ome ome
     if (message.toLowerCase().startsWith("!session")) {
         if(args[0]) {
-            message = `+broadcastersession ${context.message.args.join(" ")}`
+            message = `+broadcastersession ${args.join(" ")}`
         } else {
             message = `+broadcastersession`
         }        
@@ -75,7 +75,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
 
     if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
         if(args[0]) {
-            message = `+broadcasternethers ${context.message.args.join(" ")}`
+            message = `+broadcasternethers ${args.join(" ")}`
         } else {
             message = `+broadcasternethers`
         }        
