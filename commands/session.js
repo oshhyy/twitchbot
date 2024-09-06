@@ -58,19 +58,21 @@ module.exports = {
             }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
+            let hours = context.message.args[1] ?? 999;
+            let hoursBetween = context.message.args[2] ?? 3;
 
             let sessionData;
             let nphData;
             try {
-                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=99999&hoursBetween=3`, { throwHttpErrors: false }).json();
-                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`).json();
+                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
+                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
+                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`).json();
             } catch (err) {
                 try {
                     name = context.channel.login;
-                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=99999&hoursBetween=3`, { throwHttpErrors: false }).json();
-                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=99999&limit=1`, { throwHttpErrors: false }).json();
+                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
+                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`, { throwHttpErrors: false }).json();
                 } catch (err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true

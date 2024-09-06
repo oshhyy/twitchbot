@@ -1,14 +1,14 @@
 const got = require("got");
 const humanize = require('humanize-duration');
 module.exports = {
-    name: "broadcastersession",
+    name: "session",
     cooldown: 3000,
-    aliases: [],
+    aliases: ["sessionstats", "pacestats", "pacemanstats", "today"],
     description: `session [minecraft-username] | shows splits + average for current day`,
     execute: async context => {
         try {
             // command code
-            function humanizeNoHours(seconds) {
+            function onlyHours(seconds) {
                 const options = {
                     language: "shortEn",
                     languages: {
@@ -23,7 +23,31 @@ module.exports = {
                             ms: () => "ms",
                         },
                     },
-                    units: ["h", "m", "s"],
+                    units: ["h","m"],
+                    largest: 3,
+                    round: true,
+                    conjunction: "",
+                    spacer: "",
+
+                }
+                return humanize(seconds, options);
+            }
+            function hoursDaysMonths(seconds) {
+                const options = {
+                    language: "shortEn",
+                    languages: {
+                        shortEn: {
+                            y: () => "y",
+                            mo: () => "mo",
+                            w: () => "w",
+                            d: () => "d",
+                            h: () => "h",
+                            m: () => "m",
+                            s: () => "s",
+                            ms: () => "ms",
+                        },
+                    },
+                    units: ["mo","d","h"],
                     largest: 3,
                     round: true,
                     conjunction: "",
@@ -34,17 +58,21 @@ module.exports = {
             }
 
             let name = context.message.args[0]?.replace("@", "") ?? context.channel.login;
+            let hours = context.message.args[1] ?? 999;
+            let hoursBetween = context.message.args[2] ?? 3;
 
             let sessionData;
             let nphData;
             try {
-                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
+                nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
+                netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`).json();
             } catch (err) {
                 try {
                     name = context.channel.login;
-                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=999&hoursBetween=3`).json();
-                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`, { throwHttpErrors: false }).json();
+                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
+                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
+                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`, { throwHttpErrors: false }).json();
                 } catch (err) {
                     return {
                         text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
@@ -87,8 +115,15 @@ module.exports = {
                 finishText = `• finishes: ${sessionData.finish.count} (${sessionData.finish.avg} avg)`
             }
 
+            const epochTimeInSeconds = netherData[0].time;
+            const currentTimeInMilliseconds = new Date().getTime();
+            const epochTimeInMilliseconds = epochTimeInSeconds * 1000;
+            const timeDifferenceInMilliseconds = currentTimeInMilliseconds - epochTimeInMilliseconds;
+
+            let start = `${hoursDaysMonths(timeDifferenceInMilliseconds).replace(/,\s/g, "")} ago`
+
             return {
-                text: `${bot.Utils.unping(name)} Session Stats (${humanizeNoHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
+                text: `${bot.Utils.unping(name)} Session Stats (${onlyHours(nphData.playtime + nphData.walltime).replace(/,\s/g, "")}, ${start}): ${netherText} ${firstStructureText} ${secondStructureText} ${firstPortalText} ${strongholdText} ${endText} ${finishText}`,
                 reply: true,
             };
         } catch (err) {
