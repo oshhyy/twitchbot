@@ -18,14 +18,26 @@ module.exports = {
                 return pad(minutes) + ':' + pad(seconds);
             }
 
-            let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
+            let name = context.user.login
+            let hours = 999
+            let hoursBetween = 3
+            if(context.message.args.length == 3) {
+                name = context.message.args[0]?.replace("@", "");
+                hours = context.message.args[1]
+                hoursBetween = context.message.args[2]
+            } else if (context.message.args.length == 2) {
+                hours = context.message.args[0]
+                hoursBetween = context.message.args[1]
+            }
+
+
             let data;
             try {
-                data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`).json();
+                data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
             } catch (err) {
                 try{
                     name = context.channel.login;
-                    data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`).json();
+                    data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
                 } catch(err) {
                     return {}
                 }

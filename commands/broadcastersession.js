@@ -76,16 +76,7 @@ module.exports = {
                 nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
                 netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`).json();
             } catch (err) {
-                try {
-                    name = context.channel.login;
-                    sessionData = await got(`https://paceman.gg/stats/api/getSessionStats/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
-                    nphData = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`, { throwHttpErrors: false }).json();
-                    netherData = await got(`https://paceman.gg/stats/api/getRecentRuns/?name=${name}&hours=${hours}&limit=1`, { throwHttpErrors: false }).json();
-                } catch (err) {
-                    return {
-                        text: `User ${bot.Utils.unping(name)} does not have a paceman.gg profile!`, reply: true
-                    }
-                }
+                return {}
             }
 
             let netherText = firstStructureText = secondStructureText = firstPortalText = strongholdText = endText = finishText = "";
