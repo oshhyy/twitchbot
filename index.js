@@ -63,6 +63,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (message.toLowerCase().startsWith("!session")) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         asd.shift()
+        console.log(asd)
         if(asd[0]) {
             message = `+broadcastersession ${asd.join(" ")}`
         } else {
@@ -73,13 +74,15 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (message.toLowerCase().startsWith("!nethers") || message.toLowerCase().startsWith("!enters") ) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null;
         asd.shift()
+        console.log(asd)
         if(asd[0]) {
             message = `+broadcasternethers ${asd.join(" ")}`
         } else {
             message = `+broadcasternethers`
         }        
     }
-
+    
+    console.log(message)
     const content = message;
     const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
     const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
