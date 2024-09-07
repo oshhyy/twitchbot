@@ -30,6 +30,8 @@ module.exports = {
                 name = context.user.login
                 hours = context.message.args[0]
                 hoursBetween = context.message.args[1]
+            } else if (context.message.args.length == 1)  {
+                name = context.message.args[0]
             } else {name = context.user.login}
             
             let data;

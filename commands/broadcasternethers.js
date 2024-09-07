@@ -30,8 +30,10 @@ module.exports = {
                 name = context.channel.login
                 hours = context.message.args[0]
                 hoursBetween = context.message.args[1]
+            } else if (context.message.args.length == 1)  {
+                name = context.message.args[0]
             } else {name = context.channel.login}
-            
+
             let data;
             try {
                 data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
