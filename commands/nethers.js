@@ -22,7 +22,7 @@ module.exports = {
             let hours = 999 
             let hoursBetween = 3
 
-            if(isNaN(context.message.args[0])) {
+            if(!isNaN(parseFloat(context.message.args[0])) && isFinite(context.message.args[0])) {
                 name = context.message.args[0]
             } else {name = context.user.login}
             if(context.message.args.length == 3) {
@@ -33,7 +33,6 @@ module.exports = {
                 hours = context.message.args[0]
                 hoursBetween = context.message.args[1]
             }
-
             let data;
             try {
                 data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();

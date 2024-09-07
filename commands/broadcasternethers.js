@@ -22,7 +22,7 @@ module.exports = {
             let hours = 999 
             let hoursBetween = 3
 
-            if(isNaN(context.message.args[0])) {
+            if(!isNaN(parseFloat(context.message.args[0])) && isFinite(context.message.args[0])) {
                 name = context.message.args[0]
             } else {name = context.channel.login}
             if(context.message.args.length == 3) {
