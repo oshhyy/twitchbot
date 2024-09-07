@@ -18,7 +18,7 @@ module.exports = {
                 return pad(minutes) + ':' + pad(seconds);
             }
 
-            let name = context.user.login
+            let name =  context.message.args[0] ?? context.user.login
             let hours = 999
             let hoursBetween = 3
             if(context.message.args.length == 3) {
