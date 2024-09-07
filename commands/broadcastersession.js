@@ -61,17 +61,16 @@ module.exports = {
             let hours = 999 
             let hoursBetween = 3
 
-            if(!isNaN(parseFloat(context.message.args[0])) && isFinite(context.message.args[0])) {
-                name = context.channel.login
-            } else {name = context.message.args[0]}
             if(context.message.args.length == 3) {
                 name = context.message.args[0]?.replace("@", "")
                 hours = context.message.args[1]
                 hoursBetween = context.message.args[2]
             } else if (context.message.args.length == 2) {
+                name = context.channel.login
                 hours = context.message.args[0]
                 hoursBetween = context.message.args[1]
-            }
+            } else {name = context.channel.login}
+            
 
             let sessionData;
             let nphData;
