@@ -64,7 +64,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null
         asd.shift()
         if(asd[0]) {
-            message = `+broadcastersession ${asd.join(" ") ?? ''}`
+            message = `+broadcastersession ${asd.join(" ")}`
         } else {
             message = `+broadcastersession`
         }        
