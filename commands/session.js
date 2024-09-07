@@ -57,9 +57,13 @@ module.exports = {
                 return humanize(seconds, options);
             }
 
-            let name = context.message.args[0] ?? context.user.login
-            let hours = 999
+            let name
+            let hours = 999 
             let hoursBetween = 3
+
+            if(isNaN(context.message.args[0])) {
+                name = context.message.args[0]
+            } else {name = context.user.login}
             if(context.message.args.length == 3) {
                 name = context.message.args[0]?.replace("@", "")
                 hours = context.message.args[1]
