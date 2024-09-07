@@ -62,8 +62,8 @@ module.exports = {
             let hoursBetween = 3
 
             if(!isNaN(parseFloat(context.message.args[0])) && isFinite(context.message.args[0])) {
-                name = context.message.args[0]
-            } else {name = context.channel.login}
+                name = context.channel.login
+            } else {name = context.message.args[0]}
             if(context.message.args.length == 3) {
                 name = context.message.args[0]?.replace("@", "")
                 hours = context.message.args[1]
