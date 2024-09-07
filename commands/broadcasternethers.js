@@ -32,7 +32,7 @@ module.exports = {
 
             let data;
             try {
-                data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=999&hoursBetween=3`).json();
+                data = await got(`https://paceman.gg/stats/api/getNPH/?name=${name}&hours=${hours}&hoursBetween=${hoursBetween}`).json();
             } catch (err) {
                 return {}
             }
