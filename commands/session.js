@@ -57,7 +57,7 @@ module.exports = {
                 return humanize(seconds, options);
             }
 
-            let name
+            let name = ''
             let hours = 999 
             let hoursBetween = 3
 

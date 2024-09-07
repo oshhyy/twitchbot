@@ -18,7 +18,7 @@ module.exports = {
                 return pad(minutes) + ':' + pad(seconds);
             }
 
-            let name
+            let name = ''
             let hours = 999 
             let hoursBetween = 3
 
