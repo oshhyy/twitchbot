@@ -70,6 +70,12 @@ module.exports = {
                 }
             }
 
+            if(hypixelData.player?.stats?.Bedwars == null || hypixelData.player?.stats == null) {
+                return {
+                    text: `This user has not logged onto Hypixel Bedwars.`, reply: true
+                }
+            }
+
             console.log(hypixelData)
             console.log(hypixelData.player.stats.Bedwars)
 
@@ -126,7 +132,7 @@ module.exports = {
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
-            bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} pspScared`)
         }
     },
 };
