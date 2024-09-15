@@ -169,15 +169,15 @@ bot.Client.on("PRIVMSG", async (msg) => {
         if (cookieData.can_claim && !cookieData.cdr_available) {
             bot.Client.privmsg('thepositivebot', `!cookie`);
         } else if (!cookieData.can_claim && cookieData.cdr_available) {
-            await bot.Utils.sleep(2500)
+            await bot.Utils.sleep(10000)
             bot.Client.privmsg('thepositivebot', `!cdr`);
-            await bot.Utils.sleep(2500)
+            await bot.Utils.sleep(10000)
             bot.Client.privmsg('thepositivebot', `!cookie`);
         } else if (cookieData.can_claim && cookieData.cdr_available) {
             bot.Client.privmsg('thepositivebot', `!cookie`);
-            await bot.Utils.sleep(2500)
+            await bot.Utils.sleep(10000)
             bot.Client.privmsg('thepositivebot', `!cdr`);
-            await bot.Utils.sleep(2500)
+            await bot.Utils.sleep(10000)
             bot.Client.privmsg('thepositivebot', `!cookie`);
         }
         let potatoData = await got(`https://api.potat.app/users/oshgay`).json()
