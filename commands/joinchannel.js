@@ -62,7 +62,7 @@ module.exports = {
                     
                     if(channelInfo) {
                         await bot.db.channels.updateOne( { id: xd[0].id}, { $set: { isChannel: true } } )
-                        await bot.db.channels.updateOne( { id: context.message.params.channel}, { $set: { username: context.message.params.channel } } )
+                        await bot.db.channels.updateOne( { username: channel}, { $set: { username: channel } } )
                     } else {
                         let a = new bot.db.channels({ id: xd[0].id, username: xd[0].login, isChannel: true, joinedAt: Date.now(), settings: { offlineOnly: false }, });
                         await a.save()
