@@ -9,13 +9,6 @@ module.exports = {
             // command code
 
             const ignoredSets = ['0', '42', '19194', '300374282']
-
-            let delay;
-            
-            if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasVIP) {delay = 1500}
-            else{delay = 0}
-
-
             const emoteSets = bot.Client.userStateTracker.channelStates[context.channel.login].emoteSets.filter(e => !ignoredSets.includes(e))
             if (!emoteSets.length) return { text: 'The bot is not subscribed to any channels FeelsBadMan', reply: true }
 
@@ -53,12 +46,12 @@ module.exports = {
             }
             
             if(context.message.params.all) {
-                if (!context.badges.hasModerator && !context.badges.hasBroadcaster && !context.badges.hasVIP) {
+                if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                     return {};
                 }
-                if(!context.botBadges.badges.hasModerator && !context.botBadges.badges.hasVIP && !context.botBadges.badges.hasBroadcaster) {
+                if(!ModeratorOf.includes(context.channel.id)) {
                     return {
-                        text: `I can't perform this command because I am not moderator or vip! NOIDONTTHINKSO`, reply: true
+                        text: `I can't perform this command because I am not moderator.`, reply: true
                     };
                 }
 
