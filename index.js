@@ -59,6 +59,22 @@ bot.Client.on("PRIVMSG", async (msg) => {
         }        
     } 
 
+    if (message.toLowerCase().startsWith("!race")) {
+        let asd = message.slice(1).trim().split(/\s+/g) ?? null
+        asd.shift()
+        console.log(asd)
+        if(asd[0]) {
+            message = `+race ${asd.join(" ")}`
+        } else {
+            userData = await bot.db.users.findOne({ id: msg.channelID })
+            mcUUID = userData?.mcid
+            if(mcUUID) {
+                message = `+broadcasterrace ${mcUUID}`
+                console.log(mcUUID)
+            }
+        }        
+    } 
+
     // same with session now ome ome ome
     if (message.toLowerCase().startsWith("!session")) {
         let asd = message.slice(1).trim().split(/\s+/g) ?? null

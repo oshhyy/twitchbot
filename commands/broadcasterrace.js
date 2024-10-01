@@ -1,10 +1,9 @@
 const got = require("got");
 
 module.exports = {
-    name: "weeklyrace",
+    name: "broadcasterrace",
     cooldown: 3000,
-    aliases: ['race'],
-    description: `race [minecraft-username] | shows #1 and user info for MCSR Ranked Weekly Race`,
+    description: `wawawawaawa`,
     execute: async context => {
         try {
             // command code
@@ -18,47 +17,18 @@ module.exports = {
                 
                 return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
             }
-
-            let userData, mcUUID
-            if (!context.message.args[0]) {
-                userData = await bot.db.users.findOne({ id: context.user.id })
-                mcUUID = userData?.mcid
-                if (!mcUUID) {
-                    userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
-                }
-            } else {
-                if (context.message.args[0]?.startsWith("@")) {
-                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
-                    mcUUID = userData?.mcid
-                    if (!mcUUID) {
-                        return { text: `This user does not have a linked mc account!`, reply: true }
-                    }
-
-                } else {
-                    let mojangData;
-                    mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                    if (mojangData.errorMessage) {
-                        return { text: `Mojang Error: ${mojangData.errorMessage} FallCry`, reply: true }
-                    }
-                    mcUUID = mojangData.id
-                }
-            }
-
             let mcsrData;
+            let mojangData;
+            mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
+            if (mojangData.errorMessage) {
+                return { text: `Mojang Error: ${mojangData.errorMessage} FallCry`, reply: true }
+            }
+            let mcUUID = mojangData.id
+
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
             } catch (err) {
-                try{
-                    userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
-                    mcUUID = userData?.mcid
-                    mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
-                } catch (err){
-                    try {
-                        mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
-                    } catch (err) {
-                        return{text:'something went wrong ngl idk whats wrong but somethings wrong', reply:true}
-                    }
-                }
+                mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
             }
 
             let userText = ""
