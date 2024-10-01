@@ -17,14 +17,9 @@ module.exports = {
                 
                 return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
             }
+            
+            let mcUUID = context.message.args[0]
             let mcsrData;
-            let mojangData;
-            mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-            if (mojangData.errorMessage) {
-                return { text: `Mojang Error: ${mojangData.errorMessage} FallCry`, reply: true }
-            }
-            let mcUUID = mojangData.id
-
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
                 console.log(mcsrData.data.user.rank)
