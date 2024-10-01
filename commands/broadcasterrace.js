@@ -27,6 +27,7 @@ module.exports = {
 
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
+                console.log(mcsrData.data.user.rank)
             } catch (err) {
                 mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
             }
