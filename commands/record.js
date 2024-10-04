@@ -10,26 +10,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function getRank(elo) {
-                if(!elo) {return "Unrated or Hidden"}
-                if(elo < 400) {return "Coal I"}
-                if(elo < 500) {return "Coal II"}
-                if(elo < 600) {return "Coal III"}
-                if(elo < 700) {return "Iron I"}
-                if(elo < 800) {return "Iron II"}
-                if(elo < 900) {return "Iron III"}
-                if(elo < 1000) {return "Gold I"}
-                if(elo < 1100) {return "Gold II"}
-                if(elo < 1200) {return "Gold III"}
-                if(elo < 1300) {return "Emerald I"}
-                if(elo < 1400) {return "Emerald II"}
-                if(elo < 1500) {return "Emerald III"}
-                if(elo < 1650) {return "Diamond I"}
-                if(elo < 1800) {return "Diamond II"}
-                if(elo < 2000) {return "Diamond III"}
-                if(elo >= 2000)  {return "Netherite"}
-                else {return "Unrated"}
-            }
             function badgeIcon(badge) {
                 if (badge == 1) {return "◇ "}
                 if (badge == 2) {return "◈ "}
@@ -92,8 +72,23 @@ module.exports = {
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${season}`).json();
             } catch (err) {
-                return {
-                    text: `User(s) not found! oshDank`, reply: true
+                try {
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${player1}`).json();
+                } catch (err) {
+                    return{
+                        text:`Unknown user "${player1}". oshDank`,
+                        reply:true}
+                }
+                try {
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${player2}`).json();
+                } catch (err) {
+                    return{
+                        text:`Unknown user "${player2}". oshDank`,
+                        reply:true}
+                }
+                return{
+                    text:`An unknown error occured. Scared`,
+                    reply:true
                 }
             }
 
@@ -113,10 +108,16 @@ module.exports = {
 
             let seasonText
             if(season == 0) {
-               seasonText = `current season.`
-            } else {seasonText = `season ${season}`}
+               seasonText = `this season.`
+            } else {seasonText = `in season ${season}.`}
 
-            return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played in ${seasonText}`, reply:true}
+            if(total === 0) {
+                return{
+                    text:`${p1Badge}${bot.Utils.unping(p1Player)} has not encountered ${p2Badge}${bot.Utils.unping(p2Player)} ${seasonText}`,
+                    reply:true}
+            }
+
+            else return{text:`${p1Badge}${bot.Utils.unping(p1Player)} ${p1WinCount}-${p2WinCount} ${p2Badge}${bot.Utils.unping(p2Player)} • ${total} total games played ${seasonText}`, reply:true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
