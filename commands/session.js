@@ -3,7 +3,7 @@ const humanize = require('humanize-duration');
 module.exports = {
     name: "session",
     cooldown: 3000,
-    aliases: ["sessionstats", "pacestats", "pacemanstats", "today"],
+    aliases: ["sessionstats", "pacestats", "pacemanstats"],
     description: `session [minecraft-username] | shows splits + average for current day`,
     execute: async context => {
         try {
