@@ -25,11 +25,11 @@ module.exports = {
                 let color
                 let encodedColor
                 if (elo < 600) { color = "A8A8A8" }
-                if (elo < 900) { color = "FCFCFC" }
-                if (elo < 1200) { color = "FCA800" }
-                if (elo < 1500) { color = "54FC54" }
-                if (elo < 2000) { color = "54FCFC" }
-                if (elo >= 2000) { color = "A783FA" }
+                else if (elo < 900) { color = "FCFCFC" }
+                else if (elo < 1200) { color = "FCA800" }
+                else if (elo < 1500) { color = "54FC54" }
+                else if (elo < 2000) { color = "54FCFC" }
+                else if (elo >= 2000) { color = "A783FA" }
                 if (color) { encodedColor = encodeURIComponent(`#${color}`) }
                 return encodedColor
             }
