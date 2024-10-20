@@ -3,9 +3,9 @@ const twitchapi = require('../lib/utils/twitchapi.js');
 const { MongoChangeStreamError } = require("mongodb");
 
 module.exports = {
-    name: "lastmatch",
+    name: "today",
     cooldown: 3000,
-    aliases: ['today'],
+    aliases: [],
     description: `today [minecraft-username] | shows stats for MCSR Ranked players in the last 12h`,
     execute: async context => {
         try {
