@@ -15,7 +15,7 @@ module.exports = {
                 
                 var minutes = Math.floor(s / 60000);
                 var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
+                // var milliseconds = s % 1000;
                 
                 return pad(minutes) + ':' + pad(seconds);
             }
@@ -106,8 +106,8 @@ module.exports = {
                     }
                 }
             }
-            const elo = mcsrData.data.eloRate
-            const rank = medal(mcsrData.data.eloRank ?? "?")
+            const elo = mcsrData.data.seasonResult.last.eloRate
+            const rank = medal(mcsrData.data.seasonResult.last.eloRank ?? "?")
             const rankName = getRank(elo)
             let color = rankColor(rankName)
             await twitchapi.changeColor(color)
