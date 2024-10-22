@@ -38,6 +38,13 @@ bot.Client.on("PRIVMSG", async (msg) => {
     } else {
         message = msg.messageText.replace(bot.Utils.regex.invisChar, "").trimEnd();
     }
+    
+    console.log(message)
+    const content = message;
+    const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
+    const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
+    const args = content.slice(prefix.length).trim().split(/\s+/g) ?? null; //this cuts off prefix, makes array
+    const commandName = args.length > 0 ? args.shift().toLowerCase() : ''; //this will pull the command out of array
 
     let userData
     let mcUUID
@@ -53,7 +60,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
             userData = await bot.db.users.findOne({ id: msg.channelID })
             mcUUID = userData?.mcid
             if(mcUUID) {
-                message = `+broadcasterelo ${mcUUID}`
+                message = `${prefix}broadcasterelo ${mcUUID}`
                 console.log(mcUUID)
             }
         }        
@@ -69,7 +76,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
             userData = await bot.db.users.findOne({ id: msg.channelID })
             mcUUID = userData?.mcid
             if(mcUUID) {
-                message = `+broadcasterrace ${mcUUID}`
+                message = `${prefix}broadcasterrace ${mcUUID}`
                 console.log(mcUUID)
             }
         }        
@@ -81,9 +88,9 @@ bot.Client.on("PRIVMSG", async (msg) => {
         asd.shift()
         console.log(asd)
         if(asd[0]) {
-            message = `+broadcastersession ${asd.join(" ")}`
+            message = `${prefix}broadcastersession ${asd.join(" ")}`
         } else {
-            message = `+broadcastersession`
+            message = `${prefix}broadcastersession`
         }        
     }
 
@@ -92,18 +99,11 @@ bot.Client.on("PRIVMSG", async (msg) => {
         asd.shift()
         console.log(asd)
         if(asd[0]) {
-            message = `+broadcasternethers ${asd.join(" ")}`
+            message = `${prefix}broadcasternethers ${asd.join(" ")}`
         } else {
-            message = `+broadcasternethers`
+            message = `${prefix}broadcasternethers`
         }        
     }
-    
-    console.log(message)
-    const content = message;
-    const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
-    const prefix = channelData?.prefix ?? '+'; //defaults to + if undefined
-    const args = content.slice(prefix.length).trim().split(/\s+/g) ?? null; //this cuts off prefix, makes array
-    const commandName = args.length > 0 ? args.shift().toLowerCase() : ''; //this will pull the command out of array
 
     const botBadges = bot.Client.userStateTracker.channelStates[msg.channelName];
 
