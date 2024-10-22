@@ -55,7 +55,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         asd.shift()
         console.log(asd)
         if(asd[0]) {
-            message = `+elo ${asd.join(" ")}`
+            message = `${prefix}elo ${asd.join(" ")}`
         } else {
             userData = await bot.db.users.findOne({ id: msg.channelID })
             mcUUID = userData?.mcid
@@ -71,7 +71,7 @@ bot.Client.on("PRIVMSG", async (msg) => {
         asd.shift()
         console.log(asd)
         if(asd[0]) {
-            message = `+race ${asd.join(" ")}`
+            message = `${prefix}race ${asd.join(" ")}`
         } else {
             userData = await bot.db.users.findOne({ id: msg.channelID })
             mcUUID = userData?.mcid
