@@ -34,6 +34,7 @@ module.exports = {
                     await newUser.save();
                 } else {
                     await bot.db.users.updateOne({ id: context.user.id }, { $set: { lastfm: name } })
+                    await bot.db.users.updateOne( { id: context.user.id}, { $set: { username: context.user.login } } )
                 }
 
                 return { text: `Your last fm account has successfully linked to "${name}"!`, reply: true }
@@ -54,6 +55,7 @@ module.exports = {
                     await newUser.save();
                 } else {
                     await bot.db.users.updateOne({ id: context.user.id }, { $set: { mcid: data.id } })
+                    await bot.db.users.updateOne( { id: context.user.id}, { $set: { username: context.user.login } } )
                 }
 
                 return { text: `Your minecraft account has successfully linked to "${data.name}"!`, reply: true }
@@ -76,6 +78,7 @@ module.exports = {
                     await newUser.save();
                 } else {
                     await bot.db.users.updateOne({ id: context.user.id }, { $set: { location: data.location.name } })
+                    await bot.db.users.updateOne( { id: context.user.id}, { $set: { username: context.user.login } } )
                 }
 
                 return { text: `Your location has successfully set to ${data.location.name}, ${data.location.region} (${data.location.country})!`, reply: true }
