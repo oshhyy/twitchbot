@@ -16,9 +16,9 @@ module.exports = {
                 
                 var minutes = Math.floor(s / 60000);
                 var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
+                // var milliseconds = s % 1000;
                 
-                return pad(minutes) + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
+                return pad(minutes) + ':' + pad(seconds);
             }
             
             function rankColor(elo) {
@@ -81,11 +81,30 @@ module.exports = {
             const losses = mcsrData.lossMatchesCount
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
 
+            let averageData;
+            let averageText = ""
+            try {
+                averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`).json();
+
+                let numCompletions = 0, numTime = 0;
+                for(match of averageData.data) {
+                    if(match.forfeited == false && match.result.uuid == mcUUID) {
+                        numCompletions++
+                        numTime += match.result.time
+                    }
+                }
+                console.log(numTime)
+                console.log(numCompletions)
+                console.log(mcUUID)
+                let avg = msToTime(numTime / numCompletions)
+                averageText = `• ${avg} avg`
+            } catch (err) {averageText = ""}
+
             let eloColor = rankColor(mcsrData.currentElo)
             await twitchapi.changeColor(eloColor)
 
             await bot.Utils.sleep(1000)
-            return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(user)} 12h Ranked Stats • Elo: ${mcsrData.currentElo} (${eloChange}) • W/L ${wins}/${losses} (${WinPercent}%)`, reply: true}
+            return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(user)} 12h Ranked Stats • Elo: ${mcsrData.currentElo} (${eloChange}) • W/L ${wins}/${losses} (${WinPercent}%) ${averageText}`, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
