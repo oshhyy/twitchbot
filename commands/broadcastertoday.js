@@ -33,36 +33,7 @@ module.exports = {
                 return encodedColor
             }
 
-            let userData, mcUUID, user
-            if (!context.message.args[0]) {
-                userData = await bot.db.users.findOne({ id: context.user.id })
-                mcUUID = userData?.mcid
-                user = context.user.login
-                if (!mcUUID) {
-                    userData = await bot.db.users.findOne({ id: context.channel.id })
-                    mcUUID = userData?.mcid
-                    user = context.channel.login
-                }
-                
-            } else {
-                if (context.message.args[0]?.startsWith("@")) {
-                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "").toLowerCase() })
-                    mcUUID = userData?.mcid
-                    if (!mcUUID) {
-                        return { text: `This user does not have a linked mc account!`, reply: true }
-                    }
-                    user = context.message.args[0].replace("@", "")
-
-                } else {
-                    let mojangData;
-                    mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                    if (mojangData.errorMessage) {
-                        return { text: mojangData.errorMessage, reply: true }
-                    }
-                    mcUUID = mojangData.id
-                    user = context.message.args[0]
-                }
-            }
+            let mcUUID = context.message.args[0]
 
             let mcsrData;
             try {

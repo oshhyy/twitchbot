@@ -75,6 +75,22 @@ bot.Client.on("PRIVMSG", async (msg) => {
                 message = `${prefix}broadcasterrace ${mcUUID}`
                 console.log(mcUUID)
             }
+        }
+    } 
+
+    if (message.toLowerCase().startsWith("!today")) {
+        let asd = message.slice(1).trim().split(/\s+/g) ?? null
+        asd.shift()
+        console.log(asd)
+        if(asd[0]) {
+            message = `${prefix}today ${asd.join(" ")}`
+        } else {
+            userData = await bot.db.users.findOne({ id: msg.channelID })
+            mcUUID = userData?.mcid
+            if(mcUUID) {
+                message = `${prefix}broadcastertoday ${mcUUID}`
+                console.log(mcUUID)
+            }
         }        
     } 
 
