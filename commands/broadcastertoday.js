@@ -39,7 +39,7 @@ module.exports = {
             try {
                 mcsrData = await got(`https://mcsr-stats.memerson.xyz/api/matches?timeframe=12%20hours&username=${mcUUID}`).json();
             } catch (err) {
-                return {text:"No matches were found for this user.", reply:true}
+                return {}
             }
 
             let eloChange = String(mcsrData.totalEloChange)
