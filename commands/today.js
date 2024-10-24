@@ -47,7 +47,7 @@ module.exports = {
                 
             } else {
                 if (context.message.args[0]?.startsWith("@")) {
-                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "") })
+                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "").toLowerCase() })
                     mcUUID = userData?.mcid
                     if (!mcUUID) {
                         return { text: `This user does not have a linked mc account!`, reply: true }
