@@ -42,6 +42,10 @@ module.exports = {
                 return {}
             }
 
+            if(mcsrData.totalMatchesCount == 0) {
+                return
+            }
+
             let eloChange = String(mcsrData.totalEloChange)
             if(!eloChange.startsWith("-")) {
                 eloChange = `+${eloChange}`
