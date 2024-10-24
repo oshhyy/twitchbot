@@ -2,7 +2,7 @@ const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js');
 
 module.exports = {
-    name: "today",
+    name: "broadcastertoday",
     cooldown: 3000,
     aliases: [],
     description: `today [minecraft-username] | shows stats for MCSR Ranked players in the last 12h`,
