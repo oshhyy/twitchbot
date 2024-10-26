@@ -7,12 +7,6 @@ module.exports = {
     description: `uid [user] - shows the users id, as well as if they are banned or not (as well as duration) including partner/affiliate`,
     execute: async context => {
         try {
-            function emoji(check) {
-                let res
-                if (check) {res = "✅"}
-                if (!check) {res = "⛔"}
-                return res
-            }
             // command code
             let user = context.message.args[0] ?? context.user.login;
             user = user.toLowerCase().replace("@", "")

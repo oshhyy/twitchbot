@@ -3,7 +3,7 @@ module.exports = {
     name: "mostused",
     cooldown: 3000,
     aliases: ["7tvstats", "mostusedemotes", "topemotes"],
-    description: `mostused <7tv emote> https://bot.oshgay.xyz/7tv/mostused`,
+    description: `mostused <7tv emote> | shows the 5 most used emotes in a channel`,
     execute: async context => {
         try {
             let message = '';

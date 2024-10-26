@@ -5,7 +5,7 @@ module.exports = {
     name: "color",
     cooldown: 15000,
     aliases: ['colour'],
-    description: `color [username/hexcode] | https://bot.oshgay.xyz/util/color`,
+    description: `color [username/hexcode] | gets chat color for given user or hex code`,
     execute: async context => {
         try {
             // command code

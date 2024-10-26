@@ -2,7 +2,7 @@ module.exports = {
     name: "ping",
     cooldown: 10000,
     aliases: [],
-    description: `ping | https://bot.oshgay.xyz/util/ping`,
+    description: `ping | check ping uptime and latency`,
     execute: async context => {
         try {
             const { performance } = require("perf_hooks");

@@ -4,7 +4,7 @@ module.exports = {
     name: "stats",
     cooldown: 15000,
     aliases: ['user', 'u'],
-    description: `stats [user] https://bot.oshgay.xyz/util/stats`,
+    description: `stats [user] | shows a user's twitch stats`,
     execute: async context => {
         try {
             // command code

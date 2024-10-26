@@ -3,7 +3,7 @@ module.exports = {
     name: "dadjoke",
     cooldown: 5000,
     aliases: ['dj', 'joke'],
-    description: `dadjoke | https://bot.oshgay.xyz/fun/dadjoke`,
+    description: `dadjoke`,
     execute: async context => {
         try {
             // command code

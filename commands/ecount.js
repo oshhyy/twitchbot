@@ -3,7 +3,7 @@ module.exports = {
     name: "ecount",
     cooldown: 3000,
     aliases: ["emotecount", "7tvcount", "count"],
-    description: `ecount <7tv-emote> | https://bot.oshgay.xyz/7tv/ecount`,
+    description: `ecount <7tv-emote> | shows 7tv emote count and rank in channel`,
     execute: async context => {
         try {
             let user = context.message.args[1] ?? context.channel.login;

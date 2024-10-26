@@ -3,7 +3,7 @@ module.exports = {
     name: "set",
     cooldown: 3000,
     aliases: ["emoteset", "7tvu", "7tvset"],
-    description: `set <7tv-emote> | shows emote set info | https://bot.oshgay.xyz/7tv/set`,
+    description: `set <7tv-emote> | shows emote set info`,
     execute: async context => {
         try {
             let user = context.message.args[0] ?? context.channel.login;

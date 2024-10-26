@@ -5,7 +5,7 @@ module.exports = {
     name: "spam",
     cooldown: 10000,
     aliases: [],
-    description: `spam <num> <phrase> | SPAM IT LuL https://bot.oshgay.xyz/util/spam`,
+    description: `spam <num> <phrase> | SPAM IT LuL`,
     execute: async context => {
         try {
             // command code

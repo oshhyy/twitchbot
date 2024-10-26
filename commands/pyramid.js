@@ -4,7 +4,7 @@ module.exports = {
     name: "pyramid",
     cooldown: 15000,
     aliases: ['pyr'],
-    description: `pyr <num> <emote|phrase> | https://bot.oshgay.xyz/util/pyramid`,
+    description: `pyr <num> <emote|phrase> | makes a pyramid in chat`,
     execute: async context => {
         try {
             // command code

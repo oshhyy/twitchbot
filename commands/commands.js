@@ -7,10 +7,11 @@ module.exports = {
         try {
             const commands = []; 
             bot.Command.Commands.forEach((command) => commands.push(command.name))
-            const { prefix } = await bot.db.channels.findOne({id: context.channel.id}) ?? '+';
+            const channelData = await bot.db.channels.findOne({ id: msg.channelID });
+            const prefix = channelData?.prefix ?? '+';
             
             return {
-                text: `prefix: ${prefix} • command list: https://bot.oshgay.xyz/ (wip site :) )`,
+                text: `prefix: ${prefix} • command list: https://bot.osh.gay/`,
                 reply: true,
             };
         } catch (err) {

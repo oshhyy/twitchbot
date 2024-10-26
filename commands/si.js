@@ -4,7 +4,7 @@ module.exports = {
     name: "si",
     cooldown: 5000,
     aliases: ['streaminfo'],
-    description: `si [channel] | https://bot.oshgay.xyz/util/si`,
+    description: `si [channel] | shows a channel's stream info`,
     execute: async context => {
         try {
             // command code
