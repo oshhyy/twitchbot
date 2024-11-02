@@ -16,8 +16,9 @@ module.exports = {
                 var minutes = Math.floor(s / 60000);
                 var seconds = Math.floor((s % 60000) / 1000); 
                 // var milliseconds = s % 1000;
-                
-                return pad(minutes) + ':' + pad(seconds);
+            
+                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
+                return formattedMinutes + ':' + pad(seconds);
             }
             function getRank(elo) {
                 if (!elo) { return "Unrated or Hidden" }
