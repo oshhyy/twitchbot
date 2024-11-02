@@ -61,18 +61,21 @@ module.exports = {
             try {
                 averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`).json();
 
-                let numCompletions = 0, numTime = 0;
+                let numCompletions = 0, numTime = 0, forfeits = 0;
                 for(match of averageData.data) {
                     if(match.forfeited == false && match.result.uuid == mcUUID) {
                         numCompletions++
                         numTime += match.result.time
+                    } else if (match.forfeited == true && match.result.uuid != mcUUID && match.result.uuid != null) {
+                        forfeits++
                     }
                 }
                 console.log(numTime)
                 console.log(numCompletions)
                 console.log(mcUUID)
                 let avg = msToTime(numTime / numCompletions)
-                averageText = `• ${avg} avg`
+                let forfeitRatePerMatch = ((forfeits / mcsrData.totalMatchesCount) * 100).toFixed(1);
+                averageText = `• ${avg} avg, ${forfeitRatePerMatch}% FF rate`
             } catch (err) {averageText = ""}
 
             let eloColor = rankColor(mcsrData.currentElo)
