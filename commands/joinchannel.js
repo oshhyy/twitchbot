@@ -27,7 +27,7 @@ module.exports = {
                     bot.Client.join(context.user.login);
                     bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
                     return {
-                        text: `Joined channel #${context.user.login} feinArrive`, reply: true
+                        text: `Joined channel #${context.user.login} oshArrive`, reply: true
                     }
                 }
 
@@ -38,7 +38,7 @@ module.exports = {
                 bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${context.user.login} • ${context.user.id}`);
 
                 return {
-                    text: `Joined channel #${context.user.login} feinArrive`, reply: true
+                    text: `Joined channel #${context.user.login} oshArrive`, reply: true
                 }
             }
 
@@ -78,7 +78,7 @@ module.exports = {
                     bot.Webhook.colorEmbed(`4388216`, `Joined new channel!`, `${channel} • \n\nAdded by ${context.user.name}`);
 
                     return {
-                        text: `Joined channel #${channel} feinArrive`, reply: true
+                        text: `Joined channel #${channel} oshArrive`, reply: true
                     }
                 } else {
                     return {
