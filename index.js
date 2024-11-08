@@ -206,18 +206,18 @@ bot.Client.on("PRIVMSG", async (msg) => {
     if (msg.senderUserID == '489223884' && msg.channelName == 'alaskanpotat' && msg.messageText == 'elisElis') {
         let cookieData = await got(`https://api.roaringiron.com/cooldown/oshgay`).json()
         if (cookieData.can_claim && !cookieData.cdr_available) {
-            bot.Client.privmsg('thepositivebot', `!cookie`);
+            bot.Client.privmsg('marcfryd', `!cookie`);
         } else if (!cookieData.can_claim && cookieData.cdr_available) {
             await bot.Utils.sleep(10000)
-            bot.Client.privmsg('thepositivebot', `!cdr`);
+            bot.Client.privmsg('marcfryd', `!cdr`);
             await bot.Utils.sleep(10000)
-            bot.Client.privmsg('thepositivebot', `!cookie`);
+            bot.Client.privmsg('marcfryd', `!cookie`);
         } else if (cookieData.can_claim && cookieData.cdr_available) {
-            bot.Client.privmsg('thepositivebot', `!cookie`);
+            bot.Client.privmsg('marcfryd', `!cookie`);
             await bot.Utils.sleep(10000)
-            bot.Client.privmsg('thepositivebot', `!cdr`);
+            bot.Client.privmsg('marcfryd', `!cdr`);
             await bot.Utils.sleep(10000)
-            bot.Client.privmsg('thepositivebot', `!cookie`);
+            bot.Client.privmsg('marcfryd', `!cookie 󠀀`);
         }
         let potatoData = await got(`https://api.potat.app/users/oshgay`).json()
         if (potatoData.data[0].potatoes.potato.ready && !potatoData.data[0].potatoes.cdr.ready) {
