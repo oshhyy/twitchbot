@@ -173,14 +173,6 @@ bot.Client.on("PRIVMSG", async (msg) => {
 
     handle(msgData);
 
-    if (msg.senderUserID === '71092938') {
-        let personColor = msg.colorRaw.replace('#', "")
-        const encodedUser = encodeURIComponent(`#${personColor}`)
-        await twitchapi.changeColor(encodedUser)
-        bot.Client.privmsg(`iqvek`, `/me • message by ${msg.senderUsername} in #${msg.channelName}: ${msg.messageText}`)
-        return;
-    }
-
     if (msg.senderUserID == '68136884' && msg.messageText.startsWith("@oshgay, reminder from yourself") && args[args.length - 1] == "$fish") {
         await bot.Utils.sleep(2500);
         bot.Client.privmsg(msg.channelName, `$$fish`);
