@@ -51,13 +51,6 @@ module.exports = {
             }
 
             let playCount = ""
-            
-            try{
-                const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${artistName}&track=${songName}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
-                if(songData.track.userplaycount) {
-                    playCount = incrementString(`• play #${songData.track.userplaycount ?? 0}`)
-                }
-            } catch {}
 
             let songName = "", artistName = "", url = ""
             try {
@@ -67,6 +60,14 @@ module.exports = {
                 songName = data.recenttracks.track.name
                 artistName = data.recenttracks.track.artist.name
             }
+
+            try{
+                const songData = await got(`https://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${config.lastfmKey}&artist=${encodeURIComponent(artistName)}&track=${encodeURIComponent(songName)}&autocorrect=1&username=${lastfmName}&format=json`, {throwHttpErrors:false}).json()
+                if(songData.track.userplaycount) {
+                    playCount = incrementString(`• play #${songData.track.userplaycount ?? 0}`)
+                }
+            } catch {}
+
             try{
                 const urlData = await got(`https://songwhip.com/api?q=${encodeURIComponent(`${songName} ${artistName}`)}`, {throwHttpErrors:false}).json()
                 url = urlData.data.tracks[0].sourceUrl
