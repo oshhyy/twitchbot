@@ -49,14 +49,6 @@ module.exports = {
             if(status == 'no'){
                 return{text:`User ${lastfmName} is currently not listening to anything!`, reply:true}
             }
-            let songName, artistName, url
-            try {
-                songName = data.recenttracks.track[0].name
-                artistName = data.recenttracks.track[0].artist.name
-            } catch(err) {
-                songName = data.recenttracks.track.name
-                artistName = data.recenttracks.track.artist.name
-            }
 
             let playCount = ""
             
@@ -66,9 +58,19 @@ module.exports = {
                     playCount = incrementString(`• play #${songData.track.userplaycount ?? 0}`)
                 }
             } catch {}
-            
-            const urlData = await got(`https://songwhip.com/api?q=${encodeURIComponent(`${songName} ${artistName}`)}`, {throwHttpErrors:false}).json()
-            url = urlData.data.tracks[0].sourceUrl
+
+            let songName = "", artistName = "", url = ""
+            try {
+                songName = data.recenttracks.track[0].name
+                artistName = data.recenttracks.track[0].artist.name
+            } catch(err) {
+                songName = data.recenttracks.track.name
+                artistName = data.recenttracks.track.artist.name
+            }
+            try{
+                const urlData = await got(`https://songwhip.com/api?q=${encodeURIComponent(`${songName} ${artistName}`)}`, {throwHttpErrors:false}).json()
+                url = urlData.data.tracks[0].sourceUrl
+            } catch(err) {}
 
             return{text:`/me 🎵 ${artistName} • ${songName} elisVibe ${url} ${playCount}`, reply:true}
             
