@@ -70,7 +70,8 @@ module.exports = {
                 userData = await bot.db.users.findOne({ id: context.user.id })
                 mcUUID = userData?.mcid
                 if (!mcUUID) {
-                    return { text: `No MC username provided! To link your account, do '+link mc <username>'`, reply: true }
+                    userData = await bot.db.users.findOne({ id: context.channel.id })
+                    mcUUID = userData?.mcid
                 }
             } else {
                 if (context.message.args[0]?.startsWith("@")) {
