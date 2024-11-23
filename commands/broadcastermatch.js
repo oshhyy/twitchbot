@@ -2,9 +2,9 @@ const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js');
 
 module.exports = {
-    name: "lastmatch",
+    name: "broadcastermatch",
     cooldown: 3000,
-    aliases: ['rankedmatch', 'match'],
+    aliases: [],
     description: `lastmatch [minecraft-username] | provides stats for the last played ranked match in MCSR Ranked`,
     execute: async context => {
         try {
@@ -59,39 +59,12 @@ module.exports = {
                 if (badge == 3) {return "❖ "}
                 return " "
             }
-
-            let userData, mcUUID
-            if (!context.message.args[0]) {
-                userData = await bot.db.users.findOne({ id: context.user.id })
-                mcUUID = userData?.mcid
-                if (!mcUUID) {
-                    return { text: `No MC username provided! To link your account, do '+link mc <username>'`, reply: true }
-                }
-            } else {
-                if (context.message.args[0]?.startsWith("@")) {
-                    userData = await bot.db.users.findOne({ username: context.message.args[0].replace("@", "").toLowerCase() })
-                    mcUUID = userData?.mcid
-                    if (!mcUUID) {
-                        return { text: `This user does not have a linked mc account!`, reply: true }
-                    }
-
-                } else {
-                    let mojangData;
-                    mojangData = await got(`https://api.mojang.com/users/profiles/minecraft/${context.message.args[0]}`, { throwHttpErrors: false }).json()
-                    if (mojangData.errorMessage) {
-                        return { text: mojangData.errorMessage, reply: true }
-                    }
-                    mcUUID = mojangData.id
-                }
-            }
-
+            let mcUUID = context.message.args[0]
             let mcsrData;
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=50&type=2`).json();
             } catch (err) {
-                return {
-                    text: `This username is not registered in MCSR Ranked! oshDank`, reply: true
-                }
+                return {}
             }
 
             const nonDecayMatches = mcsrData.data.filter(match => !match.decayed);
@@ -101,7 +74,7 @@ module.exports = {
             console.log(mostRecentNonDecayMatch)
 
             if(!mostRecentNonDecayMatch) {
-                return{text: `This user does not have any recent matches! oshDank`, reply: true}
+                return{}
             }
 
             let finalTime
