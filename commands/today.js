@@ -9,16 +9,17 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
+            function msToTime(s, decimal = 0) {
                 // Pad to 2 or 3 digits, default is 2
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
                 
                 var minutes = Math.floor(s / 60000);
                 var seconds = Math.floor((s % 60000) / 1000); 
-                // var milliseconds = s % 1000;
+                var milliseconds = s % 1000;
             
                 var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds);
+                if(decimal == 0) return formattedMinutes + ':' + pad(seconds)
+                else return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, decimal);
             }
             
             function rankColor(elo) {
@@ -98,7 +99,7 @@ module.exports = {
                 console.log(numTime)
                 console.log(numCompletions)
                 console.log(mcUUID)
-                let avg = msToTime(numTime / numCompletions)
+                let avg = msToTime(numTime / numCompletions, 1)
                 let forfeitRatePerMatch = ((forfeits / mcsrData.totalMatchesCount) * 100).toFixed(1);
                 averageText = `• ${avg} avg, ${forfeitRatePerMatch}% FF rate`
             } catch (err) {averageText = ""}
