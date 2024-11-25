@@ -9,16 +9,17 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
+            function msToTime(s, decimal = 0) {
                 // Pad to 2 or 3 digits, default is 2
                 var pad = (n, z = 2) => ('00' + n).slice(-z);
                 
                 var minutes = Math.floor(s / 60000);
                 var seconds = Math.floor((s % 60000) / 1000); 
-                // var milliseconds = s % 1000;
+                var milliseconds = s % 1000;
             
                 var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds);
+                if(decimal == 0) return formattedMinutes + ':' + pad(seconds)
+                else return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, decimal);
             }
             function getRank(elo) {
                 if (!elo) { return "Unrated or Hidden" }
@@ -99,7 +100,7 @@ module.exports = {
 
             const forfeits = mcsrData.data.statistics.season.forfeits.ranked
 
-            const matchAvg = msToTime(totalTime / completions)
+            const matchAvg = msToTime(totalTime / completions, 1)
             const forfeitRatePerMatch = ((forfeits / seasonPlayed) * 100).toFixed(1);
 
             return {
