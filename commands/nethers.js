@@ -7,18 +7,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 1);
-            }
-
             let name = ''
             let hours = 999 
             let hoursBetween = 3
@@ -48,7 +36,7 @@ module.exports = {
             }
             
             const count = data.count
-            const average = msToTime(data.avg.toFixed(0))
+            const average = bot.Utils.msToTime(data.avg.toFixed(0), 1)
             const nph = data.rnph
             const rpe = data.rpe.toFixed(0)
 

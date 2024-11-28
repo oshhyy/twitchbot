@@ -7,17 +7,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
-            }
             function isValidEntry(entry) {
                 if (entry.hasOwnProperty('fortress') && entry.hasOwnProperty('bastion') &&
                     entry.fortress !== null && entry.bastion !== null) {
@@ -63,35 +52,35 @@ module.exports = {
             let outputText = `Latest ${bot.Utils.unping(name)} Pace: (${start} ago) `
         
             if(netherData[n].nether) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].nether)} nether enter `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].nether)} nether enter `)
             }
 
             if(netherData[n].fortress && netherData[n].bastion > netherData[n].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].fortress)} fort `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].fortress)} fort `)
                 if(netherData[n].bastion) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[n].bastion)} bastion `)
+                    outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].bastion)} bastion `)
                 }
             } else if(netherData[n].bastion && netherData[n].bastion < netherData[n].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].bastion)} bastion `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].bastion)} bastion `)
                 if(netherData[n].fortress) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[n].fortress)} fort `)
+                    outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].fortress)} fort `)
                 }
             }
             
             if(netherData[n].first_portal) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].first_portal)} first portal `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].first_portal)} first portal `)
             }
 
             if(netherData[n].stronghold) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].stronghold)} stronghold `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].stronghold)} stronghold `)
             }
 
             if(netherData[n].end) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].end)} end enter `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].end)} end enter `)
             }
 
             if(netherData[n].finish) {
-                outputText = outputText.concat(`• ${msToTime(netherData[n].finish)} finish `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[n].finish, 3)} finish `)
             }
 
             return {

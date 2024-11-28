@@ -10,17 +10,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                // var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds);
-            }
             function badgeIcon(badge) {
                 if (badge == 1) {return "◇ "}
                 if (badge == 2) {return "◈ "}
@@ -140,7 +129,7 @@ module.exports = {
                 message = message.concat(`Season ${mcsrData.data[0].season} Record LB`)
                 for(let i = 0; i < 10; i++) {
                     if(mcsrData.data[i]) {
-                        message = message.concat(` ${badgeIcon(mcsrData.data[i].user.roleType)}#${i + 1} ${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${msToTime(mcsrData.data[i].time)})`)
+                        message = message.concat(` ${badgeIcon(mcsrData.data[i].user.roleType)}#${i + 1} ${bot.Utils.unping(mcsrData.data[i].user.nickname)} (${bot.Utils.msToTime(mcsrData.data[i].time, 3)})`)
                     }
                 }
             } else if (lbType == "phase-") {

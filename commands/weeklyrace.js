@@ -8,18 +8,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
-            }
-
             let userData, mcUUID
             if (!context.message.args[0]) {
                 userData = await bot.db.users.findOne({ id: context.user.id })
@@ -67,7 +55,7 @@ module.exports = {
             let userText = ""
             if(mcsrData.data.user) {
                 if (mcsrData.data.user.rank != 1) {
-                    userText = `${bot.Utils.unping(mcsrData.data.user.player.nickname)}: ${msToTime(mcsrData.data.user.time)} (#${mcsrData.data.user.rank}) • `
+                    userText = `${bot.Utils.unping(mcsrData.data.user.player.nickname)}: ${bot.Utils.msToTime(mcsrData.data.user.time, 3)} (#${mcsrData.data.user.rank}) • `
                 }
             }
 
@@ -80,7 +68,7 @@ module.exports = {
 
             const currentTimeInMilliseconds = new Date().getTime();
             return{
-                text:`Ranked Weekly Race #${mcsrData.data.id} • ${seed}Rank #1: ${msToTime(mcsrData.data.leaderboard[0].time)} by ${bot.Utils.unping(mcsrData.data.leaderboard[0].player.nickname)} • ${userText}ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.endsAt * 1000))}`,
+                text:`Ranked Weekly Race #${mcsrData.data.id} • ${seed}Rank #1: ${bot.Utils.msToTime(mcsrData.data.leaderboard[0].time, 3)} by ${bot.Utils.unping(mcsrData.data.leaderboard[0].player.nickname)} • ${userText}ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.endsAt * 1000))}`,
                 reply:true
             }
         } catch (err) {

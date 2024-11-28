@@ -7,18 +7,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
-            }
-
             const currentTimeInMilliseconds = new Date().getTime();
             let pacemanData;
             try {
@@ -35,7 +23,7 @@ module.exports = {
                 }
             }
 
-            const time = msToTime(pacemanData[0].time)
+            const time = bot.Utils.msToTime(pacemanData[0].time, 3)
             const player = bot.Utils.unping(pacemanData[0].nickname)
             
             return {

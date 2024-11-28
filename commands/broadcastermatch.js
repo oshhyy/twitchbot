@@ -8,19 +8,7 @@ module.exports = {
     description: `lastmatch [minecraft-username] | provides stats for the last played ranked match in MCSR Ranked`,
     execute: async context => {
         try {
-            // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
-            }
-            
+            // command code            
             function getRank(elo) {
                 if(!elo) {return "Unrated or Hidden"}
                 if(elo < 400) {return "Coal I"}
@@ -90,9 +78,9 @@ module.exports = {
                     }
                 }
                 if(mostRecentNonDecayMatch.forfeited) {
-                    finalTime = `Forfeit at ${msToTime(mostRecentNonDecayMatch.result.time)}`
+                    finalTime = `Forfeit at ${bot.Utils.msToTime(mostRecentNonDecayMatch.result.time)}`
                 } else {
-                    finalTime = msToTime(mostRecentNonDecayMatch.result.time)
+                    finalTime = bot.Utils.msToTime(mostRecentNonDecayMatch.result.time, 3)
                 }
             }
 

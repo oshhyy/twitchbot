@@ -31,7 +31,7 @@ module.exports = {
             let userText = ""
             if(mcsrData.data.user) {
                 if (mcsrData.data.user.rank != 1) {
-                    userText = `${bot.Utils.unping(mcsrData.data.user.player.nickname)}: ${msToTime(mcsrData.data.user.time)} (#${mcsrData.data.user.rank}) • `
+                    userText = `${bot.Utils.unping(mcsrData.data.user.player.nickname)}: ${bot.Utils.msToTime(mcsrData.data.user.time, 3)} (#${mcsrData.data.user.rank}) • `
                 }
             }
 
@@ -44,7 +44,7 @@ module.exports = {
 
             const currentTimeInMilliseconds = new Date().getTime();
             return{
-                text:`Ranked Weekly Race #${mcsrData.data.id} • ${seed}Rank #1: ${msToTime(mcsrData.data.leaderboard[0].time)} by ${bot.Utils.unping(mcsrData.data.leaderboard[0].player.nickname)} • ${userText}ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.endsAt * 1000))}`,
+                text:`Ranked Weekly Race #${mcsrData.data.id} • ${seed}Rank #1: ${msToTime(mcsrData.data.leaderboard[0].time, 3)} by ${bot.Utils.unping(mcsrData.data.leaderboard[0].player.nickname)} • ${userText}ends in ${bot.Utils.humanize(currentTimeInMilliseconds - (mcsrData.data.endsAt * 1000))}`,
                 reply:true
             }
         } catch (err) {

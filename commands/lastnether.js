@@ -7,18 +7,6 @@ module.exports = {
     execute: async context => {
         try {
             // command code
-            function msToTime(s) {
-                // Pad to 2 or 3 digits, default is 2
-                var pad = (n, z = 2) => ('00' + n).slice(-z);
-                
-                var minutes = Math.floor(s / 60000);
-                var seconds = Math.floor((s % 60000) / 1000); 
-                var milliseconds = s % 1000;
-            
-                var formattedMinutes = minutes < 100 ? pad(minutes) : minutes;
-                return formattedMinutes + ':' + pad(seconds) + '.' + pad(milliseconds, 3);
-            }
-
             let name = context.message.args[0]?.replace("@", "") ?? context.user.login;
 
             let netherData;
@@ -46,35 +34,35 @@ module.exports = {
             let outputText = `Latest ${bot.Utils.unping(name)} PaceMan Run: (${start} ago) `
         
             if(netherData[0].nether) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].nether)} nether enter `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].nether)} nether enter `)
             }
 
             if(netherData[0].fortress && netherData[0].bastion > netherData[0].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fort `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].fortress)} fort `)
                 if(netherData[0].bastion) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion `)
+                    outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].bastion)} bastion `)
                 }
             } else if(netherData[0].bastion && netherData[0].bastion < netherData[0].fortress) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].bastion)} bastion `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].bastion)} bastion `)
                 if(netherData[0].fortress) {
-                    outputText = outputText.concat(`• ${msToTime(netherData[0].fortress)} fort `)
+                    outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].fortress)} fort `)
                 }
             }
             
             if(netherData[0].first_portal) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].first_portal)} first portal `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].first_portal)} first portal `)
             }
 
             if(netherData[0].stronghold) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].stronghold)} stronghold `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].stronghold)} stronghold `)
             }
 
             if(netherData[0].end) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].end)} end enter `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].end)} end enter `)
             }
 
             if(netherData[0].finish) {
-                outputText = outputText.concat(`• ${msToTime(netherData[0].finish)} finish `)
+                outputText = outputText.concat(`• ${bot.Utils.msToTime(netherData[0].finish)} finish `)
             }
 
             return {
