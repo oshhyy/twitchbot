@@ -9,6 +9,7 @@ bot.Command = require("./lib/misc/commands");
 bot.Utils = require("./lib/utils");
 bot.Logger = require("./lib/misc/logger");
 bot.Webhook = require("./lib/utils/webhook");
+bot.Regex = require("./lib/utils/regex");
 
 const { on } = require("events");
 const dayjs = require('dayjs')
