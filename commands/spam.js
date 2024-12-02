@@ -70,7 +70,7 @@ module.exports = {
                 }
             }
 
-            if(bot.Utils.regex.slurs.test(phrase) || bot.Utils.regex.tos.test(phrase) || bot.Utils.regex.racism.test(phrase)) {
+            if(bot.Regex.check(phrase)) {
                 return{text:"Message contains banned phrase! elisBruh", reply:true};
             }
 

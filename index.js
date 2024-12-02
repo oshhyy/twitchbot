@@ -35,9 +35,9 @@ bot.Client.on("PRIVMSG", async (msg) => {
     let message
 
     if (msg.replyParentMessageID) {
-        message = msg.messageText.replace(/^@[^\s]+\s+/, "").replace(bot.Utils.regex.invisChar, "").trimEnd();
+        message = msg.messageText.replace(/^@[^\s]+\s+/, "").replace(bot.Regex.invisChars, "").trimEnd();
     } else {
-        message = msg.messageText.replace(bot.Utils.regex.invisChar, "").trimEnd();
+        message = msg.messageText.replace(bot.Regex.invisChars, "").trimEnd();
     }
 
     const channelData = await bot.db.channels.findOne({ id: msg.channelID }); //this way you have the full channelData object, not just prefix
