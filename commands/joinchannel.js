@@ -31,7 +31,7 @@ module.exports = {
                     }
                 }
 
-                const newChannel = new bot.db.channels({ id: context.user.id, username: context.user.login, isChannel: true, joinedAt: Date.now(), settings: { offlineOnly: false }, });
+                const newChannel = new bot.db.channels({ id: context.user.id, username: context.user.login, isChannel: true, joinedAt: Date.now(), offlineOnly: false , isLocked: false});
                 await newChannel.save();
                 bot.Client.join(context.user.login);
 

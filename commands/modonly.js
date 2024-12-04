@@ -22,7 +22,7 @@ module.exports = {
 
             let id = context.channel.id
 
-            const lockedChannels = (await bot.db.channels.find({ offlineOnly: true })).map(c => c.id);
+            const lockedChannels = (await bot.db.channels.find({ isLocked: true })).map(c => c.id);
 
             if (mode == "enable" || mode == "on") {
                 if (lockedChannels.includes(id)) {
@@ -31,7 +31,7 @@ module.exports = {
                         reply: true
                     }
                 }
-                await bot.db.channels.updateOne({ id: id }, { $set: { offlineOnly: true } })
+                await bot.db.channels.updateOne({ id: id }, { $set: { isLocked: true } })
 
                 return {
                     text: `The bot is now in locked mode. 🔒 I will now only respond to commands if they are from a moderator or broadcaster.`, reply: true
@@ -40,7 +40,7 @@ module.exports = {
 
             if (mode == "disable" || mode == "off") {
                 if (lockedChannels.includes(id)) {
-                    await bot.db.channels.updateOne({ id: id }, { $set: { offlineOnly: true } })
+                    await bot.db.channels.updateOne({ id: id }, { $set: { isLocked: false } })
                     return {
                         text: `This channel is no longer locked. 🔓`, reply: true
                     }
