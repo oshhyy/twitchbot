@@ -24,7 +24,7 @@ module.exports = {
 
             let id = context.channel.id
 
-            const offlineOnlyChannels = (await bot.db.channels.find({ settings: { offlineOnly: true, }})).map(c => c.id);
+            const offlineOnlyChannels = (await bot.db.channels.find({ offlineOnly: true })).map(c => c.id);
 
             if (mode == "enable" || mode == "on") {
                 if(offlineOnlyChannels.includes(id)) {
@@ -33,7 +33,7 @@ module.exports = {
                         reply:true
                     }
                 }
-                await bot.db.channels.updateOne({id: id}, { $set: { "settings.offlineOnly": true } })
+                await bot.db.channels.updateOne({id: id}, { $set: { offlineOnly: true } })
                 
                 return{
                     text: `This channel is now in offline only mode. FeelsGoodMan I will now only respond to commands if the channel is offline.`, reply:true
@@ -46,7 +46,7 @@ module.exports = {
                         text: `This channel is already not in offline only mode! oshDank`, reply:true
                     }
                 }
-            await bot.db.channels.updateOne({id: id}, { $set: { "settings.offlineOnly": false } })
+            await bot.db.channels.updateOne({id: id}, { $set: { offlineOnly: true }})
             return{
                 text: `This channel is no longer in offline only mode. FeelsGoodMan`, reply:true
             }
