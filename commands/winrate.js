@@ -48,7 +48,7 @@ module.exports = {
                 console.log('Finished fetching all pages. Total matches:', allMatches.length);
                 return allMatches;
             }
-            
+
             let userData, mcUUID
             if (!context.message.args[0]) {
                 userData = await bot.db.users.findOne({ id: context.user.id })
@@ -80,11 +80,11 @@ module.exports = {
             try {
                 mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
             } catch (err) {
-                try{
+                try {
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
                     mcUUID = userData?.mcid
                     mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
-                } catch (err){
+                } catch (err) {
                     return {
                         text: `No ranked profile found. FallCry`, reply: true
                     }
@@ -95,36 +95,54 @@ module.exports = {
             const wins = mcsrData.data.statistics.season.wins.ranked
             const losses = mcsrData.data.statistics.season.loses.ranked
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
-            let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Winrate: ${wins}/${losses} (${WinPercent}%) • `
+            let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Winrate: ${wins}/${losses} (${WinPercent}%)`
 
             let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`, season)
             console.log(matchesData)
-            
+
+
+            let bridgeWins = 0, treasureWins = 0, housingWins = 0, stablesWins = 0
+            let bridgeLosses = 0, treasureLosses = 0, housingLosses = 0, stablesLosses = 0
+
             let villageWins = 0, rpWins = 0, btWins = 0, shipWins = 0, templeWins = 0
             let villageLosses = 0, rpLosses = 0, btLosses = 0, shipLosses = 0, templeLosses = 0
 
-            for(match of matchesData) {
-                if(match.result.uuid) {
+            for (match of matchesData) {
+                if (match.result.uuid) {
                     let winner = false
-                    if(mcUUID == match.result.uuid) {
+                    if (mcUUID == match.result.uuid) {
                         winner = true
                     }
-                    
-                    if(match.seedType == 'VILLAGE') {
-                        if(winner) villageWins++
+
+                    if (match.seedType == 'VILLAGE') {
+                        if (winner) villageWins++
                         else villageLosses++
-                    } else if(match.seedType == 'RUINED_PORTAL') {
-                        if(winner) rpWins++
+                    } else if (match.seedType == 'RUINED_PORTAL') {
+                        if (winner) rpWins++
                         else rpLosses++
-                    } else if(match.seedType == 'BURIED_TREASURE') {
-                        if(winner) btWins++
+                    } else if (match.seedType == 'BURIED_TREASURE') {
+                        if (winner) btWins++
                         else btLosses++
-                    } else if(match.seedType == 'SHIPWRECK') {
-                        if(winner) shipWins++
+                    } else if (match.seedType == 'SHIPWRECK') {
+                        if (winner) shipWins++
                         else shipLosses++
-                    } else if(match.seedType == 'DESERT_TEMPLE') {
-                        if(winner) templeWins++
+                    } else if (match.seedType == 'DESERT_TEMPLE') {
+                        if (winner) templeWins++
                         else templeLosses++
+                    }
+
+                    if (match.bastionType == 'BRIDGE') {
+                        if (winner) bridgeWins++
+                        else bridgeLosses++
+                    } else if (match.bastionType == 'TREASURE') {
+                        if (winner) treasureWins++
+                        else treasureLosses++
+                    } else if (match.bastionType == 'HOUSING') {
+                        if (winner) housingWins++
+                        else housingLosses++
+                    } else if (match.bastionType == 'STABLES') {
+                        if (winner) stablesWins++
+                        else stablesLosses++
                     }
                 }
             }
@@ -134,7 +152,7 @@ module.exports = {
             let shipPercent = ((shipWins / (shipWins + shipLosses)) * 100).toFixed(1)
             let templePercent = ((templeWins / (templeWins + templeLosses)) * 100).toFixed(1)
 
-            message = message.concat(`Village: ${villagePercent}% • Ruined Portal: ${rpPercent}% • Buried Treasure: ${btPercent}% • Shipwreck: ${shipPercent}% • Desert Temple: ${templePercent}%`)
+            message = message.concat(` ║ Village: ${villagePercent}% • RP: ${rpPercent}% • BT: ${btPercent}% • Ship: ${shipPercent}% • Temple: ${templePercent}%`)
 
             console.log(message)
             console.log(`${villageWins}/${villageLosses}`)
@@ -142,14 +160,28 @@ module.exports = {
             console.log(`${btWins}/${btLosses}`)
             console.log(`${shipWins}/${shipLosses}`)
             console.log(`${templeWins}/${templeLosses}`)
+
+            let bridgePercent = ((bridgeWins / (bridgeWins + bridgeLosses)) * 100).toFixed(1)
+            let treasurePercent = ((treasureWins / (treasureWins + treasureLosses)) * 100).toFixed(1)
+            let housingPercent = ((housingWins / (housingWins + housingLosses)) * 100).toFixed(1)
+            let stablesPercent = ((stablesWins / (stablesWins + stablesLosses)) * 100).toFixed(1)
+
+            message = message.concat(` ║ Bridge: ${bridgePercent}% • Treasure: ${treasurePercent}% • Housing: ${housingPercent}% • Stables: ${stablesPercent}%`)
+
+            console.log(message)
+            console.log(`${bridgeWins}/${bridgeLosses}`)
+            console.log(`${treasureWins}/${treasureLosses}`)
+            console.log(`${housingWins}/${housingLosses}`)
+            console.log(`${stablesWins}/${stablesLosses}`)
+
             return {
-                text:message, reply:true
+                text: message, reply: true
             }
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
             console.log(err);
-            bot.Client.privmsg(context.channel.login, `${err.constructor.name} iqvekSaj`)
+            bot.Client.privmsg(context.channel.login, `${err.constructor.name} :(`)
         }
     },
 };
