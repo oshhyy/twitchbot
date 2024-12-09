@@ -28,6 +28,10 @@ module.exports = {
                 mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
             }
 
+            if(!mcsrData.data.leaderboard[0]) {
+                return{text:`No current completions for Weekly Race #${mcsrData.data.id}.`, reply:true}
+            }
+
             let userText = ""
             if(mcsrData.data.user) {
                 if (mcsrData.data.user.rank != 1) {
