@@ -15,7 +15,15 @@ module.exports = {
                 if (context.channel.id != "489223884") { return }
 
                 if (channels.includes(context.user.id)) {
-                    return {
+                    let channelInfo = await bot.db.channels.findOne({id: context.user.id})
+                    if(channelInfo.username != context.user.login) {
+                        await bot.db.channels.updateOne( { id: context.user.id}, { $set: { username: context.user.login } } )
+                        bot.Client.join(context.user.login);
+                        bot.Webhook.colorEmbed(`4388216`, `Rejoined channel!`, `${context.user.login} • ${context.user.id}`);
+                        return {
+                            text: `Rejoined channel #${context.user.login} oshArrive`, reply: true
+                        }
+                    } else return {
                         text: `I am already in your channel! oshDank`, reply: true
                     }
                 }
@@ -58,7 +66,7 @@ module.exports = {
                         }
                     }
 
-                    const channelInfo = await bot.db.channels.findOne({id: xd[0].id})
+                    let channelInfo = await bot.db.channels.findOne({id: xd[0].id})
                     
                     if(channelInfo) {
                         await bot.db.channels.updateOne( { id: xd[0].id }, { $set: { isChannel: true } } )
