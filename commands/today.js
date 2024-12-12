@@ -69,6 +69,9 @@ module.exports = {
             const losses = mcsrData.lossMatchesCount
             const WinPercent = ((wins / (wins + losses)) * 100).toFixed(1);
 
+            let eloColor = rankColor(mcsrData.currentElo)
+            await twitchapi.changeColor(eloColor)
+
             let averageData;
             let averageText = ""
             if (mcsrData.totalMatchesCount > 0) {
@@ -91,10 +94,10 @@ module.exports = {
                     let forfeitRatePerMatch = ((forfeits / mcsrData.totalMatchesCount) * 100).toFixed(1);
                     averageText = `• ${avg} avg, ${forfeitRatePerMatch}% FF rate`
                 } catch (err) {averageText = ""}
-            } else averageText = ""
-
-            let eloColor = rankColor(mcsrData.currentElo)
-            await twitchapi.changeColor(eloColor)
+            } else {
+                await bot.Utils.sleep(1000)
+                return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(user)} (${mcsrData.currentElo}) has not played any games in the last 12 Hours.`, reply: true}
+            }
 
             await bot.Utils.sleep(1000)
             return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(user)} 12h Ranked Stats • Elo: ${mcsrData.currentElo} (${eloChange}) • W/L ${wins}/${losses} (${WinPercent}%) ${averageText}`, reply: true}
