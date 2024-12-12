@@ -46,31 +46,33 @@ module.exports = {
 
             let averageData;
             let averageText = ""
-            try {
-                averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`).json();
-
-                let numCompletions = 0, numTime = 0, forfeits = 0;
-                for(match of averageData.data) {
-                    if(match.forfeited == false && match.result.uuid == mcUUID) {
-                        numCompletions++
-                        numTime += match.result.time
-                    } else if (match.forfeited == true && match.result.uuid != mcUUID && match.result.uuid != null) {
-                        forfeits++
+            if (mcsrData.totalMatchesCount > 0) {
+                try {
+                    averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`).json();
+    
+                    let numCompletions = 0, numTime = 0, forfeits = 0;
+                    for(match of averageData.data) {
+                        if(match.forfeited == false && match.result.uuid == mcUUID) {
+                            numCompletions++
+                            numTime += match.result.time
+                        } else if (match.forfeited == true && match.result.uuid != mcUUID && match.result.uuid != null) {
+                            forfeits++
+                        }
                     }
-                }
-                console.log(numTime)
-                console.log(numCompletions)
-                console.log(mcUUID)
-                let avg = bot.Utils.msToTime(numTime / numCompletions, 1)
-                let forfeitRatePerMatch = ((forfeits / mcsrData.totalMatchesCount) * 100).toFixed(1);
-                averageText = `• ${avg} avg, ${forfeitRatePerMatch}% FF rate`
-            } catch (err) {averageText = ""}
+                    console.log(numTime)
+                    console.log(numCompletions)
+                    console.log(mcUUID)
+                    let avg = bot.Utils.msToTime(numTime / numCompletions, 1)
+                    let forfeitRatePerMatch = ((forfeits / mcsrData.totalMatchesCount) * 100).toFixed(1);
+                    averageText = `• ${avg} avg, ${forfeitRatePerMatch}% FF rate`
+                } catch (err) {averageText = ""}
+            } else averageText = ""
 
             let eloColor = rankColor(mcsrData.currentElo)
             await twitchapi.changeColor(eloColor)
 
             await bot.Utils.sleep(1000)
-            return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(context.channel.login)} 12h Ranked Stats • Elo: ${mcsrData.currentElo} (${eloChange}) • W/L ${wins}/${losses} (${WinPercent}%) ${averageText}`, reply: true}
+            return{text: `/me • #${mcsrData.currentRank} ${bot.Utils.unping(user)} 12h Ranked Stats • Elo: ${mcsrData.currentElo} (${eloChange}) • W/L ${wins}/${losses} (${WinPercent}%) ${averageText}`, reply: true}
 
         } catch (err) {
             bot.Webhook.error(`${err.constructor.name} executing ${context.message.command} by ${context.user.login} in #${context.channel.login}`, `${context.message.text}\n\n${err}`)
