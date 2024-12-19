@@ -15,7 +15,7 @@ module.exports = {
                 return { text: `usage: ${prefix}link <type> <username> - current types: mc, lastfm`, reply: true }
             }
             let type = context.message.args[0]
-            let name = context.message.args[1]
+            let name = context.message.args.slice(1).join(" ")
             let data, userInfo, newUser
             if (!name) { return { text:'usage: +link <type> <username> - current types: mc, lastfm, location', reply: true } }
             if (type == "lastfm") {
@@ -61,8 +61,7 @@ module.exports = {
                 return { text: `Your minecraft account has successfully linked to "${data.name}"!`, reply: true }
 
             } else if (type == "location" || type == "weather") {
-                let key = config.weatherKey;
-                data = await got(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${name}&aqi=no`, { throwHttpErrors: false }).json()
+                data = await got(`http://api.weatherapi.com/v1/current.json?key=${config.weatherKey}&q=${name}&aqi=no`, { throwHttpErrors: false }).json()
                 if(data.errorMessage) {
                     return { text: data.error.message, reply: true }
                 }

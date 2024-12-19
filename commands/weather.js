@@ -52,7 +52,7 @@ module.exports = {
                 }
             } else {
                 userData = await bot.db.users.findOne({id: context.user.id})
-                location = context.message.args[0] ?? userData?.location
+                location = context.message.args.slice(0).join(" ") ?? userData?.location
                 if(!location){
                     return{text:`No location provided!`, reply:true}
                 }
@@ -60,7 +60,7 @@ module.exports = {
 
             let data
             try {
-                data = await got(`http://api.weatherapi.com/v1/current.json?key=${config.weatherKey}&q=${location}&aqi=no`).json()
+                data = await got(`http://api.weatherapi.com/v1/current.json?key=${config.weatherKey}&q=${encodeURIComponent(location)}&aqi=no`).json()
             } catch(err) {
                 return{text: `No Matching Location Found.`, reply:true}
             }
