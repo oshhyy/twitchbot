@@ -58,10 +58,9 @@ module.exports = {
                 }
             }
 
-            let key = config.weatherKey;
             let data
             try {
-                data = await got(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${location}&aqi=no`).json()
+                data = await got(`http://api.weatherapi.com/v1/current.json?key=${config.weatherKey}&q=${location}&aqi=no`).json()
             } catch(err) {
                 return{text: `No Matching Location Found.`, reply:true}
             }
