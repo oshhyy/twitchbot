@@ -95,7 +95,7 @@ module.exports = {
             let totalTime = mcsrData.data.statistics.season.completionTime.ranked
             let completions = mcsrData.data.statistics.season.completions.ranked
             const matchAvg = bot.Utils.msToTime(totalTime / completions, 1)
-            let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Average: ${matchAvg}`
+            let message = `${badge} ${bot.Utils.unping(mcsrData.data.nickname)} Overall Average: ${matchAvg} (${completions} completions)`
 
             let matchesData = await getAllMatches(`https://mcsrranked.com/api/users/${mcUUID}/matches`, season)
             console.log(matchesData)
@@ -142,7 +142,7 @@ module.exports = {
                     }
                 }
             }
-            
+
             const villageAvg = bot.Utils.msToTime(villageTime / villageC)
             const rpAvg = bot.Utils.msToTime(rpTime / rpC)
             const btAvg = bot.Utils.msToTime(btTime / btC)
