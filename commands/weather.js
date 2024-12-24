@@ -52,9 +52,10 @@ module.exports = {
                 }
             } else {
                 userData = await bot.db.users.findOne({id: context.user.id})
-                location = userData?.location ?? context.message.args.slice(0).join(" ") 
+                location = userData?.location
                 if(!location){
-                    return{text:`No location provided!`, reply:true}
+                    location = context.message.args.slice(0).join(" ")
+                    if (locaiton == "") return{text:`No location provided!`, reply:true}
                 }
             }
 
