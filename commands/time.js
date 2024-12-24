@@ -35,7 +35,7 @@ module.exports = {
                 }
             } else {
                 userData = await bot.db.users.findOne({id: context.user.id})
-                location = context.message.args.slice(0).join(" ") ?? userData?.location
+                location = userData?.location ?? context.message.args.slice(0).join(" ")
                 if(!location){
                     return{text:`No location provided!`, reply:true}
                 }
