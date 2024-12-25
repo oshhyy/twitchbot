@@ -52,8 +52,8 @@ module.exports = {
             console.log(data)
             let emoji = ""
             if(data.current.is_day == 1) {
-                emoji == "🏙️ "
-            } else emoji == "🌃 "
+                emoji = "🏙️ "
+            } else emoji = "🌃 "
 
             timeText = epochToDateTime(data.location.localtime_epoch, data.location.tz_id)
 
