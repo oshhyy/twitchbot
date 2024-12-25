@@ -76,7 +76,7 @@ module.exports = {
             }
 
             return {
-                text: `Current weather in ${data.location.name}, ${data.location.region} (${data.location.country}): ${emoji} (${data.current.condition.text}) ${data.current.temp_c}°C (${data.current.temp_f}°F), Feels like ${data.current.feelslike_c}°C (${data.current.temp_f}°F) • Wind Speed: ${data.current.wind_kph}km/h (${data.current.wind_mph}m/h) ${data.current.wind_dir}, with gusts up to ${data.current.gust_kph}km/h (${data.current.gust_mph}m/h) • Humidity: ${data.current.humidity}% ${rainText}`,
+                text: `Current weather in ${data.location.name}, ${data.location.region} (${data.location.country}): ${emoji} (${data.current.condition.text}) ${data.current.temp_c}°C (${data.current.temp_f}°F), Feels like ${data.current.feelslike_c}°C (${data.current.feelslike_f}°F) • Wind Speed: ${data.current.wind_kph}km/h (${data.current.wind_mph}m/h) ${data.current.wind_dir}, with gusts up to ${data.current.gust_kph}km/h (${data.current.gust_mph}m/h) • Humidity: ${data.current.humidity}% ${rainText}`,
                 reply: true,
             };
         } catch (err) {

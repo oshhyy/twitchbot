@@ -50,11 +50,15 @@ module.exports = {
             }
 
             console.log(data)
+            let emoji = ""
+            if(data.current.is_day == 1) {
+                emoji == "🏙️ "
+            } else emoji == "🌃 "
 
             timeText = epochToDateTime(data.location.localtime_epoch, data.location.tz_id)
 
             return {
-                text: `Time in ${data.location.name}, ${data.location.region} (${data.location.country}): ${timeText}.`,
+                text: `${emoji}Time in ${data.location.name}, ${data.location.region} (${data.location.country}): ${timeText}.`,
                 reply: true,
             };
         } catch (err) {
