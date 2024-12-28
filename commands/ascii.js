@@ -9,7 +9,7 @@ module.exports = {
             // command code
             let m = context.message.args.join(" ");
 
-            if (!context.badges.haszModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
+            if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                 return {};
             }
             if(!ModeratorOf.includes(context.channel.id) && !context.message.params.channel) {
