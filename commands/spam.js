@@ -15,7 +15,7 @@ module.exports = {
             }
             if(!ModeratorOf.includes(context.channel.id) && !context.message.params.channel) {
                 return {
-                    text: `I can't perform this command because I am not moderator! forsenNOIDONTTHINKSO`, reply: true
+                    text: `I can't perform this command because I am not moderator!`, reply: true
                 };
             }
 
