@@ -8,8 +8,8 @@ module.exports = {
         try {
             // command code
             let m = context.message.args.join(" ");
-            
-            if (!context.badges.hasModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
+
+            if (!context.badges.haszModerator && !context.badges.hasBroadcaster && context.user.id != "489223884") {
                 return {};
             }
             if(!ModeratorOf.includes(context.channel.id) && !context.message.params.channel) {
@@ -25,7 +25,7 @@ module.exports = {
             console.log(data)
             if (!data.ok) {
                 return {
-                    text: "An error occurred getting the ASCII for this query.", reply: true
+                    text: `Error: ${data.message}`, reply: true
                 }
             }
 
