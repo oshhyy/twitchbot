@@ -70,7 +70,7 @@ module.exports = {
                 }
             }
 
-            if(bot.Regex.check(phrase)) {
+            if(bot.Regex.check(phrase, phrase.split(" "), context.channel.id)) { 
                 return{text:"Message contains banned phrase! elisBruh", reply:true};
             }
 
