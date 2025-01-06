@@ -1,9 +1,9 @@
 const got = require("got");
 
 module.exports = {
-    name: "stats",
+    name: "user",
     cooldown: 15000,
-    aliases: ['user', 'u'],
+    aliases: ['u'],
     description: `stats [user] | shows a user's twitch stats`,
     execute: async context => {
         try {
