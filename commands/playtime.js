@@ -1,7 +1,6 @@
 const got = require("got");
 const humanize = require('humanize-duration');
-const twitchapi = require('../lib/utils/twitchapi.js');
-const { MongoChangeStreamError } = require("mongodb");
+const config = require("../config.json");
 
 module.exports = {
     name: "playtime",
@@ -63,7 +62,7 @@ module.exports = {
 
             let mcsrData;
             let rankedText = ""
-            mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/`, { throwHttpErrors: false }).json();
+            mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/`, { throwHttpErrors: false, headers: { "API-Key": config.rankedKey } }).json();
             if(mcsrData.status != "error") {
                 const playtimeTotal = humanizeNoHours(mcsrData.data.statistics.total.playtime.ranked)
                 const playtimeSeason = humanizeNoHours(mcsrData.data.statistics.season.playtime.ranked)

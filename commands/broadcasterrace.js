@@ -1,4 +1,5 @@
 const got = require("got");
+const config = require("../config.json");
 
 module.exports = {
     name: "broadcasterrace",
@@ -22,10 +23,10 @@ module.exports = {
             let mcUUID = context.message.args[0]
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`, { headers: { "API-Key": config.rankedKey } }).json();
                 console.log(mcsrData.data.user.rank)
             } catch (err) {
-                mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/weekly-race`, { headers: { "API-Key": config.rankedKey } }).json();
             }
 
             if(!mcsrData.data.leaderboard[0]) {

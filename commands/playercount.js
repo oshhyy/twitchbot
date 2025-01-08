@@ -1,4 +1,5 @@
 const got = require("got");
+const config = require("../config.json");
 
 module.exports = {
     name: "playercount",
@@ -10,7 +11,7 @@ module.exports = {
             // command code
             let rankedData
             try {
-            rankedData = await got(`https://mcsrranked.com/api/live`, {throwHttpErrors:false}).json();
+            rankedData = await got(`https://mcsrranked.com/api/live`, {throwHttpErrors:false, headers: { "API-Key": config.rankedKey }}).json();
         } catch(err) {
             return {
                 ext:'An API error occured. FallCry', reply:true

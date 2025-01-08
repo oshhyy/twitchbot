@@ -1,6 +1,5 @@
 const got = require("got");
-const twitchapi = require('../lib/utils/twitchapi.js');
-const { MongoChangeStreamError } = require("mongodb");
+const config = require("../config.json");
 
 module.exports = {
     name: "record",
@@ -70,17 +69,17 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${season}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${player1}/versus/${player2}?season=${season}`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 try {
-                    mcsrData = await got(`https://mcsrranked.com/api/users/${player1}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${player1}`, { headers: { "API-Key": config.rankedKey } }).json();
                 } catch (err) {
                     return{
                         text:`Unknown user "${player1}". oshDank`,
                         reply:true}
                 }
                 try {
-                    mcsrData = await got(`https://mcsrranked.com/api/users/${player2}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${player2}`, { headers: { "API-Key": config.rankedKey } }).json();
                 } catch (err) {
                     return{
                         text:`Unknown user "${player2}". oshDank`,

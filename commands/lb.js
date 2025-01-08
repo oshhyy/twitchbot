@@ -1,6 +1,5 @@
 const got = require("got");
-const twitchapi = require('../lib/utils/twitchapi.js');
-const { MongoChangeStreamError } = require("mongodb");
+const config = require("../config.json");
 
 module.exports = {
     name: "lb",
@@ -77,7 +76,7 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?season=${lbSeason}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/${lbType}leaderboard?season=${lbSeason}`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 return {
                     text: `An error has occured getting the leaderboard!`, reply: true

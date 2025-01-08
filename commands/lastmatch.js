@@ -1,5 +1,6 @@
 const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js');
+const config = require("../config.json");
 
 module.exports = {
     name: "lastmatch",
@@ -75,7 +76,7 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=50&type=2`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=50&type=2`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 return {
                     text: `This username is not registered in MCSR Ranked! oshDank`, reply: true

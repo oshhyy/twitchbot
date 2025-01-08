@@ -1,5 +1,6 @@
 const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js');
+const config = require("../config.json");
 
 module.exports = {
     name: "broadcastertoday",
@@ -51,7 +52,7 @@ module.exports = {
             let averageText = ""
             if (mcsrData.totalMatchesCount > 0) {
                 try {
-                    averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`).json();
+                    averageData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=${mcsrData.totalMatchesCount}&type=2&excludedecay=true`, { headers: { "API-Key": config.rankedKey } }).json();
     
                     let numCompletions = 0, numTime = 0, forfeits = 0;
                     for(match of averageData.data) {

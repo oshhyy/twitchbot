@@ -1,5 +1,5 @@
 const got = require("got");
-const twitchapi = require('../lib/utils/twitchapi.js')
+const config = require("../config.json");
 
 module.exports = {
     name: "winrate",
@@ -22,7 +22,7 @@ module.exports = {
 
                 while (true) {
                     try {
-                        const response = await got(`${url}?page=${page}&count=50&nodecay&type=2&excludedecay=true&season=${season}`).json();
+                        const response = await got(`${url}?page=${page}&count=50&nodecay&type=2&excludedecay=true&season=${season}`, { headers: { "API-Key": config.rankedKey } }).json();
 
                         if (response.data && response.status === 'success') {
                             const matches = response.data;
@@ -78,12 +78,12 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 try {
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
                     mcUUID = userData?.mcid
-                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}`, { headers: { "API-Key": config.rankedKey } }).json();
                 } catch (err) {
                     return {
                         text: `No ranked profile found. FallCry`, reply: true

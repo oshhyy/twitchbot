@@ -1,5 +1,6 @@
 const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js')
+const config = require("../config.json");
 
 module.exports = {
     name: "elo",
@@ -86,12 +87,12 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 try{
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
                     mcUUID = userData?.mcid
-                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}?season=${season}`, { headers: { "API-Key": config.rankedKey } }).json();
                 } catch (err){
                     return {
                         text: `No ranked profile found. FallCry`, reply: true

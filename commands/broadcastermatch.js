@@ -1,5 +1,6 @@
 const got = require("got");
 const twitchapi = require('../lib/utils/twitchapi.js');
+const config = require("../config.json");
 
 module.exports = {
     name: "broadcastermatch",
@@ -50,7 +51,7 @@ module.exports = {
             let mcUUID = context.message.args[0]
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=50&type=2`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/users/${mcUUID}/matches?count=50&type=2`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 return {}
             }

@@ -1,4 +1,5 @@
 const got = require("got");
+const config = require("../config.json");
 
 module.exports = {
     name: "weeklyrace",
@@ -35,15 +36,15 @@ module.exports = {
 
             let mcsrData;
             try {
-                mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
+                mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`, { headers: { "API-Key": config.rankedKey } }).json();
             } catch (err) {
                 try{
                     userData = await bot.db.users.findOne({ username: context.channel.login.replace("@", "") })
                     mcUUID = userData?.mcid
-                    mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`).json();
+                    mcsrData = await got(`https://mcsrranked.com/api/weekly-race?uuid=${mcUUID}`, { headers: { "API-Key": config.rankedKey } }).json();
                 } catch (err){
                     try {
-                        mcsrData = await got(`https://mcsrranked.com/api/weekly-race`).json();
+                        mcsrData = await got(`https://mcsrranked.com/api/weekly-race`, { headers: { "API-Key": config.rankedKey } }).json();
                     } catch (err) {
                         return{text:'something went wrong ngl idk whats wrong but somethings wrong', reply:true}
                     }
